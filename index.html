@@ -445,7 +445,40 @@ let placed      = {};   // "gid:name" → {name,groupId,color,short,x,y,el}
 let formations  = JSON.parse(localStorage.getItem('g26_f')  || '[]');
 let secForms    = JSON.parse(localStorage.getItem('g26_sf') || '{}');
 let fileHandle  = null; // File System Access API handle
+let _pendingHandle = null; // handle restauré depuis IDB en attente de permission
 let publicSet   = new Set(); // keys "gid:name" de danseuses envoyées dans le public
+
+/* ══ INDEXEDDB — persistance du fileHandle ══ */
+const _IDB = (() => {
+  const NAME = 'aspm_gala_2026', STORE = 'handles';
+  function open() {
+    return new Promise((res, rej) => {
+      const r = indexedDB.open(NAME, 1);
+      r.onupgradeneeded = e => e.target.result.createObjectStore(STORE);
+      r.onsuccess = e => res(e.target.result);
+      r.onerror = rej;
+    });
+  }
+  return {
+    async save(handle) {
+      try { const db = await open(); const tx = db.transaction(STORE,'readwrite'); tx.objectStore(STORE).put(handle,'fh'); } catch(e) {}
+    },
+    async load() {
+      try {
+        const db = await open();
+        return new Promise(res => {
+          const tx = db.transaction(STORE,'readonly');
+          const r = tx.objectStore(STORE).get('fh');
+          r.onsuccess = () => res(r.result || null);
+          r.onerror   = () => res(null);
+        });
+      } catch(e) { return null; }
+    },
+    async clear() {
+      try { const db = await open(); const tx = db.transaction(STORE,'readwrite'); tx.objectStore(STORE).delete('fh'); } catch(e) {}
+    }
+  };
+})();
 let groupZones  = { j_ado:'devant', j_int:'mil-avant', v_enf:'mil-fond', v_deb:'fond' };
 let selSet      = new Set(); // selected dancer keys "gid:name"
 let activeFilter  = null;
@@ -488,6 +521,22 @@ document.addEventListener('DOMContentLoaded', async () => {
       setMsg('✓ Placements restaurés depuis la mémoire locale');
     } else {
       placeAllInCoulisses();
+    }
+  }
+  // Restaurer le fileHandle depuis IndexedDB (sauvegarde auto inter-sessions)
+  if (window.showSaveFilePicker) {
+    const h = await _IDB.load();
+    if (h) {
+      try {
+        const perm = await h.queryPermission({ mode: 'readwrite' });
+        if (perm === 'granted') {
+          fileHandle = h;
+          updateFileSaveStatus('ok');
+        } else {
+          _pendingHandle = h;
+          updateFileSaveStatus('pending');
+        }
+      } catch(e) { await _IDB.clear(); }
     }
   }
 });
@@ -1384,13 +1433,36 @@ async function activateFileSave() {
       suggestedName: 'parvati-gala-2026.json',
       types: [{ description: 'Sauvegarde ASPM DANSE', accept: { 'application/json': ['.json'] } }]
     });
+    await _IDB.save(fileHandle);
+    _pendingHandle = null;
     const ok = await writeToFileHandle();
     if (ok) {
-      updateFileSaveStatus(true);
+      updateFileSaveStatus('ok');
       setMsg('✓ Fichier lié — sauvegardes automatiques activées');
     }
   } catch (err) {
     if (err.name !== 'AbortError') setMsg('⚠ Impossible de lier le fichier');
+  }
+}
+
+async function resumeFileSave() {
+  if (!_pendingHandle) { activateFileSave(); return; }
+  try {
+    const perm = await _pendingHandle.requestPermission({ mode: 'readwrite' });
+    if (perm === 'granted') {
+      fileHandle = _pendingHandle;
+      _pendingHandle = null;
+      await _IDB.save(fileHandle);
+      const ok = await writeToFileHandle();
+      if (ok) {
+        updateFileSaveStatus('ok');
+        setMsg('✓ Sauvegarde fichier reprise — sauvegardes automatiques activées');
+      }
+    } else {
+      setMsg('⚠ Permission refusée — utilise « Lier un fichier » pour en choisir un nouveau');
+    }
+  } catch(e) {
+    setMsg('⚠ Impossible de reprendre — lie un nouveau fichier');
   }
 }
 
@@ -1404,7 +1476,8 @@ async function writeToFileHandle() {
   } catch (err) {
     console.error('writeToFileHandle:', err);
     fileHandle = null;
-    updateFileSaveStatus(false);
+    await _IDB.clear();
+    updateFileSaveStatus('off');
     setMsg('⚠ Écriture fichier impossible — fichier délié');
     return false;
   }
@@ -1469,14 +1542,24 @@ function exportStateJson() {
   setMsg('✓ state.json téléchargé — remplacez le fichier dans le dossier projet puis git push');
 }
 
-function updateFileSaveStatus(ok) {
+function updateFileSaveStatus(state) {
   const dot = document.getElementById('fileSaveDot');
   const lbl = document.getElementById('fileSaveLbl');
-  if (!dot || !lbl) return;
-  dot.style.background = ok ? '#4CAF50' : '#555';
-  lbl.textContent = ok ? '✓ Sauvegarde auto active' : 'Pas de fichier lié';
   const btn = document.getElementById('btnLinkFile');
-  if (btn) btn.textContent = ok ? '📂 Changer de fichier…' : '📂 Lier un fichier…';
+  if (!dot || !lbl) return;
+  if (state === 'ok') {
+    dot.style.background = '#4CAF50';
+    lbl.textContent = '✓ Sauvegarde auto active';
+    if (btn) { btn.textContent = '📂 Changer de fichier…'; btn.onclick = activateFileSave; btn.style.borderColor = ''; btn.style.color = ''; }
+  } else if (state === 'pending') {
+    dot.style.background = '#F0B429';
+    lbl.textContent = '⚠ Cliquer ci-dessous pour réactiver';
+    if (btn) { btn.textContent = '🔓 Reprendre la sauvegarde'; btn.onclick = resumeFileSave; btn.style.borderColor = '#F0B429'; btn.style.color = '#F0B429'; }
+  } else {
+    dot.style.background = '#555';
+    lbl.textContent = 'Pas de fichier lié';
+    if (btn) { btn.textContent = '📂 Lier un fichier…'; btn.onclick = activateFileSave; btn.style.borderColor = ''; btn.style.color = ''; }
+  }
 }
 
 /* ══ FORMATIONS ═════════════════════════════ */
