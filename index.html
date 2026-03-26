@@ -227,6 +227,105 @@
     ::-webkit-scrollbar-track { background:transparent; }
     ::-webkit-scrollbar-thumb { background:#444; border-radius:2px; }
     hr.sep { border:none; border-top:1px solid var(--border); }
+
+    /* ══ MOBILE RESPONSIVE ══════════════════════════════════ */
+    @media (max-width: 768px) {
+      /* Autoriser le scroll vertical sur mobile */
+      html, body { height:auto; overflow:auto; overflow-x:hidden; }
+
+      body { font-size:13px; }
+
+      /* HEADER compact */
+      header { padding:6px 10px 4px; }
+      header .pre { font-size:.6em; letter-spacing:.2em; }
+      header h1   { font-size:1.3em; letter-spacing:.1em; }
+      header h2   { font-size:.72em; letter-spacing:.2em; }
+
+      /* AUDIO — empiler en colonne sur très petits écrans */
+      .audio-wrap { flex-wrap:wrap; padding:6px 10px; gap:8px; }
+      .prog-wrap { order:2; width:100%; flex:none; }
+      .play-btn  { width:36px; height:36px; }
+      .tl-bar    { height:24px; }
+      .tl-seg    { font-size:.6em; }
+      .audio-meta { font-size:.7em; }
+      .vol-wrap  { order:3; flex-direction:row; gap:8px; align-items:center; }
+      .vol-wrap label { font-size:.65em; }
+      input[type=range] { width:80px; }
+
+      /* SECTION BAR */
+      .sec-bar { min-height:38px; }
+      .sec-btn { padding:4px 8px; font-size:.7em; }
+      .sec-time { font-size:.64em; }
+      .sec-lbl  { font-size:.65em; padding:0 6px; }
+
+      /* MAIN — colonnes → lignes */
+      .main {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        gap:6px;
+        padding:6px;
+        overflow:visible;
+      }
+
+      /* ROSTER */
+      .roster { max-height:220px; overflow-y:auto; border-radius:6px; }
+      .roster-hdr { font-size:.72em; }
+      .roster-hint { display:none; } /* masquer le hint clavier sur mobile */
+      .dancer-item { padding:4px 8px; font-size:.78em; }
+      .d-dot { width:18px; height:18px; font-size:.6em; }
+
+      /* STAGE — pleine largeur */
+      .stage-col { width:100%; }
+      .stage-lbl { font-size:.64em; letter-spacing:.12em; }
+      #stage { cursor:pointer; }
+      .wing-txt { font-size:.45em; }
+      .zband-lbl { font-size:.5em; letter-spacing:.06em; }
+      .token { width:24px; height:24px; font-size:.52em; }
+      .token.praful { width:32px; height:32px; font-size:.62em; }
+      body.names .token { font-size:.48em; padding:0 5px; }
+      .stage-info { gap:8px; font-size:.7em; flex-wrap:wrap; }
+      .count-pill .big-num { font-size:1.6em; }
+      .count-pill { gap:8px; }
+      .audience-bar { font-size:.65em; padding:4px; }
+      .info-msg { font-size:.65em; padding:0 4px; }
+
+      /* PANNEAU DROITE */
+      .right-panel { border-radius:6px; }
+      .ptitle { font-size:.68em; letter-spacing:.12em; }
+      .btn { font-size:.74em; padding:6px 10px; }
+      .gbtn { font-size:.72em; padding:6px 4px; }
+      .gfilters { gap:4px; }
+      .zrow { padding:4px 6px; min-height:30px; }
+      .zrow-name { font-size:.65em; min-width:58px; }
+      .zbadge { font-size:.65em; padding:2px 7px; }
+      .zone-sub { font-size:.62em; }
+      .fitem { font-size:.72em; padding:5px 7px; }
+      .on-stage-lst { font-size:.65em; max-height:120px; }
+
+      /* FAB — ajuster position */
+      .save-fab { bottom:12px; width:56px; height:56px; }
+      .save-fab svg { width:24px; height:24px; }
+      .save-fab .fab-label { font-size:.5em; bottom:-18px; }
+
+      /* LEGEND */
+      .legend { padding:5px 8px; gap:8px; }
+      .leg-item { font-size:.65em; gap:5px; }
+      .leg-dot  { width:11px; height:11px; }
+
+      /* MODAL */
+      .modal { min-width:calc(100vw - 40px); padding:16px; }
+
+      /* Tooltips masqués sur mobile (touch) */
+      .token .tip { display:none; }
+    }
+
+    /* Très petits écrans (iPhone SE etc.) */
+    @media (max-width: 375px) {
+      body { font-size:12px; }
+      header h1 { font-size:1.1em; }
+      .roster { max-height:180px; }
+      .gfilters { grid-template-columns:1fr 1fr; }
+    }
   </style>
 </head>
 <body>
