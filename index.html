@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASPM DANSE — GALA 2026 — FINAL</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:  #000; --bg2: #111; --bg3: #1c1c1c;
+      --gold: #d4a44c; --glt: #f0c470; --border: #333;
+      --j-ado: #E8734A; --j-int: #F0B429; --v-enf: #4A9FE8; --v-deb: #9B59B6;
+    }
+    html, body { height:100%; overflow:hidden; }
+    body { font-family:'Georgia',serif; background:var(--bg); color:#fff; display:flex; flex-direction:column; font-size:15px; }
+
+    /* HEADER */
+    header { text-align:center; padding:8px 20px 6px; background:linear-gradient(180deg,#000,#0d0d0d); border-bottom:2px solid var(--gold); flex-shrink:0; }
+    header .pre { font-size:.7em; letter-spacing:.45em; color:#999; }
+    header h1   { font-size:1.8em; letter-spacing:.18em; color:var(--glt); text-shadow:0 0 40px rgba(212,164,76,.5); }
+    header h2   { font-size:.85em; letter-spacing:.38em; color:#ccc; }
+
+    /* AUDIO */
+    .audio-wrap { flex-shrink:0; padding:8px 16px; background:var(--bg2); border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; }
+    .play-btn { width:40px; height:40px; border-radius:50%; background:var(--gold); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform .12s,box-shadow .12s; }
+    .play-btn:hover { transform:scale(1.1); box-shadow:0 0 14px rgba(212,164,76,.6); }
+    .play-btn svg { fill:#000; }
+    .prog-wrap { flex:1; display:flex; flex-direction:column; gap:4px; }
+    .tl-bar { position:relative; height:28px; background:rgba(255,255,255,.07); border-radius:4px; overflow:hidden; cursor:pointer; }
+    .tl-seg { position:absolute; top:0; bottom:0; display:flex; align-items:center; justify-content:center; font-size:.7em; font-weight:bold; overflow:hidden; white-space:nowrap; border-right:1px solid rgba(0,0,0,.4); color:#fff; transition:filter .15s; }
+    .tl-seg:hover  { filter:brightness(1.2); }
+    .tl-seg.active { filter:brightness(1.4); box-shadow:inset 0 0 0 2px rgba(255,255,255,.5); }
+    .tl-cursor { position:absolute; top:0; bottom:0; width:2px; background:#fff; z-index:10; pointer-events:none; box-shadow:0 0 6px rgba(255,255,255,.9); }
+    .audio-meta { display:flex; justify-content:space-between; align-items:center; font-size:.78em; }
+    .t-disp { color:var(--gold); font-family:monospace; }
+    .t-sec  { color:#aaa; font-style:italic; }
+    .vol-wrap { display:flex; flex-direction:column; gap:2px; align-items:center; flex-shrink:0; }
+    .vol-wrap label { font-size:.65em; color:#888; letter-spacing:.1em; }
+    input[type=range] { accent-color:var(--gold); width:55px; cursor:pointer; }
+
+    /* SECTION BAR */
+    .sec-bar { flex-shrink:0; display:flex; align-items:stretch; background:var(--bg3); border-bottom:1px solid var(--border); overflow-x:auto; scrollbar-width:none; min-height:46px; }
+    .sec-bar::-webkit-scrollbar { display:none; }
+    .sec-lbl { font-size:.72em; color:#666; letter-spacing:.12em; white-space:nowrap; padding:0 10px; display:flex; align-items:center; flex-shrink:0; border-right:1px solid var(--border); }
+    .sec-btn { position:relative; padding:5px 12px; background:transparent; border:none; border-right:1px solid var(--border); color:#888; cursor:pointer; font-size:.78em; letter-spacing:.06em; white-space:nowrap; flex-shrink:0; font-family:inherit; transition:color .15s,background .15s; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; }
+    .sec-btn:hover  { color:#fff; background:rgba(255,255,255,.05); }
+    .sec-btn.active { color:var(--glt); background:rgba(212,164,76,.12); border-bottom:2px solid var(--gold); }
+    .sec-btn.has-save::after { content:''; position:absolute; top:5px; right:5px; width:6px; height:6px; border-radius:50%; background:var(--gold); }
+    .sec-time { font-size:.72em; color:#555; }
+    .sec-btn.active .sec-time { color:var(--gold); }
+    .sec-save { display:none; } /* hidden — replaced by FAB */
+
+    /* FAB — big save circle, fixed bottom center */
+    .save-fab {
+      position:fixed; bottom:82px; left:50%; transform:translateX(-50%);
+      z-index:600;
+      width:68px; height:68px; border-radius:50%;
+      background:var(--gold); border:3px solid var(--glt);
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      box-shadow:0 0 28px rgba(212,164,76,.65);
+      transition:transform .15s,box-shadow .15s;
+    }
+    .save-fab:hover { transform:translateX(-50%) scale(1.12); box-shadow:0 0 40px rgba(212,164,76,.95); }
+    .save-fab:disabled { background:#2a2a2a; border-color:#444; box-shadow:none; cursor:default; }
+    .save-fab svg { width:30px; height:30px; fill:#000; }
+    .save-fab:disabled svg { fill:#555; }
+    .save-fab .fab-label {
+      position:absolute; bottom:-20px; left:50%; transform:translateX(-50%);
+      font-size:.58em; color:var(--gold); white-space:nowrap; letter-spacing:.08em;
+    }
+    .save-fab:disabled .fab-label { color:#555; }
+    .save-fab.saved .fab-label { color:#4CAF50; }
+
+    /* Lasso selection box */
+    #lassoBox {
+      display:none; position:absolute; pointer-events:none; z-index:60;
+      border:2px dashed rgba(255,255,255,.85);
+      background:rgba(255,255,255,.07);
+    }
+    /* Token lasso-selected */
+    .token.sel-tok {
+      box-shadow:0 0 0 3px #fff, 0 0 14px rgba(255,255,255,.8) !important;
+      z-index:25 !important;
+    }
+    /* total count pill */
+    .count-pill {
+      display:flex; align-items:center; gap:10px;
+      font-size:1em; color:#fff; font-weight:bold;
+    }
+    .count-pill .big-num {
+      font-size:2em; color:var(--glt); font-weight:bold; line-height:1;
+      text-shadow:0 0 20px rgba(240,196,112,.5);
+    }
+    .count-pill .sub { font-size:.72em; color:#aaa; display:block; margin-top:2px; }
+
+    /* MAIN */
+    .main { flex:1; display:grid; grid-template-columns:255px 1fr 250px; gap:7px; padding:7px; min-height:0; overflow:hidden; }
+
+    /* ROSTER */
+    .roster { background:var(--bg2); border:1px solid var(--border); border-radius:8px; overflow-y:auto; padding:10px; }
+    .roster-hdr { font-size:.78em; letter-spacing:.15em; color:var(--gold); text-transform:uppercase; border-bottom:1px solid var(--border); padding-bottom:6px; margin-bottom:9px; }
+    .roster-hint { font-size:.78em; color:#666; letter-spacing:0; display:block; margin-top:3px; }
+    .group-section { margin-bottom:12px; }
+    .group-title { font-size:.78em; letter-spacing:.07em; padding:4px 9px; border-radius:4px; margin-bottom:5px; text-transform:uppercase; display:flex; align-items:center; justify-content:space-between; }
+    .dancer-item { display:flex; align-items:center; gap:7px; padding:3px 8px; border-radius:4px; cursor:pointer; font-size:.82em; transition:background .15s; user-select:none; color:#fff; }
+    .dancer-item:hover  { background:rgba(255,255,255,.1); }
+    .dancer-item.sel    { background:rgba(255,255,255,.16); outline:1px solid rgba(255,255,255,.5); }
+    .dancer-item.placed { opacity:.32; pointer-events:none; }
+    .dancer-item.pub    { opacity:.45; pointer-events:none; background:rgba(255,200,50,.07); outline:1px dashed rgba(255,200,50,.35); }
+    .dancer-item.pub .d-dot::after { content:'♟'; font-size:.7em; margin-left:1px; }
+    .d-dot { width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.65em; font-weight:bold; color:#000; flex-shrink:0; }
+    /* multi-select hint */
+    .multi-hint { font-size:.7em; color:var(--gold); text-align:center; padding:3px; display:none; }
+    .multi-hint.show { display:block; }
+
+    /* STAGE */
+    .stage-col { display:flex; flex-direction:column; align-items:center; gap:5px; min-width:0; }
+    .stage-lbl { font-size:.7em; letter-spacing:.22em; color:#666; }
+    .stage-wrap { position:relative; width:100%; max-width:800px; }
+    #stage { position:relative; width:100%; aspect-ratio:16/9; background:radial-gradient(ellipse 80% 70% at 50% 40%,#2a1a06,#100a02); border:3px solid var(--gold); border-radius:3px; overflow:hidden; cursor:crosshair; user-select:none; }
+    #stage::before { content:''; position:absolute; inset:0; pointer-events:none; background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px); background-size:10% 12.5%; }
+    .wing { position:absolute; top:0; bottom:0; width:5%; z-index:2; background:repeating-linear-gradient(45deg,transparent,transparent 5px,rgba(0,0,0,.4) 5px,rgba(0,0,0,.4) 10px); display:flex; align-items:center; justify-content:center; }
+    .wing-l { left:0;  border-right:2px solid rgba(212,164,76,.65); }
+    .wing-r { right:0; border-left:2px solid rgba(212,164,76,.65); }
+    .wing-txt { writing-mode:vertical-rl; font-size:.55em; letter-spacing:.18em; color:#bbb; }
+    .zband { position:absolute; left:5%; right:5%; pointer-events:none; border-bottom:1px dashed rgba(255,255,255,.12); }
+    .zband-lbl { position:absolute; left:7px; top:4px; font-size:.58em; letter-spacing:.12em; text-transform:uppercase; color:#fff; opacity:.4; white-space:nowrap; }
+    /* Drop highlight on stage zone */
+    #stage.badge-over { outline:3px solid var(--gold); }
+    .audience-bar { width:100%; padding:5px 8px; text-align:center; background:rgba(212,164,76,.08); border:1px solid rgba(212,164,76,.3); border-top:none; border-radius:0 0 4px 4px; font-size:.7em; letter-spacing:.15em; color:var(--gold); transition:background .3s; }
+    .audience-bar.has-public { background:rgba(255,200,50,.13); border-color:rgba(255,200,50,.55); letter-spacing:.05em; }
+    .pub-dots { display:inline-flex; gap:5px; flex-wrap:wrap; justify-content:center; margin-top:3px; }
+    .pub-dot  { width:14px; height:14px; border-radius:50%; border:1.5px solid rgba(255,255,255,.4); display:inline-block; }
+    /* Dans le public — boutons de groupe */
+    .pub-gbtn { padding:6px 4px; border:2px solid var(--gc); background:transparent; color:var(--gc); border-radius:5px; cursor:pointer; font-size:.75em; font-weight:bold; letter-spacing:.05em; transition:all .18s; font-family:inherit; }
+    .pub-gbtn:hover { background:color-mix(in srgb,var(--gc) 20%,transparent); }
+    .pub-gbtn.in-pub { background:var(--gc); color:#000; box-shadow:0 0 10px var(--gc); }
+    .stage-info { display:flex; align-items:center; gap:14px; font-size:.75em; color:#aaa; flex-wrap:wrap; justify-content:center; }
+    .stage-info strong { color:#fff; }
+    .info-msg { color:#888; font-style:italic; font-size:.72em; text-align:center; }
+
+    /* TOKENS */
+    .token { position:absolute; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.58em; font-weight:bold; color:#000; cursor:grab; transform:translate(-50%,-50%); border:2px solid rgba(255,255,255,.5); z-index:10; transition:box-shadow .1s,opacity .3s; user-select:none; }
+    .token:hover  { box-shadow:0 0 14px rgba(255,255,255,.6); z-index:20; }
+    .token.drag   { cursor:grabbing; box-shadow:0 0 24px rgba(255,255,255,.8); z-index:100; }
+    .token.coul   { opacity:0 !important; pointer-events:none !important; }
+    .token.fade   { opacity:.1 !important; pointer-events:none !important; }
+    .token .tip   { position:absolute; bottom:115%; left:50%; transform:translateX(-50%); background:#000; border:1px solid #444; color:#fff; padding:3px 9px; border-radius:3px; font-size:1.1em; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity .15s; z-index:200; }
+    .token:hover .tip { opacity:1; }
+    body.names .token { width:auto; height:22px; border-radius:11px; padding:0 7px; font-size:.55em; white-space:nowrap; }
+
+    /* PRAFUL special token */
+    .token.praful {
+      width:38px; height:38px;
+      background:radial-gradient(circle at 40% 35%, #fffbe0, #d4a44c) !important;
+      border:3px solid #fff8b0 !important;
+      color:#3a2000 !important;
+      font-size:.72em !important;
+      font-weight:900 !important;
+      z-index:35;
+      box-shadow:0 0 18px 4px rgba(212,164,76,.9), 0 0 38px 8px rgba(212,164,76,.4);
+      animation:prafulGlow 2s ease-in-out infinite alternate;
+    }
+    @keyframes prafulGlow {
+      from { box-shadow:0 0 14px 3px rgba(212,164,76,.8), 0 0 28px 6px rgba(212,164,76,.3); }
+      to   { box-shadow:0 0 26px 8px rgba(212,164,76,1),  0 0 52px 14px rgba(212,164,76,.6); }
+    }
+    .token.praful .tip { font-weight:bold; border-color:var(--gold); color:var(--gold); }
+    /* Praful toggle button */
+    .btn-praful { border-color:#d4a44c !important; color:#d4a44c !important; font-weight:bold; letter-spacing:.05em; }
+    .btn-praful.on { background:#d4a44c !important; color:#000 !important; box-shadow:0 0 14px rgba(212,164,76,.6); }
+
+    /* RIGHT PANEL */
+    .right-panel { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:10px; overflow-y:auto; display:flex; flex-direction:column; gap:8px; }
+    .ptitle { font-size:.72em; letter-spacing:.18em; color:var(--gold); text-transform:uppercase; border-bottom:1px solid var(--border); padding-bottom:5px; flex-shrink:0; }
+
+    /* ZONE SWITCHER */
+    .zone-switcher { display:flex; flex-direction:column; gap:4px; }
+    .zrow { display:flex; align-items:center; gap:6px; padding:5px 8px; border-radius:6px; border:1px solid var(--border); min-height:36px; transition:border-color .15s,background .15s; cursor:default; }
+    .zrow:hover { border-color:#555; }
+    .zrow.over  { border-color:var(--gold); background:rgba(212,164,76,.1); }
+    .zrow-name  { font-size:.72em; letter-spacing:.07em; color:#aaa; text-transform:uppercase; min-width:72px; flex-shrink:0; font-weight:bold; }
+    .zrow.coul-row .zrow-name { color:#555; }
+    .zrow-badges { display:flex; flex-wrap:wrap; gap:4px; flex:1; }
+    .zbadge { padding:3px 9px; border-radius:12px; font-size:.72em; font-weight:bold; color:#000; cursor:grab; user-select:none; border:2px solid transparent; transition:all .15s; }
+    .zbadge:hover   { filter:brightness(1.15); }
+    .zbadge.sel     { border-color:#fff; box-shadow:0 0 10px rgba(255,255,255,.5); transform:scale(1.08); }
+    .zbadge.dragging-badge { opacity:.4; }
+    .zone-sub { font-size:.68em; color:#666; margin-top:-4px; }
+
+    /* BUTTONS */
+    .btn { padding:7px 12px; border:1px solid var(--gold); background:transparent; color:var(--gold); border-radius:4px; cursor:pointer; font-size:.8em; letter-spacing:.07em; transition:all .18s; width:100%; text-align:center; font-family:inherit; }
+    .btn:hover { background:var(--gold); color:#000; }
+    .btn.on    { background:var(--gold); color:#000; }
+    .btn-red   { border-color:#c0392b !important; color:#c0392b !important; }
+    .btn-red:hover { background:#c0392b !important; color:#fff !important; }
+
+    /* GROUP FILTER */
+    .gfilters { display:grid; grid-template-columns:1fr 1fr; gap:5px; }
+    .gbtn { padding:7px 4px; border:2px solid var(--gc); background:transparent; color:var(--gc); border-radius:5px; cursor:pointer; font-size:.78em; font-weight:bold; letter-spacing:.07em; transition:all .18s; font-family:inherit; }
+    .gbtn:hover { background:color-mix(in srgb,var(--gc) 20%,transparent); }
+    .gbtn.solo  { background:var(--gc); color:#000; box-shadow:0 0 12px var(--gc); }
+    .gbtn.faded { opacity:.28; }
+
+    /* FORMATIONS */
+    .fitem { padding:7px 9px; border:1px solid var(--border); border-radius:4px; font-size:.78em; display:flex; justify-content:space-between; align-items:center; cursor:pointer; transition:background .15s; gap:6px; color:#fff; }
+    .fitem:hover { background:rgba(255,255,255,.06); }
+    .fitem.on    { border-color:var(--gold); background:rgba(212,164,76,.1); }
+    .fitem .fdel { background:none; border:none; color:#c0392b; cursor:pointer; font-size:1.3em; flex-shrink:0; }
+    .on-stage-lst { font-size:.72em; color:#aaa; max-height:140px; overflow-y:auto; }
+
+    /* LEGEND */
+    .legend { flex-shrink:0; display:flex; gap:16px; justify-content:center; padding:6px 10px; background:var(--bg2); border-top:1px solid var(--border); flex-wrap:wrap; }
+    .leg-item { display:flex; align-items:center; gap:7px; font-size:.75em; color:#fff; }
+    .leg-dot  { width:13px; height:13px; border-radius:50%; flex-shrink:0; }
+
+    /* MODAL */
+    .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.8); z-index:1000; align-items:center; justify-content:center; }
+    .overlay.show { display:flex; }
+    .modal { background:var(--bg2); border:1px solid var(--gold); border-radius:8px; padding:22px; min-width:320px; }
+    .modal h3 { color:var(--gold); margin-bottom:14px; font-size:1em; letter-spacing:.1em; }
+    .modal input { width:100%; padding:8px; background:var(--bg3); border:1px solid var(--border); color:#fff; border-radius:4px; margin-bottom:12px; font-family:inherit; font-size:.9em; }
+    .modal-btns { display:flex; gap:8px; }
+    .modal-btns .btn { flex:1; }
+
+    ::-webkit-scrollbar { width:3px; }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::-webkit-scrollbar-thumb { background:#444; border-radius:2px; }
+    hr.sep { border:none; border-top:1px solid var(--border); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="pre">A S P M &nbsp; D A N S E</div>
+  <h1>✦ GALA 2026 ✦</h1>
+  <h2>— F I N A L —</h2>
+</header>
+
+<div class="audio-wrap">
+  <button class="play-btn" onclick="togglePlay()">
+    <svg id="playIcon" width="17" height="17" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+  </button>
+  <div class="prog-wrap">
+    <div class="tl-bar" id="tlBar" onclick="seekTo(event)">
+      <div class="tl-cursor" id="tlCursor" style="left:0%"></div>
+    </div>
+    <div class="audio-meta">
+      <span class="t-disp" id="tDisp">0:00</span>
+      <span class="t-sec"  id="tSec">—</span>
+      <span class="t-disp" id="tDur">—:——</span>
+    </div>
+  </div>
+  <audio id="audio" src="5. FINAL.wav" preload="metadata"></audio>
+  <div class="vol-wrap">
+    <label>VOL</label>
+    <input type="range" min="0" max="1" step="0.01" value="0.8" oninput="document.getElementById('audio').volume=this.value">
+  </div>
+</div>
+
+<div class="sec-bar" id="secBar">
+  <span class="sec-lbl">TEMPS :</span>
+  <button class="sec-save" id="secSaveBtn" onclick="saveToSection()" disabled>💾 Sauver ici</button>
+</div>
+
+<div class="main">
+
+  <div class="roster" id="roster">
+    <div class="roster-hdr">
+      Danseuses
+      <span class="roster-hint">Clic = sélection · Maj+clic = multi-sélection<br>Glisser-déposer · Dbl-clic sur scène = retirer</span>
+    </div>
+    <div class="multi-hint" id="multiHint">0 sélectionnées</div>
+  </div>
+
+  <div class="stage-col">
+    <div class="stage-lbl">⬆ &nbsp; FOND DE SCÈNE &nbsp; ⬆</div>
+    <div class="stage-wrap">
+      <div id="stage"
+           ondragover="stageDragOver(event)"
+           ondragleave="stageDragLeave(event)"
+           ondrop="dropOnStage(event)">
+        <div class="wing wing-l"><span class="wing-txt">COULISSES</span></div>
+        <div class="wing wing-r"><span class="wing-txt">COULISSES</span></div>
+        <div id="lassoBox"></div>
+      </div>
+      <div class="audience-bar" id="audienceBar">♦ &nbsp; S P E C T A T E U R S &nbsp; ♦</div>
+    </div>
+    <div class="stage-info" style="justify-content:center;gap:14px;">
+      <div class="count-pill">
+        <div>
+          <div class="big-num" id="stageCount">0</div>
+          <span class="sub" id="stageCountLbl">sur scène</span>
+        </div>
+        <div style="width:1px;height:40px;background:var(--border)"></div>
+        <div id="grpCounts" style="font-size:.72em;line-height:1.7;"></div>
+      </div>
+    </div>
+    <div class="info-msg" id="infoMsg">Sélectionner une danseuse dans la liste, puis cliquer sur la scène</div>
+  </div>
+
+  <div class="right-panel">
+    <div class="ptitle">Zones scène</div>
+    <div class="zone-sub">Glisser un badge dans une zone ou sur la scène directement</div>
+    <div class="zone-switcher" id="zoneSwitcher"></div>
+
+    <hr class="sep">
+    <div class="ptitle">Isoler un groupe</div>
+    <div class="gfilters">
+      <button class="gbtn" id="gf_j_ado" onclick="toggleFilter('j_ado')" style="--gc:#E8734A">J·ADO</button>
+      <button class="gbtn" id="gf_j_int" onclick="toggleFilter('j_int')" style="--gc:#F0B429">J·INT</button>
+      <button class="gbtn" id="gf_v_enf" onclick="toggleFilter('v_enf')" style="--gc:#4A9FE8">V·ENF</button>
+      <button class="gbtn" id="gf_v_deb" onclick="toggleFilter('v_deb')" style="--gc:#9B59B6">V·DEB</button>
+    </div>
+
+    <hr class="sep">
+    <div class="ptitle">✦ Praful</div>
+    <button class="btn btn-praful" id="prafulToggle" onclick="togglePraful()">✦ Placer sur scène</button>
+    <button class="btn" id="prafulCenter" onclick="centerPraful()" style="font-size:.76em;opacity:.8;display:none;">⊙ Recentrer</button>
+
+    <hr class="sep">
+    <div class="ptitle">🎭 Dans le public</div>
+    <div class="zone-sub" style="margin-bottom:5px;">Envoyer un groupe danser avec le public</div>
+    <div class="gfilters" id="pubBtns"></div>
+
+    <hr class="sep">
+    <div class="ptitle">Outils</div>
+    <button class="btn" onclick="autoPlace()">⚡ Quinconce auto</button>
+    <button class="btn" id="namesBtn" onclick="toggleNames()">🏷 Afficher prénoms</button>
+    <button class="btn" onclick="openSaveModal()">💾 Sauvegarder formation</button>
+    <button class="btn btn-red" onclick="clearStage()">🗑 Vider la scène</button>
+
+    <hr class="sep">
+    <div class="ptitle">Formations</div>
+    <div id="formationsList"><div style="font-size:.75em;color:#555;padding:5px;">Aucune</div></div>
+
+    <hr class="sep">
+    <div class="ptitle">Sauvegarde fichier</div>
+    <div id="fileSaveStatus" style="display:flex;align-items:center;gap:6px;font-size:.72em;color:#aaa;margin-bottom:6px;">
+      <span id="fileSaveDot" style="width:8px;height:8px;border-radius:50%;background:#555;flex-shrink:0;transition:background .3s;"></span>
+      <span id="fileSaveLbl">Pas de fichier lié</span>
+    </div>
+    <button class="btn" onclick="activateFileSave()" id="btnLinkFile">📂 Lier un fichier…</button>
+    <button class="btn" onclick="exportDownload()">⬇ Exporter .json</button>
+    <button class="btn" onclick="document.getElementById('importInput').click()">⬆ Importer .json</button>
+    <input type="file" id="importInput" accept=".json" style="display:none" onchange="importFromFile(this)">
+
+    <hr class="sep">
+    <div class="ptitle">Sur scène</div>
+    <div class="on-stage-lst" id="onStageList"><em style="color:#555;">Aucune</em></div>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:var(--j-ado)"></div> J — Jeudi 19h · ADO (16)</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--j-int)"></div> J — Jeudi 20h · INTERMÉDIAIRE (20)</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--v-enf)"></div> V — Vendredi 19h · ENFANT (18)</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--v-deb)"></div> V — Vendredi 20h · DÉBUTANT (16)</div>
+</div>
+
+<div class="overlay" id="saveModal">
+  <div class="modal">
+    <h3>💾 Sauvegarder la formation</h3>
+    <input type="text" id="fNameIn" placeholder="Nom de la formation…">
+    <div class="modal-btns">
+      <button class="btn" onclick="confirmSave()">Sauvegarder</button>
+      <button class="btn btn-red" onclick="closeModal()">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══ CONSTANTS ══════════════════════════════ */
+const GROUPS = [
+  { id:'j_ado', label:'Jeudi 19h — ADO',          short:'J·ADO', color:'#E8734A', perRow:8,
+    // Row 0 (8, devant) : Manon · Lina · Marion · Jade · Emma · Ambre · Emmy · Louise
+    // Row 1 (8, fond)   : Maud · Lorena · Camille · Mélina · Lucie · Soleine · Eléana · Loanne  (quinconce)
+    dancers:[
+      'DARRENOUGUE Manon','EL OMARI Lina','PUYGAUTHIER Marion','NICOL Jade',
+      'PEYRESAUBES Emma','GARCIA Ambre','MAUREL AUGEREAU Emmy','PRAT Louise',
+      'BIGAUD Maud','BOSETTI Lorena','LALANDE Camille','LAPOULE Mélina',
+      'LAURENT Lucie','MARTINEZ Soleine','ITALIANO Eléana','GUICHARD Loanne'] },
+  { id:'j_int', label:'Jeudi 20h — INTERMÉDIAIRE', short:'J·INT', color:'#F0B429',
+    // Front row (10) : Telma · Eloha · Eléa · Manon · Cyrine · Mélanie · Lydia · Lucie · Nathalie · Stéphanie
+    dancers:[
+      'DEBYSER-CABIAS Telma','DELAVAULT Eloha','MARTIN DECOURT Eléa','POIREE Manon',
+      'POGET Cyrine','MARTINEZ Mélanie','BRUNA Lydia','BRUHL Lucie',
+      'MUCIGNATO Nathalie','PEYRESAUBES Stéphanie',
+      'BARRIOL Alexandra','BERROU Clémentine','BOSTVIRONNOIS Amandine','DENAGE Valérie',
+      'DOMINGUES Véronique','JUSTIN Laurence','LAGUEYRIE Angélique','LAM Sabrina',
+      'MUCIGNATO Marine','SANCHEZ Gisèle'] },
+  { id:'v_enf', label:'Vendredi 19h — ENFANT',     short:'V·ENF', color:'#4A9FE8',
+    // Front row (9) : Thaïs · Théa · Alana · Ines · Elise · Elina · Anna · Justine · Lyse
+    dancers:[
+      'SAUBOIS Thaïs','GRELLETY Théa','BLANC Alana','SAUBOIS Ines',
+      'EYHERABIDE Elise','SEGUIN Elina','MACHENAUD Anna','GUILLARD Justine','DESOINDRE Lyse',
+      'BOSSUET Nina','CORNIC Léana','DELPECH Margot','FILLASTRE-PLACE Emma',
+      'LADAURADE Léa','LADAURADE Manon','LEONE Louise','MARTINEZ Romane','SAVEAN Anna'] },
+  { id:'v_deb', label:'Vendredi 20h — DÉBUTANT',   short:'V·DEB', color:'#9B59B6',
+    // Front row (8) : Julie Claire · Marianne · Typhen · Clémentine · Élisée · Céline E. · Roxane · Maria
+    // Back row  (8) : Corinne (gauche) · Maëva · Céline B. · Emilie · Céline P. · Norah · Amanda · Vera
+    dancers:[
+      'DUBOIS Julie Claire','JOLLARD Marianne','HECK Typhen','JOLY Clémentine',
+      'JOLLARD Élisée','EYHERABIDE Céline','VILDIEU Roxane','GONCALVES DE SOUSA Maria',
+      'BALOUT Corinne','CAZE Maëva','BARNEL Céline','LEBAILLIF Emilie',
+      'POIREE Céline','RIDEL-DROETTO Norah','SAVEAN Amanda','SCOTTI Vera'] }
+];
+
+const ZONES = [
+  { id:'fond',      label:'Fond',         yMin:5,  yMax:27 },
+  { id:'mil-fond',  label:'Milieu-fond',  yMin:29, yMax:49 },
+  { id:'mil-avant', label:'Milieu-avant', yMin:51, yMax:70 },
+  { id:'devant',    label:'Devant',       yMin:72, yMax:86 },
+];
+const CL = 'coulisses';
+
+// Coulisse wing positions: Jeudi → left wing (x≈1-4%), Vendredi → right wing (x≈96-99%)
+const GROUP_COUL = {
+  j_ado: { x: 1.5 },
+  j_int: { x: 3.5 },
+  v_enf: { x: 96.5 },
+  v_deb: { x: 98.5 }
+};
+
+const TL = [
+  { id:'intro',    label:'Intro',           time:'0:00–0:25', start:0,   end:25,  color:'#6c3d8a' },
+  { id:'tpsfort',  label:'Temps fort',       time:'0:25–0:39', start:25,  end:39,  color:'#9e3070' },
+  { id:'satikali_e', label:'Satikali E.',     time:'0:39–1:00', start:39,  end:60,  color:'#c04818' },
+  { id:'arrive_a',   label:'Arrivé A.',      time:'1:00–1:29', start:60,  end:89,  color:'#a03010' },
+  { id:'masala1_ej',  label:'Bollywood Masala E.J',          time:'1:29–2:03', start:89,  end:123, color:'#b03020' },
+  { id:'masala1_aj',  label:'Arrivée Adultes J.',            time:'2:03–2:28', start:123, end:148, color:'#b84020' },
+  { id:'masala1_arr', label:'Arrivées Enfants E.V.+AJ+AJ.', time:'2:28–2:42', start:148, end:162, color:'#c93820' },
+  { id:'masala2',     label:'Bollywood Masala (ALL)',        time:'2:42–3:52', start:162, end:232, color:'#e05020' },
+  { id:'drama',    label:'Tps dramatique',   time:'3:52–4:50', start:232, end:290, color:'#3d5c70' },
+  { id:'malade',   label:'Bolly Malade',     time:'4:50–5:35', start:290, end:335, color:'#d94030' },
+  { id:'repos',    label:'Repos',           time:'5:35–6:30', start:335, end:390, color:'#3a5a6a' },
+  { id:'hny',      label:'Happy New Year',   time:'6:30–7:31', start:390, end:451, color:'#1e7a45' },
+];
+
+const PRAFUL = { name:'Praful Parvati India', gid:'praful', color:'#d4a44c', short:'✦P' };
+
+/* ══ STATE ══════════════════════════════════ */
+let placed      = {};   // "gid:name" → {name,groupId,color,short,x,y,el}
+let formations  = JSON.parse(localStorage.getItem('g26_f')  || '[]');
+let secForms    = JSON.parse(localStorage.getItem('g26_sf') || '{}');
+let fileHandle  = null; // File System Access API handle
+let publicSet   = new Set(); // keys "gid:name" de danseuses envoyées dans le public
+let groupZones  = { j_ado:'devant', j_int:'mil-avant', v_enf:'mil-fond', v_deb:'fond' };
+let selSet      = new Set(); // selected dancer keys "gid:name"
+let activeFilter  = null;
+let activeSecId   = null;
+let showNames     = false;
+// Lasso selection
+let lassoSel      = new Set();  // placed keys selected via lasso
+let lassoStartPct = null;       // {x,y} in %
+let lassoRectPct  = null;       // {x1,y1,x2,y2}
+
+/* ══ INIT ═══════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  buildRoster();
+  buildStageBands();
+  buildSecBar();
+  buildZoneSwitcher();
+  buildPubBtns();
+  setupAudio();
+  setupStageInteraction();
+  renderFormations();
+  placeAllInCoulisses();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { deselect(); clearLassoSel(); }
+  if ((e.key === 'Backspace' || e.key === 'Delete') && lassoSel.size > 0) {
+    e.preventDefault();
+    const toRemove = [...lassoSel];
+    toRemove.forEach(key => {
+      if (placed[key]) removeDancer(placed[key].name, placed[key].groupId, placed[key].el);
+    });
+    lassoSel.clear();
+  }
+});
+
+/* ══ ROSTER ═════════════════════════════════ */
+function buildRoster() {
+  const root = document.getElementById('roster');
+  GROUPS.forEach(g => {
+    const sec = document.createElement('div');
+    sec.className = 'group-section';
+    sec.innerHTML = `<div class="group-title"
+      style="background:${g.color}18;color:${g.color};border-left:3px solid ${g.color}">
+      <span>${g.label}</span><span style="font-size:.82em;opacity:.7">${g.dancers.length}</span></div>`;
+    const list = document.createElement('div');
+    g.dancers.forEach(name => {
+      const item = document.createElement('div');
+      item.className = 'dancer-item';
+      item.id = rid(g.id, name);
+      item.draggable = true;
+      item.innerHTML = `<div class="d-dot" style="background:${g.color}">${ini(name)}</div><span>${name}</span>`;
+      item.addEventListener('click', e => pickDancer(name, g, e.shiftKey || e.ctrlKey || e.metaKey));
+      item.addEventListener('dragstart', e => {
+        // If we have a multi-selection, drag all selected; otherwise just this one
+        if (!selSet.has(`${g.id}:${name}`)) pickDancer(name, g, false);
+        e.dataTransfer.setData('dancer-drop', JSON.stringify(buildSelList()));
+        e.dataTransfer.setData('text/plain', JSON.stringify({name, gid:g.id})); // fallback
+      });
+      list.appendChild(item);
+    });
+    sec.appendChild(list);
+    root.appendChild(sec);
+  });
+}
+
+function pickDancer(name, group, addToSel) {
+  const key = `${group.id}:${name}`;
+  if (placed[key]) return; // already on stage
+
+  if (!addToSel) {
+    // Clear all, select just this one
+    selSet.forEach(k => {
+      const el = document.getElementById(ridFromKey(k));
+      if (el) el.classList.remove('sel');
+    });
+    selSet.clear();
+  }
+
+  if (selSet.has(key)) {
+    selSet.delete(key);
+    const el = document.getElementById(rid(group.id, name));
+    if (el) el.classList.remove('sel');
+  } else {
+    selSet.add(key);
+    const el = document.getElementById(rid(group.id, name));
+    if (el) el.classList.add('sel');
+  }
+  updateMultiHint();
+  if (selSet.size === 1) setMsg(`${name} sélectionnée — cliquer sur la scène pour placer`);
+  else if (selSet.size > 1) setMsg(`${selSet.size} danseuses sélectionnées — cliquer sur la scène`);
+  else setMsg('');
+}
+
+function deselect() {
+  selSet.forEach(k => {
+    const el = document.getElementById(ridFromKey(k));
+    if (el) el.classList.remove('sel');
+  });
+  selSet.clear();
+  updateMultiHint();
+}
+
+function updateMultiHint() {
+  const hint = document.getElementById('multiHint');
+  if (selSet.size > 1) { hint.textContent = `${selSet.size} danseuses sélectionnées`; hint.classList.add('show'); }
+  else hint.classList.remove('show');
+}
+
+function buildSelList() {
+  const list = [];
+  selSet.forEach(key => {
+    const [gid, ...rest] = key.split(':');
+    const name = rest.join(':');
+    const g = GROUPS.find(x => x.id === gid);
+    if (g) list.push({name, gid, color:g.color, short:g.short});
+  });
+  return list;
+}
+
+/* ══ STAGE BANDS ════════════════════════════ */
+function buildStageBands() {
+  const stage = document.getElementById('stage');
+  ZONES.forEach(z => {
+    const band = document.createElement('div');
+    band.className = 'zband';
+    band.style.cssText = `top:${z.yMin}%;height:${z.yMax-z.yMin}%`;
+    band.innerHTML = `<span class="zband-lbl">${z.label}</span>`;
+    stage.appendChild(band);
+  });
+}
+
+/* ══ SECTION BAR ════════════════════════════ */
+function buildSecBar() {
+  const bar = document.getElementById('secBar');
+  const saveBtn = document.getElementById('secSaveBtn');
+  TL.forEach(s => {
+    const btn = document.createElement('button');
+    btn.className = 'sec-btn';
+    btn.id = `sb_${s.id}`;
+    btn.innerHTML = `${s.label}<span class="sec-time">${s.time}</span>`;
+    btn.addEventListener('click', () => clickSection(s.id));
+    bar.insertBefore(btn, saveBtn);
+  });
+  refreshSecDots();
+}
+
+function clickSection(id) {
+  activeSecId = id;
+  document.querySelectorAll('.sec-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`sb_${id}`).classList.add('active');
+  document.getElementById('secSaveBtn').disabled = false;
+  updateFabLabel();
+  const s = TL.find(x => x.id === id);
+  if (secForms[id]) {
+    loadSnap(secForms[id]);
+    setMsg(`Formation "${s.label}" chargée`);
+  } else {
+    // No saved config for this section → send everyone to their coulisse
+    placeAllInCoulisses();
+    setMsg(`"${s.label}" — aucune configuration · placez les danseuses puis 💾 Sauver ici`);
+  }
+}
+
+function saveToSection() {
+  if (!activeSecId) return;
+  secForms[activeSecId] = makeSnap();
+  localStorage.setItem('g26_sf', JSON.stringify(secForms));
+  refreshSecDots();
+  const s = TL.find(x => x.id === activeSecId);
+  setMsg(`✓ Sauvegardé pour "${s.label}"`);
+  flashFab();
+  if (fileHandle) writeToFileHandle();
+}
+
+function fabSave() {
+  if (!activeSecId) {
+    setMsg('Cliquer d\'abord un temps dans la barre (Intro, Satikali…) pour y sauvegarder');
+    return;
+  }
+  saveToSection();
+}
+
+function flashFab() {
+  const fab = document.getElementById('fabSave');
+  const lbl = document.getElementById('fabLabel');
+  if (!fab) return;
+  fab.classList.add('saved');
+  lbl.textContent = '✓ Sauvé !';
+  lbl.style.color = '#4CAF50';
+  setTimeout(() => {
+    fab.classList.remove('saved');
+    lbl.textContent = activeSecId ? `→ ${TL.find(x=>x.id===activeSecId)?.label || 'Sauver ici'}` : 'Sauver ici';
+    lbl.style.color = '';
+  }, 1800);
+}
+
+function updateFabLabel() {
+  const lbl = document.getElementById('fabLabel');
+  const fab = document.getElementById('fabSave');
+  if (!lbl || !fab) return;
+  if (activeSecId) {
+    const s = TL.find(x => x.id === activeSecId);
+    lbl.textContent = `→ ${s ? s.label : ''}`;
+    fab.disabled = false;
+  } else {
+    lbl.textContent = 'Sauver ici';
+    fab.disabled = true;
+  }
+}
+
+function refreshSecDots() {
+  TL.forEach(s => {
+    const btn = document.getElementById(`sb_${s.id}`);
+    if (btn) btn.classList.toggle('has-save', !!secForms[s.id]);
+  });
+}
+
+/* ══ ZONE SWITCHER ══════════════════════════ */
+function buildZoneSwitcher() {
+  const sw = document.getElementById('zoneSwitcher');
+  sw.innerHTML = '';
+  const allZ = [...ZONES.map(z => ({id:z.id, label:z.label, coul:false})), {id:CL, label:'Coulisses', coul:true}];
+
+  allZ.forEach(z => {
+    const row = document.createElement('div');
+    row.className = 'zrow' + (z.coul ? ' coul-row' : '');
+    row.id = `zr_${z.id}`;
+    row.innerHTML = `<span class="zrow-name">${z.label}</span><div class="zrow-badges" id="zb_${z.id}"></div>`;
+
+    // Accept badge drops
+    row.addEventListener('dragover', e => {
+      if (e.dataTransfer.types.includes('badge-gid')) { e.preventDefault(); row.classList.add('over'); }
+    });
+    row.addEventListener('dragleave', () => row.classList.remove('over'));
+    row.addEventListener('drop', e => {
+      e.preventDefault(); row.classList.remove('over');
+      const gid = e.dataTransfer.getData('badge-gid');
+      if (gid) moveGroupToZone(gid, z.id);
+    });
+    // Click on row when badge is click-selected
+    row.addEventListener('click', e => {
+      if (e.target.classList.contains('zbadge')) return;
+      const sel = document.querySelector('.zbadge.sel');
+      if (sel) moveGroupToZone(sel.dataset.gid, z.id);
+    });
+
+    sw.appendChild(row);
+  });
+  renderZoneBadges();
+}
+
+/**
+ * Move group to zone immediately — places all dancers in quinconce in that zone.
+ */
+function moveGroupToZone(gid, zoneId) {
+  document.querySelectorAll('.zbadge.sel').forEach(b => b.classList.remove('sel'));
+  const g = GROUPS.find(x => x.id === gid);
+  if (!g) return;
+
+  groupZones[gid] = (zoneId === CL) ? null : zoneId;
+  renderZoneBadges();
+
+  if (zoneId === CL) {
+    placeGroupInCoulisse(g);
+  } else {
+    const zone = ZONES.find(z => z.id === zoneId);
+    removeGroupFromStage(gid);
+    placeGroupQuinconce(g, zone.yMin, zone.yMax);
+    setMsg(`${g.short} → ${zone.label}`);
+  }
+}
+
+function removeGroupFromStage(gid) {
+  const g = GROUPS.find(x => x.id === gid);
+  if (!g) return;
+  g.dancers.forEach(name => {
+    const k = `${gid}:${name}`;
+    if (placed[k]) {
+      placed[k].el.remove();
+      delete placed[k];
+      const ri = document.getElementById(rid(gid, name));
+      if (ri) ri.classList.remove('placed', 'sel');
+    }
+  });
+}
+
+function renderZoneBadges() {
+  document.querySelectorAll('.zrow-badges').forEach(c => c.innerHTML = '');
+  GROUPS.forEach(g => {
+    const zid = (groupZones[g.id] == null) ? CL : groupZones[g.id];
+    const container = document.getElementById(`zb_${zid}`);
+    if (!container) return;
+    const badge = document.createElement('div');
+    badge.className = 'zbadge';
+    badge.dataset.gid = g.id;
+    badge.style.background = g.color;
+    badge.textContent = g.short;
+    badge.draggable = true;
+    badge.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('badge-gid', g.id);
+      e.stopPropagation();
+      setTimeout(() => badge.classList.add('dragging-badge'), 0);
+    });
+    badge.addEventListener('dragend', () => badge.classList.remove('dragging-badge'));
+    badge.addEventListener('click', e => {
+      e.stopPropagation();
+      const wasSel = badge.classList.contains('sel');
+      document.querySelectorAll('.zbadge.sel').forEach(b => b.classList.remove('sel'));
+      if (!wasSel) { badge.classList.add('sel'); setMsg(`${g.short} sélectionné — cliquer une zone pour déplacer`); }
+    });
+    container.appendChild(badge);
+  });
+}
+
+/* ══ STAGE — DRAG OVER / LEAVE ══════════════ */
+function stageDragOver(e) {
+  if (e.dataTransfer.types.includes('badge-gid') || e.dataTransfer.types.includes('dancer-drop') || e.dataTransfer.types.includes('text/plain')) {
+    e.preventDefault();
+    if (e.dataTransfer.types.includes('badge-gid')) document.getElementById('stage').classList.add('badge-over');
+  }
+}
+function stageDragLeave(e) {
+  document.getElementById('stage').classList.remove('badge-over');
+}
+
+/* ══ STAGE — DROP ═══════════════════════════ */
+function dropOnStage(event) {
+  event.preventDefault();
+  document.getElementById('stage').classList.remove('badge-over');
+  const stage = document.getElementById('stage');
+  const r = stage.getBoundingClientRect();
+  const xPct = clamp(((event.clientX-r.left)/r.width)*100,  7, 93);
+  const yPct = clamp(((event.clientY-r.top) /r.height)*100, 3, 97);
+
+  // ── Badge drop (entire group) ──
+  const badgeGid = event.dataTransfer.getData('badge-gid');
+  if (badgeGid) {
+    const g = GROUPS.find(x => x.id === badgeGid);
+    if (!g) return;
+    const zone = yToZone(yPct);
+    groupZones[badgeGid] = zone.id;
+    renderZoneBadges();
+    removeGroupFromStage(badgeGid);
+    placeGroupQuinconce(g, zone.yMin, zone.yMax);
+    setMsg(`${g.short} placé en "${zone.label}"`);
+    updateLists();
+    return;
+  }
+
+  // ── Multi-dancer drop from roster ──
+  const dancerData = event.dataTransfer.getData('dancer-drop');
+  if (dancerData) {
+    try {
+      const list = JSON.parse(dancerData);
+      if (list.length > 1) {
+        placeCluster(list, xPct, yPct);
+        deselect();
+        return;
+      }
+    } catch {}
+  }
+
+  // ── Single dancer drop from roster ──
+  let data;
+  try { data = JSON.parse(event.dataTransfer.getData('text/plain')); } catch { return; }
+  const g = GROUPS.find(g => g.id === data.gid);
+  if (!g) return;
+  placeDancer(data.name, data.gid, g.color, g.short, xPct, yPct);
+  deselect();
+}
+
+/* ══ STAGE INTERACTION — click + lasso ══════ */
+function setupStageInteraction() {
+  const stage = document.getElementById('stage');
+  let downPos  = null;   // {clientX, clientY} at mousedown
+  let didMove  = false;
+
+  stage.addEventListener('mousedown', e => {
+    if (e.target.closest('.token')) return;
+    if (e.button !== 0) return;
+    e.preventDefault();
+    downPos = { x: e.clientX, y: e.clientY };
+    didMove = false;
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!downPos) return;
+    const dx = e.clientX - downPos.x, dy = e.clientY - downPos.y;
+    if (!didMove && Math.abs(dx) + Math.abs(dy) > 6) {
+      didMove = true;
+      clearLassoSel();
+      const r = stage.getBoundingClientRect();
+      lassoStartPct = {
+        x: clamp(((downPos.x-r.left)/r.width)*100,  0, 100),
+        y: clamp(((downPos.y-r.top) /r.height)*100, 0, 100)
+      };
+    }
+    if (didMove) updateLasso(e, stage);
+  });
+
+  document.addEventListener('mouseup', e => {
+    if (!downPos) return;
+    if (didMove) {
+      finalizeLasso();
+    } else {
+      // Click — place selected dancers
+      if (lassoSel.size > 0) { clearLassoSel(); }
+      else if (selSet.size > 0) {
+        const r = stage.getBoundingClientRect();
+        const cx = clamp(((e.clientX-r.left)/r.width)*100,  7, 93);
+        const cy = clamp(((e.clientY-r.top) /r.height)*100, 3, 97);
+        const list = buildSelList();
+        if (list.length === 1) {
+          const d = list[0];
+          placeDancer(d.name, d.gid, d.color, d.short, cx, cy);
+          const g = GROUPS.find(x => x.id === d.gid);
+          const next = g.dancers.find(n => !placed[`${g.id}:${n}`] && n !== d.name);
+          deselect();
+          if (next) pickDancer(next, g, false);
+        } else {
+          placeCluster(list, cx, cy);
+          deselect();
+        }
+      }
+    }
+    downPos = null; didMove = false;
+  });
+}
+
+function updateLasso(e, stage) {
+  const r   = stage.getBoundingClientRect();
+  const cur = {
+    x: clamp(((e.clientX-r.left)/r.width)*100,  0, 100),
+    y: clamp(((e.clientY-r.top) /r.height)*100, 0, 100)
+  };
+  const x1 = Math.min(lassoStartPct.x, cur.x), x2 = Math.max(lassoStartPct.x, cur.x);
+  const y1 = Math.min(lassoStartPct.y, cur.y), y2 = Math.max(lassoStartPct.y, cur.y);
+  lassoRectPct = { x1, y1, x2, y2 };
+
+  const box = document.getElementById('lassoBox');
+  box.style.display = 'block';
+  box.style.left    = x1 + '%'; box.style.width  = (x2-x1) + '%';
+  box.style.top     = y1 + '%'; box.style.height = (y2-y1) + '%';
+
+  // Live-highlight tokens inside rect
+  Object.entries(placed).forEach(([key, d]) => {
+    const inside = d.x >= x1 && d.x <= x2 && d.y >= y1 && d.y <= y2;
+    d.el.classList.toggle('sel-tok', inside);
+  });
+}
+
+function finalizeLasso() {
+  document.getElementById('lassoBox').style.display = 'none';
+  lassoSel.clear();
+  let n = 0;
+  Object.entries(placed).forEach(([key, d]) => {
+    if (d.el.classList.contains('sel-tok')) { lassoSel.add(key); n++; }
+  });
+  lassoStartPct = null; lassoRectPct = null;
+  if (n > 0) setMsg(`${n} danseuse${n>1?'s':''} sélectionnée${n>1?'s':''} — ⌫ Retour pour supprimer · Échap pour désélectionner`);
+}
+
+function clearLassoSel() {
+  lassoSel.forEach(key => { if (placed[key]) placed[key].el.classList.remove('sel-tok'); });
+  lassoSel.clear();
+  document.getElementById('lassoBox').style.display = 'none';
+}
+
+/**
+ * Place a group of dancers in a small quinconce centered on (cx, cy).
+ */
+function placeCluster(list, cx, cy) {
+  const n = list.length;
+  const half = Math.min(20, n * 2.2);
+  placeQuinconce(
+    list.map(d => ({name:d.name, groupId:d.gid, color:d.color, short:d.short})),
+    clamp(cx - half, 8, 92 - half*2),
+    clamp(cx + half, 8 + half*2, 92),
+    clamp(cy - half*.55, 4, 96 - half),
+    clamp(cy + half*.55, 4 + half, 96)
+  );
+  setMsg(`${n} danseuses placées`);
+}
+
+/* ══ PLACE / REMOVE ═════════════════════════ */
+function placeDancer(name, gid, color, short, x, y) {
+  const key = `${gid}:${name}`;
+  if (placed[key]) {
+    placed[key].el.style.left = x+'%';
+    placed[key].el.style.top  = y+'%';
+    placed[key].x = x; placed[key].y = y;
+    updateLists(); return;
+  }
+  const stage = document.getElementById('stage');
+  const tok = document.createElement('div');
+  tok.className = gid === PRAFUL.gid ? 'token praful' : 'token';
+  tok.style.cssText = `background:${color};left:${x}%;top:${y}%`;
+  tok.dataset.gid = gid;
+  tok.dataset.key = key;
+  tok.innerHTML = `${ini(name)}<span class="tip">${name}</span>`;
+  tok.addEventListener('dblclick', e => {
+    e.stopPropagation();
+    removeDancer(name, gid, tok);
+    if (gid === PRAFUL.gid) updatePrafulBtn(false);
+  });
+  makeDraggable(tok, stage, (nx,ny) => { placed[key].x=nx; placed[key].y=ny; });
+  stage.appendChild(tok);
+  placed[key] = {name, groupId:gid, color, short, x, y, el:tok};
+  const ri = document.getElementById(rid(gid, name));
+  if (ri) ri.classList.add('placed');
+  if (activeFilter && activeFilter !== gid) tok.classList.add('fade');
+  updateLists();
+}
+
+function removeDancer(name, gid, el) {
+  el.remove();
+  delete placed[`${gid}:${name}`];
+  const ri = document.getElementById(rid(gid, name));
+  if (ri) ri.classList.remove('placed','sel');
+  // Renvoyer automatiquement dans la coulisse du groupe
+  const cfg = GROUP_COUL[gid];
+  if (cfg) {
+    const g = GROUPS.find(x => x.id === gid);
+    if (g) {
+      const i = g.dancers.indexOf(name);
+      const n = g.dancers.length;
+      const y = 5 + (Math.max(i, 0) / Math.max(n - 1, 1)) * 90;
+      placeDancer(name, gid, g.color, g.short, cfg.x, y);
+    }
+  }
+  updateLists();
+  setMsg(`${name} → coulisses`);
+}
+
+function clearStage() {
+  if (!Object.keys(placed).length) return;
+  if (!confirm('Vider toute la scène ?')) return;
+  clearQuiet();
+}
+function clearQuiet() {
+  Object.values(placed).forEach(d => {
+    d.el.remove();
+    const ri = document.getElementById(rid(d.groupId, d.name));
+    if (ri) ri.classList.remove('placed','sel');
+  });
+  placed = {};
+  publicSet.forEach(key => {
+    const [gid, ...r] = key.split(':');
+    const ri = document.getElementById(rid(gid, r.join(':')));
+    if (ri) ri.classList.remove('pub');
+  });
+  publicSet.clear();
+  renderPublic();
+  updatePubBtns();
+  updatePrafulBtn(false);
+  deselect();
+  updateLists();
+}
+
+/* Place all groups in their respective coulisses (Jeudi=left, Vendredi=right) */
+function placeAllInCoulisses() {
+  clearQuiet();
+  GROUPS.forEach(g => {
+    groupZones[g.id] = null;
+    placeGroupInCoulisse(g);
+  });
+  renderZoneBadges();
+  updateLists();
+}
+
+/* ══ DRAG ON STAGE ══════════════════════════ */
+function makeDraggable(el, container, onMove) {
+  let drag=false, sx,sy,ex,ey;
+  let groupDrag = null; // {key → {ex,ey}} when dragging a lasso-selection
+
+  el.addEventListener('mousedown', e => {
+    if (e.button) return;
+    e.stopPropagation(); e.preventDefault();
+    drag=true; el.classList.add('drag');
+    sx=e.clientX; sy=e.clientY;
+    ex=parseFloat(el.style.left); ey=parseFloat(el.style.top);
+
+    // If this token is part of a multi-lasso selection, capture all positions
+    const key = el.dataset.key;
+    if (lassoSel.size > 1 && key && lassoSel.has(key)) {
+      groupDrag = {};
+      lassoSel.forEach(k => {
+        if (placed[k]) groupDrag[k] = {
+          ex: parseFloat(placed[k].el.style.left),
+          ey: parseFloat(placed[k].el.style.top)
+        };
+      });
+    } else {
+      groupDrag = null;
+    }
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!drag) return;
+    const r = container.getBoundingClientRect();
+    const dx = ((e.clientX-sx)/r.width)*100;
+    const dy = ((e.clientY-sy)/r.height)*100;
+    if (groupDrag) {
+      Object.entries(groupDrag).forEach(([k, orig]) => {
+        if (!placed[k]) return;
+        const nx = clamp(orig.ex + dx, 1, 99);
+        const ny = clamp(orig.ey + dy, 1, 99);
+        placed[k].el.style.left = nx+'%';
+        placed[k].el.style.top  = ny+'%';
+        placed[k].x = nx; placed[k].y = ny;
+      });
+    } else {
+      el.style.left = clamp(ex+dx, 1, 99)+'%';
+      el.style.top  = clamp(ey+dy, 1, 99)+'%';
+      onMove(parseFloat(el.style.left), parseFloat(el.style.top));
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (drag) { drag=false; groupDrag=null; el.classList.remove('drag'); }
+  });
+}
+
+/* ══ AUTO PLACEMENT — QUINCONCE ═════════════ */
+function autoPlace() {
+  clearQuiet();
+
+  // Calcule le perRow qu'utiliserait placeQuinconce pour un groupe dans une zone
+  function computePerRow(n, zH, forced) {
+    let p = forced || Math.ceil(Math.sqrt(n * (82 / zH))); // 82 = référence fixe (indépendant du xMin/xMax)
+    return Math.max(3, Math.min(n, p));
+  }
+
+  // Calculer les perRow de référence : v_enf → v_deb, j_int → j_ado
+  function refPerRow(gid) {
+    const zid = groupZones[gid];
+    if (!zid) return null;
+    const z = ZONES.find(x => x.id === zid);
+    if (!z) return null;
+    const n = GROUPS.find(g => g.id === gid).dancers.filter(name => !publicSet.has(`${gid}:${name}`)).length;
+    return computePerRow(n, z.yMax - z.yMin);
+  }
+  const vEnfPerRow = refPerRow('v_enf');
+  const jIntPerRow = refPerRow('j_int');
+
+  GROUPS.forEach(g => {
+    const zid = groupZones[g.id];
+    if (!zid) {
+      placeGroupInCoulisse(g);
+    } else {
+      const z = ZONES.find(x => x.id === zid);
+      if (!z) return;
+      const mirrorPerRow = (g.id === 'v_deb' && vEnfPerRow) ? vEnfPerRow : null;
+      if (mirrorPerRow) {
+        const list = g.dancers
+          .filter(n => !publicSet.has(`${g.id}:${n}`))
+          .map(n => ({name:n, groupId:g.id, color:g.color, short:g.short}));
+        placeQuinconce(list, 6, 94, z.yMin, z.yMax, mirrorPerRow, 0);
+      } else {
+        placeGroupQuinconce(g, z.yMin, z.yMax); // sans zoneIdx → xOffset=0
+      }
+    }
+  });
+  setMsg('Quinconce appliqué — glisser les jetons pour ajuster');
+}
+
+function placeGroupQuinconce(group, yMin, yMax, zoneIdx) {
+  const list = group.dancers
+    .filter(n => !publicSet.has(`${group.id}:${n}`))
+    .map(n => ({name:n, groupId:group.id, color:group.color, short:group.short}));
+  const xOffset = (zoneIdx % 2 === 1) ? 0.5 : 0;
+  // perRow calculé avec zW=82 (référence fixe) pour garder le bon nb de colonnes
+  // indépendamment de la largeur de placement réelle (6–94)
+  const n = list.length, zH = yMax - yMin;
+  const perRow = group.perRow || Math.max(3, Math.min(n, Math.ceil(Math.sqrt(n * 82 / zH))));
+  placeQuinconce(list, 6, 94, yMin, yMax, perRow, xOffset);
+}
+
+function placeGroupInCoulisse(g) {
+  removeGroupFromStage(g.id);
+  const cfg = GROUP_COUL[g.id];
+  if (!cfg) return;
+  const n = g.dancers.length;
+  g.dancers.forEach((name, i) => {
+    const y = 5 + (i / Math.max(n - 1, 1)) * 90;
+    placeDancer(name, g.id, g.color, g.short, cfg.x, y);
+  });
+  setMsg(`${g.short} → coulisses`);
+}
+
+/**
+ * Quinconce placement :
+ * - Remplit de DEVANT (yMax) vers FOND (yMin)
+ * - Rangées paires : alignées normalement
+ * - Rangées impaires : décalées d'un demi-pas (quinconce interne)
+ * - Dernière rangée incomplète : centrée
+ * - xOffset (en nb de colonnes) : décale toute la grille horizontalement
+ *   → permet d'éviter l'alignement entre deux zones adjacentes
+ */
+function placeQuinconce(dancers, xMin, xMax, yMin, yMax, forcePerRow, xOffset) {
+  const n = dancers.length; if (!n) return;
+  const zW = xMax-xMin, zH = yMax-yMin;
+  let perRow = forcePerRow || Math.ceil(Math.sqrt(n * (zW/zH)));
+  perRow = Math.max(3, Math.min(n, perRow));
+  const numRows = Math.ceil(n/perRow);
+  const xStep   = zW / (perRow + 0.5);
+  const yStep   = zH / (numRows + 0.5);
+  const xShift  = (xOffset || 0) * xStep; // décalage inter-zone
+
+  const stageCenter = (xMin + xMax) / 2;
+
+  dancers.forEach((d, i) => {
+    const rowF   = Math.floor(i / perRow);
+    const col    = i % perRow;
+    const isLast = rowF === numRows - 1;
+    const inRow  = isLast ? (n - rowF*perRow) : perRow;
+    const qShift = (rowF % 2 === 1) ? xStep*0.5 : 0;
+
+    let x;
+    if (isLast && inRow < perRow) {
+      // Rangée partielle : centrer absolument au milieu de la scène, sans qShift
+      x = clamp(stageCenter - ((inRow - 1) * xStep) / 2 + col * xStep + xShift, xMin + 1, xMax - 1);
+    } else {
+      const cShift = 0; // rangées complètes : pas de décalage de centrage
+      x = clamp(xMin + xStep*0.5 + col*xStep + cShift + qShift + xShift, xMin+1, xMax-1);
+    }
+
+    const y = clamp(yMax - yStep*(rowF+0.65), yMin+1, yMax-1);
+    placeDancer(d.name, d.groupId, d.color, d.short, x, y);
+  });
+}
+
+/* ══ HELPER — y% → nearest zone ════════════ */
+function yToZone(yPct) {
+  const found = ZONES.find(z => yPct >= z.yMin && yPct <= z.yMax);
+  if (found) return found;
+  return ZONES.reduce((b, z) => {
+    const d = Math.abs(yPct - (z.yMin+z.yMax)/2);
+    return d < b.d ? {zone:z, d} : b;
+  }, {zone:ZONES[0], d:Infinity}).zone;
+}
+
+/* ══ GROUP FILTER ═══════════════════════════ */
+function toggleFilter(gid) {
+  activeFilter = (activeFilter===gid) ? null : gid;
+  GROUPS.forEach(g => {
+    const btn = document.getElementById(`gf_${g.id}`);
+    if (!btn) return;
+    btn.classList.remove('solo','faded');
+    if (activeFilter) (g.id===activeFilter ? btn.classList.add('solo') : btn.classList.add('faded'));
+  });
+  Object.values(placed).forEach(d => {
+    if (d.groupId === PRAFUL.gid) return; // Praful always visible
+    d.el.classList.toggle('fade', !!(activeFilter && d.groupId !== activeFilter));
+  });
+  document.querySelectorAll('.group-section').forEach((s,i) => {
+    s.style.opacity = (!activeFilter || GROUPS[i].id===activeFilter) ? '1' : '0.28';
+  });
+  setMsg(activeFilter ? `Isolé : ${GROUPS.find(x=>x.id===activeFilter).label} · recliquer pour tout` : 'Tous les groupes affichés');
+}
+
+/* ══ NAMES TOGGLE ═══════════════════════════ */
+function toggleNames() {
+  showNames = !showNames;
+  document.body.classList.toggle('names', showNames);
+  const btn = document.getElementById('namesBtn');
+  btn.classList.toggle('on', showNames);
+  btn.textContent = showNames ? '🏷 Masquer prénoms' : '🏷 Afficher prénoms';
+}
+
+/* ══ PRAFUL ═════════════════════════════════ */
+function togglePraful() {
+  const key = `${PRAFUL.gid}:${PRAFUL.name}`;
+  if (placed[key]) {
+    placed[key].el.remove();
+    delete placed[key];
+    updateLists();
+    updatePrafulBtn(false);
+    setMsg('✦ Praful → Coulisses');
+  } else {
+    placeDancer(PRAFUL.name, PRAFUL.gid, PRAFUL.color, PRAFUL.short, 50, 91);
+    updatePrafulBtn(true);
+    setMsg('✦ Praful → Scène · centre devant');
+  }
+}
+
+function centerPraful() {
+  const key = `${PRAFUL.gid}:${PRAFUL.name}`;
+  if (!placed[key]) {
+    placeDancer(PRAFUL.name, PRAFUL.gid, PRAFUL.color, PRAFUL.short, 50, 91);
+    updatePrafulBtn(true);
+  } else {
+    placed[key].el.style.left = '50%';
+    placed[key].el.style.top  = '91%';
+    placed[key].x = 50; placed[key].y = 91;
+    updateLists();
+  }
+  setMsg('✦ Praful → Centre devant');
+}
+
+function updatePrafulBtn(onStage) {
+  const btn = document.getElementById('prafulToggle');
+  if (!btn) return;
+  btn.textContent = onStage ? '✦ Envoyer en coulisses' : '✦ Placer sur scène';
+  btn.classList.toggle('on', onStage);
+  document.getElementById('prafulCenter').style.display = onStage ? '' : 'none';
+}
+
+/* ══ DANS LE PUBLIC ═════════════════════════ */
+function buildPubBtns() {
+  const wrap = document.getElementById('pubBtns');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  GROUPS.forEach(g => {
+    const btn = document.createElement('button');
+    btn.className = 'pub-gbtn';
+    btn.id = `pub_${g.id}`;
+    btn.style.setProperty('--gc', g.color);
+    btn.textContent = g.short;
+    btn.title = `Envoyer / rappeler : ${g.label}`;
+    btn.onclick = () => togglePublic(g.id);
+    wrap.appendChild(btn);
+  });
+}
+
+function togglePublic(gid) {
+  const g = GROUPS.find(x => x.id === gid);
+  if (!g) return;
+  const anyInPub = g.dancers.some(name => publicSet.has(`${gid}:${name}`));
+  if (anyInPub) {
+    // Rappel — retirer du public
+    g.dancers.forEach(name => {
+      const key = `${gid}:${name}`;
+      publicSet.delete(key);
+      const ri = document.getElementById(rid(gid, name));
+      if (ri) ri.classList.remove('pub');
+    });
+    setMsg(`${g.short} ← Rappel — danseuses disponibles à replacer`);
+  } else {
+    // Envoyer dans le public — retirer de scène si présentes
+    g.dancers.forEach(name => {
+      const key = `${gid}:${name}`;
+      if (placed[key]) {
+        placed[key].el.remove();
+        delete placed[key];
+      }
+      publicSet.add(key);
+      const ri = document.getElementById(rid(gid, name));
+      if (ri) { ri.classList.remove('placed','sel'); ri.classList.add('pub'); }
+    });
+    setMsg(`${g.short} → Public · ${g.dancers.length} danseuses dans le public`);
+  }
+  renderPublic();
+  updatePubBtns();
+  updateLists();
+}
+
+function renderPublic() {
+  const bar = document.getElementById('audienceBar');
+  if (!bar) return;
+  if (!publicSet.size) {
+    bar.className = 'audience-bar';
+    bar.innerHTML = '♦ &nbsp; S P E C T A T E U R S &nbsp; ♦';
+    return;
+  }
+  bar.className = 'audience-bar has-public';
+  const byG = {};
+  publicSet.forEach(key => {
+    const [gid] = key.split(':');
+    const g = GROUPS.find(x => x.id === gid);
+    if (!g) return;
+    if (!byG[gid]) byG[gid] = { g, count: 0 };
+    byG[gid].count++;
+  });
+  const total = publicSet.size;
+  const dots = Object.values(byG).map(({g, count}) =>
+    Array.from({length: count}, () => `<span class="pub-dot" style="background:${g.color}" title="${g.label}"></span>`).join('')
+  ).join('');
+  bar.innerHTML = `♦ PUBLIC · ${total} danseuse${total>1?'s':''} · `+
+    Object.values(byG).map(({g,count}) => `<span style="color:${g.color};font-weight:bold">${g.short}×${count}</span>`).join(' · ')+
+    ` ♦<div class="pub-dots">${dots}</div>`;
+}
+
+function updatePubBtns() {
+  GROUPS.forEach(g => {
+    const btn = document.getElementById(`pub_${g.id}`);
+    if (!btn) return;
+    const anyInPub = g.dancers.some(name => publicSet.has(`${g.id}:${name}`));
+    btn.classList.toggle('in-pub', anyInPub);
+    btn.title = anyInPub ? `Rappeler : ${g.label}` : `Envoyer dans le public : ${g.label}`;
+  });
+}
+
+/* ══ FILE SAVE ══════════════════════════════ */
+function buildSavePayload() {
+  return {
+    version: 1,
+    app: 'ASPM DANSE — GALA 2026',
+    savedAt: new Date().toISOString(),
+    secForms,
+    formations,
+    groupZones
+  };
+}
+
+async function activateFileSave() {
+  if (!window.showSaveFilePicker) {
+    setMsg('⚠ Navigateur non compatible — utilise Chrome ou Edge');
+    return;
+  }
+  try {
+    fileHandle = await window.showSaveFilePicker({
+      suggestedName: 'parvati-gala-2026.json',
+      types: [{ description: 'Sauvegarde ASPM DANSE', accept: { 'application/json': ['.json'] } }]
+    });
+    const ok = await writeToFileHandle();
+    if (ok) {
+      updateFileSaveStatus(true);
+      setMsg('✓ Fichier lié — sauvegardes automatiques activées');
+    }
+  } catch (err) {
+    if (err.name !== 'AbortError') setMsg('⚠ Impossible de lier le fichier');
+  }
+}
+
+async function writeToFileHandle() {
+  if (!fileHandle) return false;
+  try {
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify(buildSavePayload(), null, 2));
+    await writable.close();
+    return true;
+  } catch (err) {
+    console.error('writeToFileHandle:', err);
+    fileHandle = null;
+    updateFileSaveStatus(false);
+    setMsg('⚠ Écriture fichier impossible — fichier délié');
+    return false;
+  }
+}
+
+function exportDownload() {
+  const data = JSON.stringify(buildSavePayload(), null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const dt = new Date().toISOString().slice(0, 16).replace('T', '_').replace(':', 'h');
+  a.href = url;
+  a.download = `parvati-gala-2026_${dt}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  setMsg('✓ Fichier téléchargé');
+}
+
+async function importFromFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  try {
+    const text = await file.text();
+    const data = JSON.parse(text);
+    if (data.secForms) {
+      secForms = data.secForms;
+      localStorage.setItem('g26_sf', JSON.stringify(secForms));
+    }
+    if (data.formations) {
+      formations = data.formations;
+      localStorage.setItem('g26_f', JSON.stringify(formations));
+    }
+    if (data.groupZones) {
+      groupZones = { ...data.groupZones };
+      renderZoneBadges();
+    }
+    refreshSecDots();
+    renderFormations();
+    if (activeSecId && secForms[activeSecId]) loadSnap(secForms[activeSecId]);
+    else clearQuiet();
+    const n = Object.keys(secForms).length;
+    setMsg(`✓ Import réussi — ${n} section${n > 1 ? 's' : ''} restaurée${n > 1 ? 's' : ''}`);
+  } catch (err) {
+    setMsg('⚠ Fichier invalide ou corrompu');
+  }
+  input.value = '';
+}
+
+function updateFileSaveStatus(ok) {
+  const dot = document.getElementById('fileSaveDot');
+  const lbl = document.getElementById('fileSaveLbl');
+  if (!dot || !lbl) return;
+  dot.style.background = ok ? '#4CAF50' : '#555';
+  lbl.textContent = ok ? '✓ Sauvegarde auto active' : 'Pas de fichier lié';
+  const btn = document.getElementById('btnLinkFile');
+  if (btn) btn.textContent = ok ? '📂 Changer de fichier…' : '📂 Lier un fichier…';
+}
+
+/* ══ FORMATIONS ═════════════════════════════ */
+function makeSnap() {
+  const dancers = {};
+  Object.entries(placed).forEach(([k,d]) => dancers[k]={name:d.name,groupId:d.groupId,color:d.color,short:d.short,x:d.x,y:d.y});
+  return { dancers, zones: {...groupZones}, public: [...publicSet] };
+}
+function loadSnap(snap) {
+  clearQuiet();
+  // Support old format (plain object without .dancers key)
+  const dancers = snap.dancers || snap;
+  Object.values(dancers).forEach(d => placeDancer(d.name, d.groupId, d.color, d.short, d.x, d.y));
+  if (snap.zones) {
+    groupZones = {...snap.zones};
+    renderZoneBadges();
+  }
+  // Restore public set
+  if (snap.public) {
+    snap.public.forEach(key => {
+      publicSet.add(key);
+      const [gid, ...r] = key.split(':');
+      const ri = document.getElementById(rid(gid, r.join(':')));
+      if (ri) ri.classList.add('pub');
+    });
+  }
+  renderPublic();
+  updatePubBtns();
+  updatePrafulBtn(!!placed[`${PRAFUL.gid}:${PRAFUL.name}`]);
+  // Toute danseuse absente du snap et pas dans le public → coulisse de son groupe
+  GROUPS.forEach(g => {
+    const cfg = GROUP_COUL[g.id];
+    if (!cfg) return;
+    const n = g.dancers.length;
+    g.dancers.forEach((name, i) => {
+      const key = `${g.id}:${name}`;
+      if (!placed[key] && !publicSet.has(key)) {
+        const y = 5 + (i / Math.max(n - 1, 1)) * 90;
+        placeDancer(name, g.id, g.color, g.short, cfg.x, y);
+      }
+    });
+  });
+}
+function openSaveModal() {
+  if (!Object.keys(placed).length) { alert('Aucune danseuse sur scène !'); return; }
+  document.getElementById('fNameIn').value = '';
+  document.getElementById('saveModal').classList.add('show');
+  setTimeout(() => document.getElementById('fNameIn').focus(), 50);
+}
+document.getElementById('fNameIn').addEventListener('keydown', e => {
+  if (e.key==='Enter') confirmSave();
+  if (e.key==='Escape') closeModal();
+});
+function confirmSave() {
+  const name = document.getElementById('fNameIn').value.trim() || `Formation ${formations.length+1}`;
+  formations.push({id:Date.now(), name, snap:makeSnap(), date:new Date().toLocaleDateString('fr-FR')});
+  localStorage.setItem('g26_f', JSON.stringify(formations));
+  closeModal(); renderFormations();
+  setMsg(`"${name}" sauvegardée`);
+}
+function closeModal() { document.getElementById('saveModal').classList.remove('show'); }
+function renderFormations() {
+  const el = document.getElementById('formationsList');
+  if (!formations.length) { el.innerHTML='<div style="font-size:.75em;color:#555;padding:5px;">Aucune</div>'; return; }
+  el.innerHTML = formations.map((f,i) => `
+    <div class="fitem" onclick="loadFIdx(${i})">
+      <div><div style="color:#fff">${f.name}</div><div style="font-size:.78em;color:#666;">${f.date} · ${Object.keys(f.snap).length} danseuses</div></div>
+      <button class="fdel" onclick="delF(event,${i})">×</button>
+    </div>`).join('');
+}
+function loadFIdx(i) {
+  loadSnap(formations[i].snap);
+  document.querySelectorAll('.fitem').forEach((el,j) => el.classList.toggle('on',j===i));
+  setMsg(`"${formations[i].name}" chargée`);
+}
+function delF(e,i) {
+  e.stopPropagation();
+  if (!confirm(`Supprimer "${formations[i].name}" ?`)) return;
+  formations.splice(i,1); localStorage.setItem('g26_f',JSON.stringify(formations)); renderFormations();
+}
+
+/* ══ UPDATE LISTS ═══════════════════════════ */
+function updateLists() {
+  // Count dancers on main stage (x 5–95%), excluding coulisses, excluding Praful
+  const onStage = Object.values(placed).filter(d => d.x >= 5 && d.x <= 95 && d.groupId !== PRAFUL.gid);
+  const prafulOnStage = !!placed[`${PRAFUL.gid}:${PRAFUL.name}`];
+  const total = onStage.length + (prafulOnStage ? 1 : 0);
+  document.getElementById('stageCount').textContent = total;
+  const lbl = document.getElementById('stageCountLbl');
+  if (lbl) lbl.innerHTML = prafulOnStage ? 'sur scène<br><span style="color:#d4a44c;font-size:.85em">dont ✦ Praful</span>' : 'sur scène';
+  const counts = {};
+  onStage.forEach(d => counts[d.groupId]=(counts[d.groupId]||0)+1);
+  document.getElementById('grpCounts').innerHTML =
+    (prafulOnStage ? `<span style="color:#d4a44c;font-weight:bold">✦</span> ` : '') +
+    GROUPS.filter(g=>counts[g.id]).map(g=>`<span style="color:${g.color}">${g.short}:${counts[g.id]}</span>`).join(' ');
+  const list = document.getElementById('onStageList');
+  if (!total) { list.innerHTML='<em style="color:#555;">Aucune</em>'; return; }
+  const byG = {};
+  onStage.forEach(d => { if(!byG[d.groupId]) byG[d.groupId]=[]; byG[d.groupId].push(d.name); });
+  list.innerHTML =
+    (prafulOnStage ? `<div style="margin-bottom:5px;"><div style="color:#d4a44c;font-size:.85em;font-weight:bold">✦ Praful</div><div style="color:#d4a44c;padding:0 0 0 8px">· Praful Parvati India</div></div>` : '') +
+    GROUPS.filter(g=>byG[g.id]).map(g=>`
+    <div style="margin-bottom:5px;">
+      <div style="color:${g.color};font-size:.85em;font-weight:bold">${g.short} (${byG[g.id].length})</div>
+      ${byG[g.id].map(n=>`<div style="color:#fff;padding:0 0 0 8px">· ${n}</div>`).join('')}
+    </div>`).join('');
+}
+
+/* ══ AUDIO ══════════════════════════════════ */
+function setupAudio() {
+  const a = document.getElementById('audio');
+  a.addEventListener('loadedmetadata', () => {
+    document.getElementById('tDur').textContent = fmt(a.duration);
+    const bar = document.getElementById('tlBar'), cur = document.getElementById('tlCursor');
+    TL.forEach(s => {
+      const div = document.createElement('div');
+      div.className = 'tl-seg';
+      div.style.left    = (s.start/a.duration*100)+'%';
+      div.style.width   = ((s.end-s.start)/a.duration*100)+'%';
+      div.style.background = s.color+'cc';
+      div.textContent   = s.label;
+      div.title         = `${s.label} · ${s.time}`;
+      bar.insertBefore(div, cur);
+    });
+  });
+  a.addEventListener('timeupdate', () => {
+    const pct = (a.currentTime/a.duration*100)||0;
+    document.getElementById('tlCursor').style.left = pct+'%';
+    document.getElementById('tDisp').textContent = fmt(a.currentTime);
+    const cur = TL.find(s => a.currentTime>=s.start && a.currentTime<s.end);
+    document.getElementById('tSec').textContent = cur ? `♪ ${cur.label}` : '';
+    document.querySelectorAll('.tl-seg').forEach((el,i)=>el.classList.toggle('active',!!(cur&&TL[i]===cur)));
+    if (cur && cur.id !== activeSecId) {
+      document.querySelectorAll('.sec-btn').forEach(b=>b.classList.remove('active'));
+      const btn = document.getElementById(`sb_${cur.id}`);
+      if (btn) btn.classList.add('active');
+      document.getElementById('secSaveBtn').disabled = false;
+      activeSecId = cur.id;
+      updateFabLabel();
+      if (secForms[cur.id]) loadSnap(secForms[cur.id]);
+    }
+  });
+  a.addEventListener('ended', () => { document.getElementById('playIcon').innerHTML='<path d="M8 5v14l11-7z"/>'; });
+}
+function togglePlay() {
+  const a=document.getElementById('audio'), icon=document.getElementById('playIcon');
+  if (a.paused) { a.play(); icon.innerHTML='<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; }
+  else          { a.pause(); icon.innerHTML='<path d="M8 5v14l11-7z"/>'; }
+}
+function seekTo(e) {
+  const a=document.getElementById('audio'); if(!a.duration) return;
+  const r=document.getElementById('tlBar').getBoundingClientRect();
+  a.currentTime = ((e.clientX-r.left)/r.width)*a.duration;
+}
+
+/* ══ HELPERS ════════════════════════════════ */
+function ini(n)       { return n.split(' ').map(p=>p[0]).join('').substring(0,2).toUpperCase(); }
+function rid(gid,n)   { return `ri_${gid}_${n.replace(/\s+/g,'_')}`; }
+function ridFromKey(k){ const [gid,...r]=k.split(':'); return rid(gid,r.join(':')); }
+function clamp(v,a,b) { return Math.max(a,Math.min(b,v)); }
+function fmt(s)       { if(isNaN(s)) return '—:——'; return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`; }
+function setMsg(t)    { document.getElementById('infoMsg').textContent = t; }
+</script>
+
+<!-- FAB fixed bottom center -->
+<button class="save-fab" id="fabSave" onclick="fabSave()" disabled title="Sauver les positions pour ce temps">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4zm-5 16a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm3-10H5V5h10v4z"/>
+  </svg>
+  <span class="fab-label" id="fabLabel">Sauver ici</span>
+</button>
+</body>
+</html>
