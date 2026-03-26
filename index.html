@@ -341,6 +341,7 @@
       <span id="fileSaveLbl">Pas de fichier lié</span>
     </div>
     <button class="btn" onclick="activateFileSave()" id="btnLinkFile">📂 Lier un fichier…</button>
+    <button class="btn" style="border-color:#4CAF50;color:#4CAF50;" onclick="linkStateJson()" id="btnLinkState">🔗 Lier à state.json</button>
     <button class="btn" onclick="exportDownload()">⬇ Exporter .json</button>
     <button class="btn" onclick="document.getElementById('importInput').click()">⬆ Importer .json</button>
     <input type="file" id="importInput" accept=".json" style="display:none" onchange="importFromFile(this)">
@@ -447,6 +448,7 @@ let secForms    = JSON.parse(localStorage.getItem('g26_sf') || '{}');
 let fileHandle  = null; // File System Access API handle
 let _pendingHandle = null; // handle restauré depuis IDB en attente de permission
 let publicSet   = new Set(); // keys "gid:name" de danseuses envoyées dans le public
+let saveTimeout = null;
 
 /* ══ INDEXEDDB — persistance du fileHandle ══ */
 const _IDB = (() => {
@@ -551,6 +553,22 @@ document.addEventListener('keydown', e => {
     lassoSel.clear();
   }
 });
+
+/* ══ CHANGE & SAVE ══════════════════════════ */
+function notifyChange() {
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(() => {
+    if (!activeSecId) return;
+    secForms[activeSecId] = makeSnap();
+    localStorage.setItem('g26_sf', JSON.stringify(secForms));
+    refreshSecDots();
+    setMsg('✓ Changements sauvegardés automatiquement');
+    if (fileHandle) {
+      writeToFileHandle();
+    }
+  }, 1500);
+}
+
 
 /* ══ ROSTER ═════════════════════════════════ */
 function buildRoster() {
@@ -1030,6 +1048,7 @@ function placeDancer(name, gid, color, short, x, y) {
   if (ri) ri.classList.add('placed');
   if (activeFilter && activeFilter !== gid) tok.classList.add('fade');
   updateLists();
+  notifyChange();
 }
 
 function removeDancer(name, gid, el) {
@@ -1050,6 +1069,7 @@ function removeDancer(name, gid, el) {
   }
   updateLists();
   setMsg(`${name} → coulisses`);
+  notifyChange();
 }
 
 function clearStage() {
@@ -1075,6 +1095,7 @@ function clearQuiet() {
   updatePrafulBtn(false);
   deselect();
   updateLists();
+  notifyChange();
 }
 
 /* Place all groups in their respective coulisses (Jeudi=left, Vendredi=right) */
@@ -1137,7 +1158,12 @@ function makeDraggable(el, container, onMove) {
   });
 
   document.addEventListener('mouseup', () => {
-    if (drag) { drag=false; groupDrag=null; el.classList.remove('drag'); }
+    if (drag) {
+      drag=false;
+      groupDrag=null;
+      el.classList.remove('drag');
+      notifyChange();
+    }
   });
 }
 
@@ -1182,6 +1208,7 @@ function autoPlace() {
     }
   });
   setMsg('Quinconce appliqué — glisser les jetons pour ajuster');
+  notifyChange();
 }
 
 function placeGroupQuinconce(group, yMin, yMax, zoneIdx) {
@@ -1373,6 +1400,7 @@ function togglePublic(gid) {
   renderPublic();
   updatePubBtns();
   updateLists();
+  notifyChange();
 }
 
 function renderPublic() {
@@ -1442,6 +1470,31 @@ async function activateFileSave() {
     }
   } catch (err) {
     if (err.name !== 'AbortError') setMsg('⚠ Impossible de lier le fichier');
+  }
+}
+
+async function linkStateJson() {
+  if (!window.showOpenFilePicker) {
+    setMsg('⚠ Navigateur non compatible — utilise Chrome ou Edge');
+    return;
+  }
+  try {
+    const [handle] = await window.showOpenFilePicker({
+      types: [{ description: 'state.json', accept: { 'application/json': ['.json'] } }],
+      multiple: false
+    });
+    const perm = await handle.requestPermission({ mode: 'readwrite' });
+    if (perm !== 'granted') { setMsg('⚠ Permission refusée'); return; }
+    fileHandle = handle;
+    await _IDB.save(fileHandle);
+    _pendingHandle = null;
+    const ok = await writeToFileHandle();
+    if (ok) {
+      updateFileSaveStatus('ok');
+      setMsg('✓ state.json lié — chaque sauvegarde met le fichier à jour. Fais git push pour partager.');
+    }
+  } catch (err) {
+    if (err.name !== 'AbortError') setMsg('⚠ Impossible de lier state.json');
   }
 }
 
