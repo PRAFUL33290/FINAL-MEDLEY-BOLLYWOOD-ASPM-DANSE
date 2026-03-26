@@ -472,14 +472,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     const r = await fetch('state.json?_=' + Date.now());
     if (r.ok) {
       const data = await r.json();
-      if (data && (data.secForms || data.formations)) {
+      const hasRealData = (data.secForms && Object.keys(data.secForms).length > 0)
+                       || (data.formations && data.formations.length > 0);
+      if (data && hasRealData) {
         applyStateData(data);
         loaded = true;
         setMsg('✓ Placements restaurés depuis state.json');
       }
     }
   } catch (e) {}
-  if (!loaded) placeAllInCoulisses();
+  if (!loaded) {
+    const lastSec = localStorage.getItem('g26_active_sec');
+    if (lastSec && secForms[lastSec]) {
+      clickSection(lastSec);
+      setMsg('✓ Placements restaurés depuis la mémoire locale');
+    } else {
+      placeAllInCoulisses();
+    }
+  }
 });
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { deselect(); clearLassoSel(); }
@@ -606,6 +616,7 @@ function buildSecBar() {
 
 function clickSection(id) {
   activeSecId = id;
+  localStorage.setItem('g26_active_sec', id);
   document.querySelectorAll('.sec-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(`sb_${id}`).classList.add('active');
   document.getElementById('secSaveBtn').disabled = false;
