@@ -344,6 +344,7 @@
     <button class="btn" onclick="exportDownload()">⬇ Exporter .json</button>
     <button class="btn" onclick="document.getElementById('importInput').click()">⬆ Importer .json</button>
     <input type="file" id="importInput" accept=".json" style="display:none" onchange="importFromFile(this)">
+    <button class="btn" style="border-color:#4A9FE8;color:#4A9FE8;margin-top:4px;" onclick="exportStateJson()">🔗 → state.json (Git)</button>
 
     <hr class="sep">
     <div class="ptitle">Sur scène</div>
@@ -456,7 +457,7 @@ let lassoStartPct = null;       // {x,y} in %
 let lassoRectPct  = null;       // {x1,y1,x2,y2}
 
 /* ══ INIT ═══════════════════════════════════ */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   buildRoster();
   buildStageBands();
   buildSecBar();
@@ -465,7 +466,20 @@ document.addEventListener('DOMContentLoaded', () => {
   setupAudio();
   setupStageInteraction();
   renderFormations();
-  placeAllInCoulisses();
+  // Charger state.json depuis le repo (GitHub Pages) si disponible
+  let loaded = false;
+  try {
+    const r = await fetch('state.json?_=' + Date.now());
+    if (r.ok) {
+      const data = await r.json();
+      if (data && (data.secForms || data.formations)) {
+        applyStateData(data);
+        loaded = true;
+        setMsg('✓ Placements restaurés depuis state.json');
+      }
+    }
+  } catch (e) {}
+  if (!loaded) placeAllInCoulisses();
 });
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { deselect(); clearLassoSel(); }
@@ -1398,34 +1412,50 @@ function exportDownload() {
   setMsg('✓ Fichier téléchargé');
 }
 
+function applyStateData(data) {
+  if (data.secForms) {
+    secForms = data.secForms;
+    localStorage.setItem('g26_sf', JSON.stringify(secForms));
+  }
+  if (data.formations) {
+    formations = data.formations;
+    localStorage.setItem('g26_f', JSON.stringify(formations));
+  }
+  if (data.groupZones) {
+    groupZones = { ...data.groupZones };
+    renderZoneBadges();
+  }
+  refreshSecDots();
+  renderFormations();
+  if (activeSecId && secForms[activeSecId]) loadSnap(secForms[activeSecId]);
+  else placeAllInCoulisses();
+}
+
 async function importFromFile(input) {
   const file = input.files[0];
   if (!file) return;
   try {
     const text = await file.text();
     const data = JSON.parse(text);
-    if (data.secForms) {
-      secForms = data.secForms;
-      localStorage.setItem('g26_sf', JSON.stringify(secForms));
-    }
-    if (data.formations) {
-      formations = data.formations;
-      localStorage.setItem('g26_f', JSON.stringify(formations));
-    }
-    if (data.groupZones) {
-      groupZones = { ...data.groupZones };
-      renderZoneBadges();
-    }
-    refreshSecDots();
-    renderFormations();
-    if (activeSecId && secForms[activeSecId]) loadSnap(secForms[activeSecId]);
-    else clearQuiet();
+    applyStateData(data);
     const n = Object.keys(secForms).length;
     setMsg(`✓ Import réussi — ${n} section${n > 1 ? 's' : ''} restaurée${n > 1 ? 's' : ''}`);
   } catch (err) {
     setMsg('⚠ Fichier invalide ou corrompu');
   }
   input.value = '';
+}
+
+function exportStateJson() {
+  const data = JSON.stringify(buildSavePayload(), null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'state.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  setMsg('✓ state.json téléchargé — remplacez le fichier dans le dossier projet puis git push');
 }
 
 function updateFileSaveStatus(ok) {
