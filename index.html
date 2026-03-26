@@ -435,6 +435,20 @@
     <div id="formationsList"><div style="font-size:.75em;color:#fff;padding:5px;">Aucune</div></div>
 
     <hr class="sep">
+    <div class="ptitle">☁️ Sync tous appareils</div>
+    <div class="zone-sub" style="margin-bottom:7px;">Entre ton token GitHub pour sauvegarder automatiquement sur tous les appareils (mobile, tablette, PC).</div>
+    <div style="display:flex;gap:5px;margin-bottom:5px;">
+      <input type="password" id="ghTokenInput" placeholder="GitHub token (ghp_…)" autocomplete="off"
+        style="flex:1;padding:7px 8px;background:#1a1a1a;border:1px solid var(--border);color:#fff;border-radius:4px;font-size:.75em;font-family:inherit;">
+      <button class="btn" style="width:auto;padding:7px 10px;flex-shrink:0;" onclick="saveGhToken()">OK</button>
+    </div>
+    <div id="ghSyncStatus" style="display:flex;align-items:center;gap:6px;font-size:.72em;color:#fff;margin-bottom:5px;">
+      <span id="ghSyncDot" style="width:8px;height:8px;border-radius:50%;background:#555;flex-shrink:0;transition:background .3s;"></span>
+      <span id="ghSyncLbl">Token non configuré</span>
+    </div>
+    <button class="btn" style="border-color:#4CAF50;color:#4CAF50;" onclick="pushStateNow()">☁️ Sauvegarder maintenant</button>
+
+    <hr class="sep">
     <div class="ptitle">Sauvegarde fichier</div>
     <div id="fileSaveStatus" style="display:flex;align-items:center;gap:6px;font-size:.72em;color:#fff;margin-bottom:6px;">
       <span id="fileSaveDot" style="width:8px;height:8px;border-radius:50%;background:#555;flex-shrink:0;transition:background .3s;"></span>
@@ -601,6 +615,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupAudio();
   setupStageInteraction();
   renderFormations();
+  // Afficher statut token GitHub
+  if (ghToken) setGhStatus('ok', 'Token configuré ✓');
   // Charger state.json depuis le repo (GitHub Pages) si disponible
   let loaded = false;
   try {
@@ -654,6 +670,85 @@ document.addEventListener('keydown', e => {
   }
 });
 
+/* ══ GITHUB SYNC ════════════════════════════ */
+const GH_REPO  = 'PRAFUL33290/FINAL-MEDLEY-BOLLYWOOD-ASPM-DANSE';
+const GH_FILE  = 'state.json';
+const GH_API   = `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`;
+let ghToken    = localStorage.getItem('g26_gh_token') || '';
+let ghSyncTimeout = null;
+
+function saveGhToken() {
+  const input = document.getElementById('ghTokenInput');
+  const val = (input.value || '').trim();
+  if (!val) { setGhStatus('error', 'Token vide'); return; }
+  ghToken = val;
+  localStorage.setItem('g26_gh_token', val);
+  input.value = '';
+  setGhStatus('ok', 'Token enregistré ✓');
+}
+
+function setGhStatus(state, msg) {
+  const dot = document.getElementById('ghSyncDot');
+  const lbl = document.getElementById('ghSyncLbl');
+  if (!dot || !lbl) return;
+  const colors = { ok:'#4CAF50', pending:'#F0B429', error:'#c0392b', off:'#555' };
+  dot.style.background = colors[state] || '#555';
+  lbl.textContent = msg;
+}
+
+async function pushStateToGitHub() {
+  if (!ghToken) return;
+  setGhStatus('pending', 'Synchronisation…');
+  try {
+    // 1. Récupérer le SHA actuel du fichier
+    const getResp = await fetch(GH_API, {
+      headers: { 'Authorization': 'Bearer ' + ghToken, 'Accept': 'application/vnd.github+json' }
+    });
+    let sha = null;
+    if (getResp.ok) {
+      const meta = await getResp.json();
+      sha = meta.sha;
+    } else if (getResp.status !== 404) {
+      const err = await getResp.json();
+      setGhStatus('error', '⚠ Erreur GitHub : ' + (err.message || getResp.status));
+      return;
+    }
+    // 2. Encoder le contenu en base64
+    const payload = JSON.stringify(buildSavePayload(), null, 2);
+    const encoded = btoa(unescape(encodeURIComponent(payload)));
+    // 3. Pousser le fichier
+    const body = { message: 'Auto-save state.json', content: encoded };
+    if (sha) body.sha = sha;
+    const putResp = await fetch(GH_API, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + ghToken,
+        'Accept': 'application/vnd.github+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+    if (putResp.ok) {
+      setGhStatus('ok', '☁️ Sync OK — ' + new Date().toLocaleTimeString('fr-FR'));
+    } else {
+      const err = await putResp.json();
+      setGhStatus('error', '⚠ ' + (err.message || putResp.status));
+    }
+  } catch (e) {
+    setGhStatus('error', '⚠ Hors ligne ou token invalide');
+  }
+}
+
+function scheduleGhSync() {
+  if (!ghToken) return;
+  clearTimeout(ghSyncTimeout);
+  ghSyncTimeout = setTimeout(pushStateToGitHub, 3000);
+}
+
+function pushStateNow() {
+  pushStateToGitHub();
+}
+
 /* ══ CHANGE & SAVE ══════════════════════════ */
 function notifyChange() {
   clearTimeout(saveTimeout);
@@ -666,6 +761,7 @@ function notifyChange() {
     if (fileHandle) {
       writeToFileHandle();
     }
+    scheduleGhSync();
   }, 1500);
 }
 
