@@ -259,18 +259,18 @@
       .sec-time { font-size:.64em; }
       .sec-lbl  { font-size:.65em; padding:0 6px; }
 
-      /* MAIN — colonnes → lignes */
+      /* MAIN — colonne unique, scène plein écran */
       .main {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto;
-        gap:6px;
-        padding:6px;
-        overflow:visible;
+        gap: 0;
+        padding: 0;
+        overflow: visible;
       }
-      /* Scène en premier, roster dessous */
-      .stage-col { order:1; }
-      .roster    { order:2; }
-      .right-panel-wrap, .right-panel { order:3; }
+      /* Scène en premier plein écran, noms dessous, config en bas */
+      .stage-col   { order:1; width:100%; }
+      .roster      { order:2; margin:6px 6px 0; }
+      .right-panel-wrap, .right-panel { order:3; margin:6px 6px 6px; }
 
       /* ROSTER */
       .roster { max-height:220px; overflow-y:auto; border-radius:6px; }
@@ -279,16 +279,17 @@
       .dancer-item { padding:4px 8px; font-size:.78em; }
       .d-dot { width:18px; height:18px; font-size:.6em; }
 
-      /* STAGE — pleine largeur */
+      /* STAGE — plein écran en largeur (bord à bord) */
       .stage-col { width:100%; }
-      .stage-lbl { font-size:.64em; letter-spacing:.12em; }
+      .stage-wrap { max-width:100%; }
+      .stage-lbl { font-size:.64em; letter-spacing:.12em; padding:0 6px; }
       #stage { cursor:pointer; }
       .wing-txt { font-size:.45em; }
       .zband-lbl { font-size:.5em; letter-spacing:.06em; }
       .token { width:24px; height:24px; font-size:.52em; }
       .token.praful { width:32px; height:32px; font-size:.62em; }
       body.names .token { font-size:.48em; padding:0 5px; }
-      .stage-info { gap:8px; font-size:.7em; flex-wrap:wrap; }
+      .stage-info { gap:8px; font-size:.7em; flex-wrap:wrap; padding:0 6px; }
       .count-pill .big-num { font-size:1.6em; }
       .count-pill { gap:8px; }
       .audience-bar { font-size:.65em; padding:4px; }
