@@ -234,7 +234,7 @@
       /* Autoriser le scroll vertical sur mobile */
       html, body { height:auto; overflow:auto; overflow-x:hidden; }
 
-      body { font-size:13px; }
+      body { font-size:16px; }
 
       /* HEADER compact */
       header { padding:6px 10px 4px; }
@@ -267,6 +267,10 @@
         padding:6px;
         overflow:visible;
       }
+      /* Scène en premier, roster dessous */
+      .stage-col { order:1; }
+      .roster    { order:2; }
+      .right-panel-wrap, .right-panel { order:3; }
 
       /* ROSTER */
       .roster { max-height:220px; overflow-y:auto; border-radius:6px; }
@@ -316,13 +320,13 @@
       /* MODAL */
       .modal { min-width:calc(100vw - 40px); padding:16px; }
 
-      /* Tooltips masqués sur mobile (touch) */
-      .token .tip { display:none; }
+      /* Tooltips sur mobile : visibles au tap (JS), taille lisible */
+      .token .tip { display:block; font-size:13px; }
     }
 
     /* Très petits écrans (iPhone SE etc.) */
     @media (max-width: 375px) {
-      body { font-size:12px; }
+      body { font-size:14px; }
       header h1 { font-size:1.1em; }
       .roster { max-height:180px; }
       .gfilters { grid-template-columns:1fr 1fr; }
@@ -1308,6 +1312,18 @@ function placeAllInCoulisses() {
 
 /* ══ DRAG ON STAGE ══════════════════════════ */
 function makeDraggable(el, container, onMove) {
+  // Sur mobile (tactile) : pas de drag, juste afficher le nom au tap
+  if (window.matchMedia('(pointer: coarse)').matches) {
+    el.addEventListener('touchstart', () => {
+      const tip = el.querySelector('.tip');
+      if (!tip) return;
+      tip.style.opacity = '1';
+      clearTimeout(el._tipTimer);
+      el._tipTimer = setTimeout(() => { tip.style.opacity = '0'; }, 2000);
+    }, { passive: true });
+    return;
+  }
+
   let drag=false, sx,sy,ex,ey;
   let groupDrag = null; // {key → {ex,ey}} when dragging a lasso-selection
 
