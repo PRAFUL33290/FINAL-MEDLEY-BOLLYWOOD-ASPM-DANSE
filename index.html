@@ -421,7 +421,7 @@
 <header>
   <div class="pre">A S P M &nbsp; D A N S E</div>
   <h1>✦ GALA 2026 ✦</h1>
-  <h2>— F I N A L —</h2>
+  <h2>— F I N A L  B O L L Y W O O D —</h2>
 </header>
 
 <div class="audio-wrap">
@@ -986,6 +986,8 @@ function clickSection(id) {
   document.getElementById('secSaveBtn').disabled = false;
   updateFabLabel();
   const s = TL.find(x => x.id === id);
+  const a = document.getElementById('audio');
+  if (a && s && a.duration) a.currentTime = s.start;
   if (secForms[id]) {
     loadSnap(secForms[id]);
     setMsg(`Formation "${s.label}" chargée`);
