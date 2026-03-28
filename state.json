@@ -1,7 +1,7 @@
 {
   "version": 1,
   "app": "ASPM DANSE — GALA 2026",
-  "savedAt": "2026-03-28T14:57:02.364Z",
+  "savedAt": "2026-03-28T14:57:14.898Z",
   "secForms": {
     "tpsfort": {
       "dancers": {
@@ -6370,7 +6370,7 @@
   "groupZones": {
     "j_ado": "devant",
     "j_int": "mil-fond",
-    "v_enf": "mil-avant",
-    "v_deb": "fond"
+    "v_enf": null,
+    "v_deb": null
   }
 }
