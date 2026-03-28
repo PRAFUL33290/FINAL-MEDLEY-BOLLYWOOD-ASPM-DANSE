@@ -608,9 +608,9 @@
 
     <hr class="sep">
     <div class="ptitle">☁️ Sync tous appareils</div>
-    <div class="zone-sub" style="margin-bottom:7px;">Entre ton token GitHub pour sauvegarder automatiquement sur tous les appareils (mobile, tablette, PC).</div>
+    <div class="zone-sub" style="margin-bottom:7px;">Entre ton token GitHub (classique ou fine-grained) pour sauvegarder automatiquement sur tous les appareils (mobile, tablette, PC).</div>
     <div style="display:flex;gap:5px;margin-bottom:5px;">
-      <input type="password" id="ghTokenInput" placeholder="GitHub token (ghp_…)" autocomplete="off"
+      <input type="password" id="ghTokenInput" placeholder="GitHub token (ghp_… / github_pat_…)" autocomplete="off"
         style="flex:1;padding:7px 8px;background:#1a1a1a;border:1px solid var(--border);color:#fff;border-radius:4px;font-size:.75em;font-family:inherit;">
       <button class="btn" style="width:auto;padding:7px 10px;flex-shrink:0;" onclick="saveGhToken()">OK</button>
     </div>
@@ -731,6 +731,7 @@ const PRAFUL = { name:'Praful Parvati India', gid:'praful', color:'#d4a44c', sho
 let placed      = {};   // "gid:name" → {name,groupId,color,short,x,y,el}
 let formations  = JSON.parse(localStorage.getItem('g26_f')  || '[]');
 let secForms    = JSON.parse(localStorage.getItem('g26_sf') || '{}');
+let desktopSnap = JSON.parse(localStorage.getItem('g26_desktop_snap') || 'null');
 let fileHandle  = null; // File System Access API handle
 let _pendingHandle = null; // handle restauré depuis IDB en attente de permission
 let publicSet   = new Set(); // keys "gid:name" de danseuses envoyées dans le public
@@ -767,7 +768,8 @@ const _IDB = (() => {
     }
   };
 })();
-let groupZones  = { j_ado:'devant', j_int:'mil-avant', v_enf:'mil-fond', v_deb:'fond' };
+let groupZones  = JSON.parse(localStorage.getItem('g26_group_zones') || 'null')
+               || { j_ado:'devant', j_int:'mil-avant', v_enf:'mil-fond', v_deb:'fond' };
 let selSet      = new Set(); // selected dancer keys "gid:name"
 let activeFilter  = null;
 let activeSecId   = null;
@@ -788,7 +790,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupStageInteraction();
   renderFormations();
   // Afficher statut token GitHub
-  if (ghToken) setGhStatus('ok', 'Token configuré ✓');
+  if (ghToken) {
+    setGhStatus('pending', 'Token configuré — vérification…');
+    await validateGhTokenAccess();
+  }
   // Charger state.json depuis le repo (GitHub Pages) si disponible
   let loaded = false;
   try {
@@ -809,6 +814,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (lastSec && secForms[lastSec]) {
       clickSection(lastSec);
       setMsg('✓ Placements restaurés depuis la mémoire locale');
+    } else if (desktopSnap && desktopSnap.dancers && Object.keys(desktopSnap.dancers).length > 0) {
+      loadSnap(desktopSnap);
+      setMsg('✓ Placements desktop restaurés automatiquement');
     } else {
       placeAllInCoulisses();
     }
@@ -846,18 +854,49 @@ document.addEventListener('keydown', e => {
 const GH_REPO  = 'PRAFUL33290/FINAL-MEDLEY-BOLLYWOOD-ASPM-DANSE';
 const GH_FILE  = 'state.json';
 const GH_API   = `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`;
-const GH_TOKEN_DEFAULT = 'XMWfk1lBNKoWPPSeIvzgTf143zYFR9YyqATI_phg'.split('').reverse().join('');
-let ghToken    = localStorage.getItem('g26_gh_token') || GH_TOKEN_DEFAULT;
+let ghToken    = localStorage.getItem('g26_gh_token') || '';
 let ghSyncTimeout = null;
 
-function saveGhToken() {
+async function saveGhToken() {
   const input = document.getElementById('ghTokenInput');
   const val = (input.value || '').trim();
   if (!val) { setGhStatus('error', 'Token vide'); return; }
+  if (!/^ghp_|^github_pat_/.test(val)) {
+    setGhStatus('error', 'Format token invalide (ghp_… ou github_pat_…)');
+    return;
+  }
   ghToken = val;
   localStorage.setItem('g26_gh_token', val);
   input.value = '';
-  setGhStatus('ok', 'Token enregistré ✓');
+  setGhStatus('pending', 'Token enregistré — vérification…');
+  const ok = await validateGhTokenAccess();
+  if (!ok) return;
+  setGhStatus('ok', 'Token valide ✓');
+}
+
+async function validateGhTokenAccess() {
+  if (!ghToken) return false;
+  try {
+    const resp = await fetch(`https://api.github.com/repos/${GH_REPO}`, {
+      headers: {
+        'Authorization': 'Bearer ' + ghToken,
+        'Accept': 'application/vnd.github+json'
+      }
+    });
+    if (resp.ok) return true;
+    const err = await resp.json();
+    const status = resp.status;
+    if (status === 401) {
+      setGhStatus('error', 'Token refusé (401) — token invalide ou expiré');
+    } else if (status === 403 || status === 404) {
+      setGhStatus('error', 'Token sans accès au dépôt — donner Read/Write sur ce repo');
+    } else {
+      setGhStatus('error', `Erreur GitHub ${status} : ${err.message || 'inconnue'}`);
+    }
+  } catch (e) {
+    setGhStatus('error', '⚠ Hors ligne — impossible de vérifier le token');
+  }
+  return false;
 }
 
 function setGhStatus(state, msg) {
@@ -926,11 +965,16 @@ function pushStateNow() {
 function notifyChange() {
   clearTimeout(saveTimeout);
   saveTimeout = setTimeout(() => {
-    if (!activeSecId) return;
-    secForms[activeSecId] = makeSnap();
-    localStorage.setItem('g26_sf', JSON.stringify(secForms));
+    const snap = makeSnap();
+    desktopSnap = snap;
+    localStorage.setItem('g26_desktop_snap', JSON.stringify(snap));
+    localStorage.setItem('g26_group_zones', JSON.stringify(groupZones));
+    if (activeSecId) {
+      secForms[activeSecId] = snap;
+      localStorage.setItem('g26_sf', JSON.stringify(secForms));
+    }
     refreshSecDots();
-    setMsg('✓ Changements sauvegardés automatiquement');
+    setMsg('✓ Changements sauvegardés automatiquement (desktop)');
     if (fileHandle) {
       writeToFileHandle();
     }
@@ -1072,8 +1116,12 @@ function clickSection(id) {
 
 function saveToSection() {
   if (!activeSecId) return;
-  secForms[activeSecId] = makeSnap();
+  const snap = makeSnap();
+  secForms[activeSecId] = snap;
+  desktopSnap = snap;
   localStorage.setItem('g26_sf', JSON.stringify(secForms));
+  localStorage.setItem('g26_desktop_snap', JSON.stringify(snap));
+  localStorage.setItem('g26_group_zones', JSON.stringify(groupZones));
   refreshSecDots();
   const s = TL.find(x => x.id === activeSecId);
   setMsg(`✓ Sauvegardé pour "${s.label}"`);
@@ -1830,7 +1878,8 @@ function buildSavePayload() {
     savedAt: new Date().toISOString(),
     secForms,
     formations,
-    groupZones
+    groupZones,
+    desktopSnap
   };
 }
 
@@ -1943,10 +1992,22 @@ function applyStateData(data) {
   }
   if (data.groupZones) {
     groupZones = { ...data.groupZones };
+    localStorage.setItem('g26_group_zones', JSON.stringify(groupZones));
     renderZoneBadges();
+  }
+  if (data.desktopSnap) {
+    desktopSnap = data.desktopSnap;
+    localStorage.setItem('g26_desktop_snap', JSON.stringify(desktopSnap));
   }
   refreshSecDots();
   renderFormations();
+  if (!desktopSnap && data.secForms && Object.keys(data.secForms).length > 0) {
+    const firstSnap = data.secForms[Object.keys(data.secForms)[0]];
+    if (firstSnap) {
+      desktopSnap = firstSnap;
+      localStorage.setItem('g26_desktop_snap', JSON.stringify(firstSnap));
+    }
+  }
   if (activeSecId && secForms[activeSecId]) loadSnap(secForms[activeSecId]);
   else placeAllInCoulisses();
 }
