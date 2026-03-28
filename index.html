@@ -342,6 +342,11 @@
       .token .tip { display:block; font-size:13px; }
     }
 
+    /* Mobile uniquement (pas tablette) : masquer le bouton flottant Sauvegarder */
+    @media (max-width: 767px) {
+      .save-fab { display:none !important; }
+    }
+
     /* Très petits écrans (iPhone SE etc.) */
     @media (max-width: 375px) {
       body { font-size:14px; }
