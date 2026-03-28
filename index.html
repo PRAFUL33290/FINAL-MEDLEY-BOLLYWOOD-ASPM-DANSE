@@ -116,6 +116,31 @@
 
     /* STAGE */
     .stage-col { display:flex; flex-direction:column; align-items:center; gap:5px; min-width:0; }
+    .landscape-hint {
+      display:none;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      width:100%;
+      padding:7px 10px;
+      border:1px solid rgba(212,164,76,.45);
+      border-radius:6px;
+      background:rgba(212,164,76,.08);
+      color:var(--glt);
+      font-size:16px;
+      line-height:1.2;
+      text-align:center;
+    }
+    .landscape-hint svg {
+      width:20px;
+      height:20px;
+      flex-shrink:0;
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1.8;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
     .stage-lbl { font-size:.7em; letter-spacing:.22em; color:#fff; }
     .stage-wrap { position:relative; width:100%; max-width:800px; }
     #stage { position:relative; width:100%; aspect-ratio:16/9; background:radial-gradient(ellipse 80% 70% at 50% 40%,#2a1a06,#100a02); border:3px solid var(--gold); border-radius:3px; overflow:hidden; cursor:crosshair; user-select:none; }
@@ -228,6 +253,10 @@
     ::-webkit-scrollbar-track { background:transparent; }
     ::-webkit-scrollbar-thumb { background:#444; border-radius:2px; }
     hr.sep { border:none; border-top:1px solid var(--border); }
+
+    @media (max-width: 768px) and (orientation: portrait) {
+      .landscape-hint { display:flex; }
+    }
 
     /* ══ MOBILE RESPONSIVE ══════════════════════════════════ */
     @media (max-width: 768px) {
@@ -401,6 +430,15 @@
   </div>
 
   <div class="stage-col">
+    <div class="landscape-hint" aria-label="Conseil orientation mobile">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="4" y="8" width="16" height="8" rx="2"></rect>
+        <line x1="9" y1="19" x2="15" y2="19"></line>
+        <polyline points="19,5 21,7 19,9"></polyline>
+        <line x1="21" y1="7" x2="15" y2="7"></line>
+      </svg>
+      <span>Passe ton téléphone en mode paysage</span>
+    </div>
     <div class="stage-lbl">⬆ &nbsp; FOND DE SCÈNE &nbsp; ⬆</div>
     <div class="stage-wrap">
       <div id="stage"
