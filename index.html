@@ -240,6 +240,47 @@
     .leg-item { display:flex; align-items:center; gap:7px; font-size:.75em; color:#fff; }
     .leg-dot  { width:13px; height:13px; border-radius:50%; flex-shrink:0; }
 
+    /* STAGE LEGEND (below dynamic scene) */
+    .stage-legend {
+      width:100%;
+      max-width:800px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px 14px;
+      background:rgba(0,0,0,.55);
+      border:2px solid var(--gold);
+      border-radius:8px;
+      padding:10px 16px;
+      box-sizing:border-box;
+    }
+    .stage-legend-title {
+      grid-column:1/-1;
+      text-align:center;
+      font-size:.78em;
+      letter-spacing:.18em;
+      color:var(--gold);
+      text-transform:uppercase;
+      margin-bottom:2px;
+      font-weight:bold;
+    }
+    .sl-item {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:.88em;
+      font-weight:bold;
+      color:#fff;
+      letter-spacing:.04em;
+    }
+    .sl-dot {
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      flex-shrink:0;
+      border:2px solid rgba(255,255,255,.6);
+      box-shadow:0 0 8px currentColor;
+    }
+
     /* MODAL */
     .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.8); z-index:1000; align-items:center; justify-content:center; }
     .overlay.show { display:flex; }
@@ -395,6 +436,23 @@
       .leg-item { font-size:.65em; gap:5px; }
       .leg-dot  { width:11px; height:11px; }
 
+      /* STAGE LEGEND — mobile */
+      .stage-legend {
+        max-width:none;
+        width:100vw;
+        margin-left:calc(50% - 50vw);
+        margin-right:calc(50% - 50vw);
+        border-left:none;
+        border-right:none;
+        border-radius:0;
+        grid-template-columns:1fr 1fr;
+        gap:10px 12px;
+        padding:12px 16px;
+      }
+      .stage-legend-title { font-size:.82em; margin-bottom:4px; }
+      .sl-item { font-size:.92em; gap:10px; }
+      .sl-dot  { width:20px; height:20px; }
+
       /* MODAL */
       .modal { min-width:calc(100vw - 40px); padding:16px; }
 
@@ -497,6 +555,14 @@
       </div>
     </div>
     <div class="info-msg" id="infoMsg">Sélectionner une danseuse dans la liste, puis cliquer sur la scène</div>
+
+    <div class="stage-legend">
+      <div class="stage-legend-title">🎨 Légende des groupes</div>
+      <div class="sl-item"><div class="sl-dot" style="background:var(--j-ado);color:var(--j-ado)"></div> Groupe Ado · Jeudi</div>
+      <div class="sl-item"><div class="sl-dot" style="background:var(--v-enf);color:var(--v-enf)"></div> Groupe Enfant · Vendredi</div>
+      <div class="sl-item"><div class="sl-dot" style="background:var(--j-int);color:var(--j-int)"></div> Groupe Adulte · Jeudi</div>
+      <div class="sl-item"><div class="sl-dot" style="background:var(--v-deb);color:var(--v-deb)"></div> Groupe Adultes · Vendredi</div>
+    </div>
   </div>
 
   <div class="right-panel">
@@ -568,10 +634,10 @@
 </div>
 
 <div class="legend">
-  <div class="leg-item"><div class="leg-dot" style="background:var(--j-ado)"></div> J — Jeudi 19h · ADO (16)</div>
-  <div class="leg-item"><div class="leg-dot" style="background:var(--j-int)"></div> J — Jeudi 20h · INTERMÉDIAIRE (20)</div>
-  <div class="leg-item"><div class="leg-dot" style="background:var(--v-enf)"></div> V — Vendredi 19h · ENFANT (18)</div>
-  <div class="leg-item"><div class="leg-dot" style="background:var(--v-deb)"></div> V — Vendredi 20h · DÉBUTANT (16)</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--j-ado)"></div> Groupe Ado · Jeudi (16)</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--v-enf)"></div> Groupe Enfant · Vendredi (18)</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--j-int)"></div> Groupe Adulte · Jeudi (20)</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--v-deb)"></div> Groupe Adultes · Vendredi (16)</div>
 </div>
 
 <div class="overlay" id="saveModal">
