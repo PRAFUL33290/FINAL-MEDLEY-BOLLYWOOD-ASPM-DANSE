@@ -1,7 +1,7 @@
 {
   "version": 1,
   "app": "ASPM DANSE — GALA 2026",
-  "savedAt": "2026-03-28T18:23:55.079Z",
+  "savedAt": "2026-03-28T18:24:06.041Z",
   "secForms": {
     "tpsfort": {
       "dancers": {
@@ -2254,22 +2254,6 @@
           "x": 57.76470588235295,
           "y": 12.48
         },
-        "v_deb:RIDEL-DROETTO Norah": {
-          "name": "RIDEL-DROETTO Norah",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 68.11764705882352,
-          "y": 12.48
-        },
-        "v_deb:SAVEAN Amanda": {
-          "name": "SAVEAN Amanda",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 78.47058823529412,
-          "y": 12.48
-        },
         "v_deb:SCOTTI Vera": {
           "name": "SCOTTI Vera",
           "groupId": "v_deb",
@@ -2277,6 +2261,22 @@
           "short": "V·DEB",
           "x": 88.8235294117647,
           "y": 12.48
+        },
+        "v_deb:SAVEAN Amanda": {
+          "name": "SAVEAN Amanda",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 98.5,
+          "y": 89
+        },
+        "v_deb:RIDEL-DROETTO Norah": {
+          "name": "RIDEL-DROETTO Norah",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 98.5,
+          "y": 83
         }
       },
       "zones": {
@@ -6368,9 +6368,9 @@
   },
   "formations": [],
   "groupZones": {
-    "j_ado": null,
-    "j_int": null,
-    "v_enf": "mil-avant",
+    "j_ado": "devant",
+    "j_int": "mil-fond",
+    "v_enf": null,
     "v_deb": null
   }
 }
