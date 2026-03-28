@@ -27,15 +27,64 @@
     .play-btn { width:40px; height:40px; border-radius:50%; background:var(--gold); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform .12s,box-shadow .12s; }
     .play-btn:hover { transform:scale(1.1); box-shadow:0 0 14px rgba(212,164,76,.6); }
     .play-btn svg { fill:#000; }
-    .prog-wrap { flex:1; display:flex; flex-direction:column; gap:4px; }
-    .tl-bar { position:relative; height:28px; background:rgba(255,255,255,.07); border-radius:4px; overflow:hidden; cursor:pointer; }
-    .tl-seg { position:absolute; top:0; bottom:0; display:flex; align-items:center; justify-content:center; font-size:.7em; font-weight:bold; overflow:hidden; white-space:nowrap; border-right:1px solid rgba(0,0,0,.4); color:#fff; transition:filter .15s; }
+    .prog-wrap { flex:1; display:flex; flex-direction:column; gap:6px; min-width:0; }
+    .tl-bar {
+      position:relative;
+      height:36px;
+      background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:999px;
+      overflow:hidden;
+      cursor:pointer;
+      backdrop-filter:blur(6px);
+      box-shadow:
+        inset 0 1px 1px rgba(255,255,255,.12),
+        inset 0 -8px 14px rgba(0,0,0,.3),
+        0 8px 22px rgba(0,0,0,.35);
+      touch-action:none;
+    }
+    .tl-progress {
+      position:absolute; left:0; top:0; bottom:0; width:0%;
+      background:linear-gradient(90deg, rgba(255,255,255,.26), rgba(255,255,255,.06));
+      pointer-events:none;
+    }
+    .tl-seg { position:absolute; top:2px; bottom:2px; display:flex; align-items:center; justify-content:center; font-size:.68em; font-weight:bold; overflow:hidden; white-space:nowrap; border-right:1px solid rgba(0,0,0,.45); color:#fff; transition:filter .15s,opacity .15s; opacity:.82; }
     .tl-seg:hover  { filter:brightness(1.2); }
-    .tl-seg.active { filter:brightness(1.4); box-shadow:inset 0 0 0 2px rgba(255,255,255,.5); }
-    .tl-cursor { position:absolute; top:0; bottom:0; width:2px; background:#fff; z-index:10; pointer-events:none; box-shadow:0 0 6px rgba(255,255,255,.9); }
+    .tl-seg.active { filter:brightness(1.4); box-shadow:inset 0 0 0 2px rgba(255,255,255,.5); opacity:1; }
+    .tl-cursor {
+      position:absolute; top:50%; width:20px; height:20px; border-radius:50%;
+      background:radial-gradient(circle at 35% 35%, #fff, #d9d9d9 60%, #a9a9a9);
+      z-index:10; pointer-events:none;
+      transform:translate(-50%,-50%);
+      box-shadow:0 0 0 3px rgba(255,255,255,.3), 0 6px 14px rgba(0,0,0,.45);
+    }
+    .tl-cursor::after {
+      content:''; position:absolute; inset:6px; border-radius:50%;
+      background:rgba(255,255,255,.45);
+    }
     .audio-meta { display:flex; justify-content:space-between; align-items:center; font-size:.78em; }
     .t-disp { color:var(--gold); font-family:monospace; }
     .t-sec  { color:#fff; font-style:italic; }
+    .tl-nav {
+      display:flex; gap:6px; overflow-x:auto; padding-bottom:2px;
+      scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.35) transparent;
+    }
+    .tl-chip {
+      border:none;
+      border-radius:999px;
+      padding:5px 10px;
+      color:#fff;
+      font-size:.7em;
+      font-weight:bold;
+      white-space:nowrap;
+      cursor:pointer;
+      flex-shrink:0;
+      opacity:.82;
+      transition:transform .12s,opacity .12s,box-shadow .12s;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.35), 0 4px 12px rgba(0,0,0,.26);
+    }
+    .tl-chip:hover { transform:translateY(-1px); opacity:1; }
+    .tl-chip.active { opacity:1; box-shadow:inset 0 0 0 2px rgba(255,255,255,.8), 0 6px 15px rgba(0,0,0,.35); }
     .vol-wrap { display:flex; flex-direction:column; gap:2px; align-items:center; flex-shrink:0; }
     .vol-wrap label { font-size:.65em; color:#fff; letter-spacing:.1em; }
     input[type=range] { accent-color:var(--gold); width:55px; cursor:pointer; }
@@ -323,9 +372,12 @@
       .prog-wrap { order:3; width:100%; flex:none; }
       .play-btn  { width:62px; height:62px; flex-shrink:0; }
       .play-btn svg { width:28px; height:28px; }
-      .tl-bar    { height:24px; }
+      .tl-bar    { height:40px; }
       .tl-seg    { font-size:.6em; }
+      .tl-cursor { width:24px; height:24px; }
       .audio-meta { font-size:.7em; }
+      .tl-nav { gap:5px; padding-bottom:4px; }
+      .tl-chip { font-size:.72em; padding:6px 10px; }
       .vol-wrap  { order:4; flex-direction:row; gap:8px; align-items:center; }
       .vol-wrap label { font-size:.65em; }
       input[type=range] { width:80px; }
@@ -498,8 +550,10 @@
   </div>
   <div class="prog-wrap">
     <div class="tl-bar" id="tlBar" onclick="seekTo(event)">
+      <div class="tl-progress" id="tlProgress"></div>
       <div class="tl-cursor" id="tlCursor" style="left:0%"></div>
     </div>
+    <div class="tl-nav" id="tlNav" aria-label="Navigation timeline musique"></div>
     <div class="audio-meta">
       <span class="t-disp" id="tDisp">0:00</span>
       <span class="t-sec"  id="tSec">—</span>
@@ -773,6 +827,7 @@ let groupZones  = JSON.parse(localStorage.getItem('g26_group_zones') || 'null')
 let selSet      = new Set(); // selected dancer keys "gid:name"
 let activeFilter  = null;
 let activeSecId   = null;
+let activeChipId  = null;
 let showNames     = false;
 // Lasso selection
 let lassoSel      = new Set();  // placed keys selected via lasso
@@ -1096,9 +1151,14 @@ function buildSecBar() {
 
 function clickSection(id) {
   activeSecId = id;
+  activeChipId = id;
   localStorage.setItem('g26_active_sec', id);
   document.querySelectorAll('.sec-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(`sb_${id}`).classList.add('active');
+  TL.forEach(s => {
+    const chip = document.getElementById(`chip_${s.id}`);
+    if (chip) chip.classList.toggle('active', s.id === id);
+  });
   document.getElementById('secSaveBtn').disabled = false;
   updateFabLabel();
   const s = TL.find(x => x.id === id);
@@ -2168,6 +2228,8 @@ function updateLists() {
 /* ══ AUDIO ══════════════════════════════════ */
 function setupAudio() {
   const a = document.getElementById('audio');
+  const bar = document.getElementById('tlBar');
+  const nav = document.getElementById('tlNav');
   const coverUrl = 'https://parvati-india.fr/wp-content/uploads/2026/03/COVER.png';
   if ('mediaSession' in navigator && typeof window.MediaMetadata !== 'undefined') {
     navigator.mediaSession.metadata = new MediaMetadata({
@@ -2181,7 +2243,7 @@ function setupAudio() {
   }
   a.addEventListener('loadedmetadata', () => {
     document.getElementById('tDur').textContent = fmt(a.duration);
-    const bar = document.getElementById('tlBar'), cur = document.getElementById('tlCursor');
+    const cur = document.getElementById('tlCursor');
     TL.forEach(s => {
       const div = document.createElement('div');
       div.className = 'tl-seg';
@@ -2191,15 +2253,36 @@ function setupAudio() {
       div.textContent   = s.label;
       div.title         = `${s.label} · ${s.time}`;
       bar.insertBefore(div, cur);
+
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'tl-chip';
+      chip.id = `chip_${s.id}`;
+      chip.style.background = `linear-gradient(180deg, ${s.color}, color-mix(in srgb, ${s.color} 52%, #111))`;
+      chip.textContent = `${s.label} · ${s.time}`;
+      chip.title = `Aller à ${s.label}`;
+      chip.addEventListener('click', () => jumpToSection(s.id));
+      nav.appendChild(chip);
     });
+    setupScrubbing(bar, a);
   });
   a.addEventListener('timeupdate', () => {
     const pct = (a.currentTime/a.duration*100)||0;
     document.getElementById('tlCursor').style.left = pct+'%';
+    document.getElementById('tlProgress').style.width = pct+'%';
     document.getElementById('tDisp').textContent = fmt(a.currentTime);
     const cur = TL.find(s => a.currentTime>=s.start && a.currentTime<s.end);
     document.getElementById('tSec').textContent = cur ? `♪ ${cur.label}` : '';
     document.querySelectorAll('.tl-seg').forEach((el,i)=>el.classList.toggle('active',!!(cur&&TL[i]===cur)));
+    TL.forEach(s => {
+      const chip = document.getElementById(`chip_${s.id}`);
+      if (chip) chip.classList.toggle('active', !!(cur && cur.id === s.id));
+    });
+    if (cur && cur.id !== activeChipId) {
+      activeChipId = cur.id;
+      const chip = document.getElementById(`chip_${cur.id}`);
+      if (chip) chip.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
+    }
     if (cur && cur.id !== activeSecId) {
       document.querySelectorAll('.sec-btn').forEach(b=>b.classList.remove('active'));
       const btn = document.getElementById(`sb_${cur.id}`);
@@ -2211,6 +2294,48 @@ function setupAudio() {
     }
   });
   a.addEventListener('ended', () => { document.getElementById('playIcon').innerHTML='<path d="M8 5v14l11-7z"/>'; });
+}
+
+function jumpToSection(sectionId) {
+  const s = TL.find(x => x.id === sectionId);
+  const a = document.getElementById('audio');
+  if (!s || !a || !a.duration) return;
+  a.currentTime = s.start;
+  if (a.paused) {
+    const icon = document.getElementById('playIcon');
+    a.play();
+    if (icon) icon.innerHTML='<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+  }
+}
+
+function setupScrubbing(bar, audio) {
+  if (!bar || !audio) return;
+  let isScrubbing = false;
+
+  const setTimeFromClientX = (clientX) => {
+    if (!audio.duration) return;
+    const r = bar.getBoundingClientRect();
+    const ratio = clamp((clientX - r.left) / r.width, 0, 1);
+    audio.currentTime = ratio * audio.duration;
+  };
+
+  bar.addEventListener('pointerdown', (e) => {
+    isScrubbing = true;
+    bar.setPointerCapture(e.pointerId);
+    setTimeFromClientX(e.clientX);
+  });
+
+  bar.addEventListener('pointermove', (e) => {
+    if (!isScrubbing) return;
+    setTimeFromClientX(e.clientX);
+  });
+
+  bar.addEventListener('pointerup', (e) => {
+    if (!isScrubbing) return;
+    isScrubbing = false;
+    bar.releasePointerCapture(e.pointerId);
+    setTimeFromClientX(e.clientX);
+  });
 }
 function togglePlay() {
   const a=document.getElementById('audio'), icon=document.getElementById('playIcon');
