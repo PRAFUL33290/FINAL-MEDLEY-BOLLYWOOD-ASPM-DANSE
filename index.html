@@ -20,6 +20,17 @@
     header h1   { font-size:1.8em; letter-spacing:.18em; color:var(--glt); text-shadow:0 0 40px rgba(212,164,76,.5); }
     header h2   { font-size:.85em; letter-spacing:.38em; color:#fff; }
 
+    .transport-note {
+      flex-shrink:0;
+      text-align:center;
+      padding:8px 14px;
+      font-size:.82em;
+      background:rgba(212,164,76,.12);
+      border-bottom:1px solid rgba(212,164,76,.45);
+      color:#fff;
+    }
+    .transport-note strong { color:var(--glt); }
+
     /* AUDIO */
     .audio-wrap { flex-shrink:0; padding:8px 16px; background:var(--bg2); border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; }
     .cover-wrap { width:48px; height:48px; border-radius:8px; overflow:hidden; border:1px solid rgba(212,164,76,.55); flex-shrink:0; box-shadow:0 0 10px rgba(212,164,76,.2); }
@@ -537,12 +548,14 @@
   <h2>— F I N A L  B O L L Y W O O D —</h2>
 </header>
 
+<div class="transport-note">🚗 Frais de transport : <strong>3,00 €</strong> à Mérignac · <strong>gratuits</strong> au Pian-Médoc.</div>
+
 <div class="audio-wrap">
   <button class="play-btn" onclick="togglePlay()">
     <svg id="playIcon" width="17" height="17" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
   </button>
   <div class="cover-wrap" aria-hidden="true">
-    <img src="https://parvati-india.fr/wp-content/uploads/2026/03/COVER.png" alt="Cover FINAL BOLLYWOOD GALA 2026">
+    <img src="Captures_2.png" alt="Cover FINAL BOLLYWOOD GALA 2026">
   </div>
   <div class="music-title-mobile">
     <span class="mtm-main">FINAL BOLLYWOOD GALA 2026</span>
@@ -2230,7 +2243,7 @@ function setupAudio() {
   const a = document.getElementById('audio');
   const bar = document.getElementById('tlBar');
   const nav = document.getElementById('tlNav');
-  const coverUrl = 'https://parvati-india.fr/wp-content/uploads/2026/03/COVER.png';
+  const coverUrl = 'Captures_2.png';
   if ('mediaSession' in navigator && typeof window.MediaMetadata !== 'undefined') {
     navigator.mediaSession.metadata = new MediaMetadata({
       title: 'FINAL BOLLYWOOD GALA 2026',
