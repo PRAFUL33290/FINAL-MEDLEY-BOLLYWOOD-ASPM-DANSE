@@ -1,7 +1,7 @@
 {
   "version": 1,
   "app": "ASPM DANSE — GALA 2026",
-  "savedAt": "2026-03-28T16:57:53.765Z",
+  "savedAt": "2026-03-28T16:58:12.515Z",
   "secForms": {
     "tpsfort": {
       "dancers": {
@@ -3220,6 +3220,14 @@
           "x": 37.05882352941177,
           "y": 76.76
         },
+        "j_ado:LAPOULE Mélina": {
+          "name": "LAPOULE Mélina",
+          "groupId": "j_ado",
+          "color": "#E8734A",
+          "short": "J·ADO",
+          "x": 47.411764705882355,
+          "y": 76.76
+        },
         "j_ado:LAURENT Lucie": {
           "name": "LAURENT Lucie",
           "groupId": "j_ado",
@@ -3411,14 +3419,6 @@
           "short": "J·INT",
           "x": 89.80952380952381,
           "y": 35.8
-        },
-        "j_ado:LAPOULE Mélina": {
-          "name": "LAPOULE Mélina",
-          "groupId": "j_ado",
-          "color": "#E8734A",
-          "short": "J·ADO",
-          "x": 1.5,
-          "y": 71
         }
       },
       "zones": {
@@ -6370,7 +6370,7 @@
   "groupZones": {
     "j_ado": "devant",
     "j_int": "mil-fond",
-    "v_enf": null,
+    "v_enf": "mil-avant",
     "v_deb": null
   }
 }
