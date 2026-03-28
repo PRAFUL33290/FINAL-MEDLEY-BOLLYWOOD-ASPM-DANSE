@@ -1,7 +1,7 @@
 {
   "version": 1,
   "app": "ASPM DANSE — GALA 2026",
-  "savedAt": "2026-03-28T18:43:59.022Z",
+  "savedAt": "2026-03-28T18:44:17.554Z",
   "secForms": {
     "tpsfort": {
       "dancers": {
@@ -163,134 +163,6 @@
           "color": "#F0B429",
           "short": "J·INT",
           "x": 3.5,
-          "y": 95
-        },
-        "v_deb:DUBOIS Julie Claire": {
-          "name": "DUBOIS Julie Claire",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 5
-        },
-        "v_deb:JOLLARD Marianne": {
-          "name": "JOLLARD Marianne",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 11
-        },
-        "v_deb:HECK Typhen": {
-          "name": "HECK Typhen",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 17
-        },
-        "v_deb:JOLY Clémentine": {
-          "name": "JOLY Clémentine",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 23
-        },
-        "v_deb:JOLLARD Élisée": {
-          "name": "JOLLARD Élisée",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 29
-        },
-        "v_deb:EYHERABIDE Céline": {
-          "name": "EYHERABIDE Céline",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 35
-        },
-        "v_deb:VILDIEU Roxane": {
-          "name": "VILDIEU Roxane",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 41
-        },
-        "v_deb:GONCALVES DE SOUSA Maria": {
-          "name": "GONCALVES DE SOUSA Maria",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 47
-        },
-        "v_deb:BALOUT Corinne": {
-          "name": "BALOUT Corinne",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 53
-        },
-        "v_deb:CAZE Maëva": {
-          "name": "CAZE Maëva",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 59
-        },
-        "v_deb:BARNEL Céline": {
-          "name": "BARNEL Céline",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 65
-        },
-        "v_deb:LEBAILLIF Emilie": {
-          "name": "LEBAILLIF Emilie",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 71
-        },
-        "v_deb:POIREE Céline": {
-          "name": "POIREE Céline",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 77
-        },
-        "v_deb:RIDEL-DROETTO Norah": {
-          "name": "RIDEL-DROETTO Norah",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 83
-        },
-        "v_deb:SAVEAN Amanda": {
-          "name": "SAVEAN Amanda",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 89
-        },
-        "v_deb:SCOTTI Vera": {
-          "name": "SCOTTI Vera",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
           "y": 95
         },
         "j_ado:DARRENOUGUE Manon": {
@@ -564,13 +436,141 @@
           "short": "V·ENF",
           "x": 89.36842105263159,
           "y": 57.46
+        },
+        "v_deb:DUBOIS Julie Claire": {
+          "name": "DUBOIS Julie Claire",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 11.176470588235293,
+          "y": 21.28
+        },
+        "v_deb:JOLLARD Marianne": {
+          "name": "JOLLARD Marianne",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 21.529411764705884,
+          "y": 21.28
+        },
+        "v_deb:HECK Typhen": {
+          "name": "HECK Typhen",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 31.88235294117647,
+          "y": 21.28
+        },
+        "v_deb:JOLY Clémentine": {
+          "name": "JOLY Clémentine",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 42.23529411764706,
+          "y": 21.28
+        },
+        "v_deb:JOLLARD Élisée": {
+          "name": "JOLLARD Élisée",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 52.58823529411765,
+          "y": 21.28
+        },
+        "v_deb:EYHERABIDE Céline": {
+          "name": "EYHERABIDE Céline",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 62.94117647058823,
+          "y": 21.28
+        },
+        "v_deb:VILDIEU Roxane": {
+          "name": "VILDIEU Roxane",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 73.29411764705883,
+          "y": 21.28
+        },
+        "v_deb:GONCALVES DE SOUSA Maria": {
+          "name": "GONCALVES DE SOUSA Maria",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 83.6470588235294,
+          "y": 21.28
+        },
+        "v_deb:BALOUT Corinne": {
+          "name": "BALOUT Corinne",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 16.352941176470587,
+          "y": 12.48
+        },
+        "v_deb:CAZE Maëva": {
+          "name": "CAZE Maëva",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 26.705882352941178,
+          "y": 12.48
+        },
+        "v_deb:BARNEL Céline": {
+          "name": "BARNEL Céline",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 37.05882352941177,
+          "y": 12.48
+        },
+        "v_deb:LEBAILLIF Emilie": {
+          "name": "LEBAILLIF Emilie",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 47.411764705882355,
+          "y": 12.48
+        },
+        "v_deb:POIREE Céline": {
+          "name": "POIREE Céline",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 57.76470588235295,
+          "y": 12.48
+        },
+        "v_deb:RIDEL-DROETTO Norah": {
+          "name": "RIDEL-DROETTO Norah",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 68.11764705882352,
+          "y": 12.48
+        },
+        "v_deb:SAVEAN Amanda": {
+          "name": "SAVEAN Amanda",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 78.47058823529412,
+          "y": 12.48
+        },
+        "v_deb:SCOTTI Vera": {
+          "name": "SCOTTI Vera",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 88.8235294117647,
+          "y": 12.48
         }
       },
       "zones": {
         "j_ado": null,
         "j_int": null,
         "v_enf": "mil-avant",
-        "v_deb": null
+        "v_deb": "fond"
       },
       "public": []
     },
@@ -864,134 +864,6 @@
           "x": 3.5,
           "y": 95
         },
-        "v_deb:DUBOIS Julie Claire": {
-          "name": "DUBOIS Julie Claire",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 5
-        },
-        "v_deb:JOLLARD Marianne": {
-          "name": "JOLLARD Marianne",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 11
-        },
-        "v_deb:HECK Typhen": {
-          "name": "HECK Typhen",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 17
-        },
-        "v_deb:JOLY Clémentine": {
-          "name": "JOLY Clémentine",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 23
-        },
-        "v_deb:JOLLARD Élisée": {
-          "name": "JOLLARD Élisée",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 29
-        },
-        "v_deb:EYHERABIDE Céline": {
-          "name": "EYHERABIDE Céline",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 35
-        },
-        "v_deb:VILDIEU Roxane": {
-          "name": "VILDIEU Roxane",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 41
-        },
-        "v_deb:GONCALVES DE SOUSA Maria": {
-          "name": "GONCALVES DE SOUSA Maria",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 47
-        },
-        "v_deb:BALOUT Corinne": {
-          "name": "BALOUT Corinne",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 53
-        },
-        "v_deb:CAZE Maëva": {
-          "name": "CAZE Maëva",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 59
-        },
-        "v_deb:BARNEL Céline": {
-          "name": "BARNEL Céline",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 65
-        },
-        "v_deb:LEBAILLIF Emilie": {
-          "name": "LEBAILLIF Emilie",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 71
-        },
-        "v_deb:POIREE Céline": {
-          "name": "POIREE Céline",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 77
-        },
-        "v_deb:RIDEL-DROETTO Norah": {
-          "name": "RIDEL-DROETTO Norah",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 83
-        },
-        "v_deb:SAVEAN Amanda": {
-          "name": "SAVEAN Amanda",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 89
-        },
-        "v_deb:SCOTTI Vera": {
-          "name": "SCOTTI Vera",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 95
-        },
         "v_enf:SAUBOIS Thaïs": {
           "name": "SAUBOIS Thaïs",
           "groupId": "v_enf",
@@ -1135,13 +1007,141 @@
           "short": "V·ENF",
           "x": 89.36842105263159,
           "y": 57.46
+        },
+        "v_deb:DUBOIS Julie Claire": {
+          "name": "DUBOIS Julie Claire",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 11.176470588235293,
+          "y": 21.28
+        },
+        "v_deb:JOLLARD Marianne": {
+          "name": "JOLLARD Marianne",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 21.529411764705884,
+          "y": 21.28
+        },
+        "v_deb:HECK Typhen": {
+          "name": "HECK Typhen",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 31.88235294117647,
+          "y": 21.28
+        },
+        "v_deb:JOLY Clémentine": {
+          "name": "JOLY Clémentine",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 42.23529411764706,
+          "y": 21.28
+        },
+        "v_deb:JOLLARD Élisée": {
+          "name": "JOLLARD Élisée",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 52.58823529411765,
+          "y": 21.28
+        },
+        "v_deb:EYHERABIDE Céline": {
+          "name": "EYHERABIDE Céline",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 62.94117647058823,
+          "y": 21.28
+        },
+        "v_deb:VILDIEU Roxane": {
+          "name": "VILDIEU Roxane",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 73.29411764705883,
+          "y": 21.28
+        },
+        "v_deb:GONCALVES DE SOUSA Maria": {
+          "name": "GONCALVES DE SOUSA Maria",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 83.6470588235294,
+          "y": 21.28
+        },
+        "v_deb:BALOUT Corinne": {
+          "name": "BALOUT Corinne",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 16.352941176470587,
+          "y": 12.48
+        },
+        "v_deb:CAZE Maëva": {
+          "name": "CAZE Maëva",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 26.705882352941178,
+          "y": 12.48
+        },
+        "v_deb:BARNEL Céline": {
+          "name": "BARNEL Céline",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 37.05882352941177,
+          "y": 12.48
+        },
+        "v_deb:LEBAILLIF Emilie": {
+          "name": "LEBAILLIF Emilie",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 47.411764705882355,
+          "y": 12.48
+        },
+        "v_deb:POIREE Céline": {
+          "name": "POIREE Céline",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 57.76470588235295,
+          "y": 12.48
+        },
+        "v_deb:RIDEL-DROETTO Norah": {
+          "name": "RIDEL-DROETTO Norah",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 68.11764705882352,
+          "y": 12.48
+        },
+        "v_deb:SAVEAN Amanda": {
+          "name": "SAVEAN Amanda",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 78.47058823529412,
+          "y": 12.48
+        },
+        "v_deb:SCOTTI Vera": {
+          "name": "SCOTTI Vera",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 88.8235294117647,
+          "y": 12.48
         }
       },
       "zones": {
         "j_ado": null,
         "j_int": null,
         "v_enf": "mil-avant",
-        "v_deb": null
+        "v_deb": "fond"
       },
       "public": []
     },
@@ -1435,134 +1435,6 @@
           "x": 3.5,
           "y": 95
         },
-        "v_deb:DUBOIS Julie Claire": {
-          "name": "DUBOIS Julie Claire",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 5
-        },
-        "v_deb:JOLLARD Marianne": {
-          "name": "JOLLARD Marianne",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 11
-        },
-        "v_deb:HECK Typhen": {
-          "name": "HECK Typhen",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 17
-        },
-        "v_deb:JOLY Clémentine": {
-          "name": "JOLY Clémentine",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 23
-        },
-        "v_deb:JOLLARD Élisée": {
-          "name": "JOLLARD Élisée",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 29
-        },
-        "v_deb:EYHERABIDE Céline": {
-          "name": "EYHERABIDE Céline",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 35
-        },
-        "v_deb:VILDIEU Roxane": {
-          "name": "VILDIEU Roxane",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 41
-        },
-        "v_deb:GONCALVES DE SOUSA Maria": {
-          "name": "GONCALVES DE SOUSA Maria",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 47
-        },
-        "v_deb:BALOUT Corinne": {
-          "name": "BALOUT Corinne",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 53
-        },
-        "v_deb:CAZE Maëva": {
-          "name": "CAZE Maëva",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 59
-        },
-        "v_deb:BARNEL Céline": {
-          "name": "BARNEL Céline",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 65
-        },
-        "v_deb:LEBAILLIF Emilie": {
-          "name": "LEBAILLIF Emilie",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 71
-        },
-        "v_deb:POIREE Céline": {
-          "name": "POIREE Céline",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 77
-        },
-        "v_deb:RIDEL-DROETTO Norah": {
-          "name": "RIDEL-DROETTO Norah",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 83
-        },
-        "v_deb:SAVEAN Amanda": {
-          "name": "SAVEAN Amanda",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 89
-        },
-        "v_deb:SCOTTI Vera": {
-          "name": "SCOTTI Vera",
-          "groupId": "v_deb",
-          "color": "#9B59B6",
-          "short": "V·DEB",
-          "x": 98.5,
-          "y": 95
-        },
         "v_enf:SAUBOIS Thaïs": {
           "name": "SAUBOIS Thaïs",
           "groupId": "v_enf",
@@ -1706,13 +1578,141 @@
           "short": "V·ENF",
           "x": 89.36842105263159,
           "y": 57.46
+        },
+        "v_deb:DUBOIS Julie Claire": {
+          "name": "DUBOIS Julie Claire",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 11.176470588235293,
+          "y": 21.28
+        },
+        "v_deb:JOLLARD Marianne": {
+          "name": "JOLLARD Marianne",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 21.529411764705884,
+          "y": 21.28
+        },
+        "v_deb:HECK Typhen": {
+          "name": "HECK Typhen",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 31.88235294117647,
+          "y": 21.28
+        },
+        "v_deb:JOLY Clémentine": {
+          "name": "JOLY Clémentine",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 42.23529411764706,
+          "y": 21.28
+        },
+        "v_deb:JOLLARD Élisée": {
+          "name": "JOLLARD Élisée",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 52.58823529411765,
+          "y": 21.28
+        },
+        "v_deb:EYHERABIDE Céline": {
+          "name": "EYHERABIDE Céline",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 62.94117647058823,
+          "y": 21.28
+        },
+        "v_deb:VILDIEU Roxane": {
+          "name": "VILDIEU Roxane",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 73.29411764705883,
+          "y": 21.28
+        },
+        "v_deb:GONCALVES DE SOUSA Maria": {
+          "name": "GONCALVES DE SOUSA Maria",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 83.6470588235294,
+          "y": 21.28
+        },
+        "v_deb:BALOUT Corinne": {
+          "name": "BALOUT Corinne",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 16.352941176470587,
+          "y": 12.48
+        },
+        "v_deb:CAZE Maëva": {
+          "name": "CAZE Maëva",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 26.705882352941178,
+          "y": 12.48
+        },
+        "v_deb:BARNEL Céline": {
+          "name": "BARNEL Céline",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 37.05882352941177,
+          "y": 12.48
+        },
+        "v_deb:LEBAILLIF Emilie": {
+          "name": "LEBAILLIF Emilie",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 47.411764705882355,
+          "y": 12.48
+        },
+        "v_deb:POIREE Céline": {
+          "name": "POIREE Céline",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 57.76470588235295,
+          "y": 12.48
+        },
+        "v_deb:RIDEL-DROETTO Norah": {
+          "name": "RIDEL-DROETTO Norah",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 68.11764705882352,
+          "y": 12.48
+        },
+        "v_deb:SAVEAN Amanda": {
+          "name": "SAVEAN Amanda",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 78.47058823529412,
+          "y": 12.48
+        },
+        "v_deb:SCOTTI Vera": {
+          "name": "SCOTTI Vera",
+          "groupId": "v_deb",
+          "color": "#9B59B6",
+          "short": "V·DEB",
+          "x": 88.8235294117647,
+          "y": 12.48
         }
       },
       "zones": {
         "j_ado": null,
         "j_int": null,
         "v_enf": "mil-avant",
-        "v_deb": null
+        "v_deb": "fond"
       },
       "public": []
     },
@@ -6371,10 +6371,138 @@
     "j_ado": null,
     "j_int": null,
     "v_enf": "mil-avant",
-    "v_deb": null
+    "v_deb": "fond"
   },
   "desktopSnap": {
     "dancers": {
+      "j_ado:DARRENOUGUE Manon": {
+        "name": "DARRENOUGUE Manon",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 5
+      },
+      "j_ado:EL OMARI Lina": {
+        "name": "EL OMARI Lina",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 11
+      },
+      "j_ado:PUYGAUTHIER Marion": {
+        "name": "PUYGAUTHIER Marion",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 17
+      },
+      "j_ado:NICOL Jade": {
+        "name": "NICOL Jade",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 23
+      },
+      "j_ado:PEYRESAUBES Emma": {
+        "name": "PEYRESAUBES Emma",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 29
+      },
+      "j_ado:GARCIA Ambre": {
+        "name": "GARCIA Ambre",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 35
+      },
+      "j_ado:MAUREL AUGEREAU Emmy": {
+        "name": "MAUREL AUGEREAU Emmy",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 41
+      },
+      "j_ado:PRAT Louise": {
+        "name": "PRAT Louise",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 47
+      },
+      "j_ado:BIGAUD Maud": {
+        "name": "BIGAUD Maud",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 53
+      },
+      "j_ado:BOSETTI Lorena": {
+        "name": "BOSETTI Lorena",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 59
+      },
+      "j_ado:LALANDE Camille": {
+        "name": "LALANDE Camille",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 65
+      },
+      "j_ado:LAPOULE Mélina": {
+        "name": "LAPOULE Mélina",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 71
+      },
+      "j_ado:LAURENT Lucie": {
+        "name": "LAURENT Lucie",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 77
+      },
+      "j_ado:MARTINEZ Soleine": {
+        "name": "MARTINEZ Soleine",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 83
+      },
+      "j_ado:ITALIANO Eléana": {
+        "name": "ITALIANO Eléana",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 89
+      },
+      "j_ado:GUICHARD Loanne": {
+        "name": "GUICHARD Loanne",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 95
+      },
       "j_int:DEBYSER-CABIAS Telma": {
         "name": "DEBYSER-CABIAS Telma",
         "groupId": "j_int",
@@ -6535,262 +6663,6 @@
         "x": 3.5,
         "y": 95
       },
-      "v_deb:DUBOIS Julie Claire": {
-        "name": "DUBOIS Julie Claire",
-        "groupId": "v_deb",
-        "color": "#9B59B6",
-        "short": "V·DEB",
-        "x": 98.5,
-        "y": 5
-      },
-      "v_deb:JOLLARD Marianne": {
-        "name": "JOLLARD Marianne",
-        "groupId": "v_deb",
-        "color": "#9B59B6",
-        "short": "V·DEB",
-        "x": 98.5,
-        "y": 11
-      },
-      "v_deb:HECK Typhen": {
-        "name": "HECK Typhen",
-        "groupId": "v_deb",
-        "color": "#9B59B6",
-        "short": "V·DEB",
-        "x": 98.5,
-        "y": 17
-      },
-      "v_deb:JOLY Clémentine": {
-        "name": "JOLY Clémentine",
-        "groupId": "v_deb",
-        "color": "#9B59B6",
-        "short": "V·DEB",
-        "x": 98.5,
-        "y": 23
-      },
-      "v_deb:JOLLARD Élisée": {
-        "name": "JOLLARD Élisée",
-        "groupId": "v_deb",
-        "color": "#9B59B6",
-        "short": "V·DEB",
-        "x": 98.5,
-        "y": 29
-      },
-      "v_deb:EYHERABIDE Céline": {
-        "name": "EYHERABIDE Céline",
-        "groupId": "v_deb",
-        "color": "#9B59B6",
-        "short": "V·DEB",
-        "x": 98.5,
-        "y": 35
-      },
-      "v_deb:VILDIEU Roxane": {
-        "name": "VILDIEU Roxane",
-        "groupId": "v_deb",
-        "color": "#9B59B6",
-        "short": "V·DEB",
-        "x": 98.5,
-        "y": 41
-      },
-      "v_deb:GONCALVES DE SOUSA Maria": {
-        "name": "GONCALVES DE SOUSA Maria",
-        "groupId": "v_deb",
-        "color": "#9B59B6",
-        "short": "V·DEB",
-        "x": 98.5,
-        "y": 47
-      },
-      "v_deb:BALOUT Corinne": {
-        "name": "BALOUT Corinne",
-        "groupId": "v_deb",
-        "color": "#9B59B6",
-        "short": "V·DEB",
-        "x": 98.5,
-        "y": 53
-      },
-      "v_deb:CAZE Maëva": {
-        "name": "CAZE Maëva",
-        "groupId": "v_deb",
-        "color": "#9B59B6",
-        "short": "V·DEB",
-        "x": 98.5,
-        "y": 59
-      },
-      "v_deb:BARNEL Céline": {
-        "name": "BARNEL Céline",
-        "groupId": "v_deb",
-        "color": "#9B59B6",
-        "short": "V·DEB",
-        "x": 98.5,
-        "y": 65
-      },
-      "v_deb:LEBAILLIF Emilie": {
-        "name": "LEBAILLIF Emilie",
-        "groupId": "v_deb",
-        "color": "#9B59B6",
-        "short": "V·DEB",
-        "x": 98.5,
-        "y": 71
-      },
-      "v_deb:POIREE Céline": {
-        "name": "POIREE Céline",
-        "groupId": "v_deb",
-        "color": "#9B59B6",
-        "short": "V·DEB",
-        "x": 98.5,
-        "y": 77
-      },
-      "v_deb:RIDEL-DROETTO Norah": {
-        "name": "RIDEL-DROETTO Norah",
-        "groupId": "v_deb",
-        "color": "#9B59B6",
-        "short": "V·DEB",
-        "x": 98.5,
-        "y": 83
-      },
-      "v_deb:SAVEAN Amanda": {
-        "name": "SAVEAN Amanda",
-        "groupId": "v_deb",
-        "color": "#9B59B6",
-        "short": "V·DEB",
-        "x": 98.5,
-        "y": 89
-      },
-      "v_deb:SCOTTI Vera": {
-        "name": "SCOTTI Vera",
-        "groupId": "v_deb",
-        "color": "#9B59B6",
-        "short": "V·DEB",
-        "x": 98.5,
-        "y": 95
-      },
-      "j_ado:DARRENOUGUE Manon": {
-        "name": "DARRENOUGUE Manon",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 1.5,
-        "y": 5
-      },
-      "j_ado:EL OMARI Lina": {
-        "name": "EL OMARI Lina",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 1.5,
-        "y": 11
-      },
-      "j_ado:PUYGAUTHIER Marion": {
-        "name": "PUYGAUTHIER Marion",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 1.5,
-        "y": 17
-      },
-      "j_ado:NICOL Jade": {
-        "name": "NICOL Jade",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 1.5,
-        "y": 23
-      },
-      "j_ado:PEYRESAUBES Emma": {
-        "name": "PEYRESAUBES Emma",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 1.5,
-        "y": 29
-      },
-      "j_ado:GARCIA Ambre": {
-        "name": "GARCIA Ambre",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 1.5,
-        "y": 35
-      },
-      "j_ado:MAUREL AUGEREAU Emmy": {
-        "name": "MAUREL AUGEREAU Emmy",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 1.5,
-        "y": 41
-      },
-      "j_ado:PRAT Louise": {
-        "name": "PRAT Louise",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 1.5,
-        "y": 47
-      },
-      "j_ado:BIGAUD Maud": {
-        "name": "BIGAUD Maud",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 1.5,
-        "y": 53
-      },
-      "j_ado:BOSETTI Lorena": {
-        "name": "BOSETTI Lorena",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 1.5,
-        "y": 59
-      },
-      "j_ado:LALANDE Camille": {
-        "name": "LALANDE Camille",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 1.5,
-        "y": 65
-      },
-      "j_ado:LAPOULE Mélina": {
-        "name": "LAPOULE Mélina",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 1.5,
-        "y": 71
-      },
-      "j_ado:LAURENT Lucie": {
-        "name": "LAURENT Lucie",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 1.5,
-        "y": 77
-      },
-      "j_ado:MARTINEZ Soleine": {
-        "name": "MARTINEZ Soleine",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 1.5,
-        "y": 83
-      },
-      "j_ado:ITALIANO Eléana": {
-        "name": "ITALIANO Eléana",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 1.5,
-        "y": 89
-      },
-      "j_ado:GUICHARD Loanne": {
-        "name": "GUICHARD Loanne",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 1.5,
-        "y": 95
-      },
       "v_enf:SAUBOIS Thaïs": {
         "name": "SAUBOIS Thaïs",
         "groupId": "v_enf",
@@ -6934,13 +6806,141 @@
         "short": "V·ENF",
         "x": 89.36842105263159,
         "y": 57.46
+      },
+      "v_deb:DUBOIS Julie Claire": {
+        "name": "DUBOIS Julie Claire",
+        "groupId": "v_deb",
+        "color": "#9B59B6",
+        "short": "V·DEB",
+        "x": 11.176470588235293,
+        "y": 21.28
+      },
+      "v_deb:JOLLARD Marianne": {
+        "name": "JOLLARD Marianne",
+        "groupId": "v_deb",
+        "color": "#9B59B6",
+        "short": "V·DEB",
+        "x": 21.529411764705884,
+        "y": 21.28
+      },
+      "v_deb:HECK Typhen": {
+        "name": "HECK Typhen",
+        "groupId": "v_deb",
+        "color": "#9B59B6",
+        "short": "V·DEB",
+        "x": 31.88235294117647,
+        "y": 21.28
+      },
+      "v_deb:JOLY Clémentine": {
+        "name": "JOLY Clémentine",
+        "groupId": "v_deb",
+        "color": "#9B59B6",
+        "short": "V·DEB",
+        "x": 42.23529411764706,
+        "y": 21.28
+      },
+      "v_deb:JOLLARD Élisée": {
+        "name": "JOLLARD Élisée",
+        "groupId": "v_deb",
+        "color": "#9B59B6",
+        "short": "V·DEB",
+        "x": 52.58823529411765,
+        "y": 21.28
+      },
+      "v_deb:EYHERABIDE Céline": {
+        "name": "EYHERABIDE Céline",
+        "groupId": "v_deb",
+        "color": "#9B59B6",
+        "short": "V·DEB",
+        "x": 62.94117647058823,
+        "y": 21.28
+      },
+      "v_deb:VILDIEU Roxane": {
+        "name": "VILDIEU Roxane",
+        "groupId": "v_deb",
+        "color": "#9B59B6",
+        "short": "V·DEB",
+        "x": 73.29411764705883,
+        "y": 21.28
+      },
+      "v_deb:GONCALVES DE SOUSA Maria": {
+        "name": "GONCALVES DE SOUSA Maria",
+        "groupId": "v_deb",
+        "color": "#9B59B6",
+        "short": "V·DEB",
+        "x": 83.6470588235294,
+        "y": 21.28
+      },
+      "v_deb:BALOUT Corinne": {
+        "name": "BALOUT Corinne",
+        "groupId": "v_deb",
+        "color": "#9B59B6",
+        "short": "V·DEB",
+        "x": 16.352941176470587,
+        "y": 12.48
+      },
+      "v_deb:CAZE Maëva": {
+        "name": "CAZE Maëva",
+        "groupId": "v_deb",
+        "color": "#9B59B6",
+        "short": "V·DEB",
+        "x": 26.705882352941178,
+        "y": 12.48
+      },
+      "v_deb:BARNEL Céline": {
+        "name": "BARNEL Céline",
+        "groupId": "v_deb",
+        "color": "#9B59B6",
+        "short": "V·DEB",
+        "x": 37.05882352941177,
+        "y": 12.48
+      },
+      "v_deb:LEBAILLIF Emilie": {
+        "name": "LEBAILLIF Emilie",
+        "groupId": "v_deb",
+        "color": "#9B59B6",
+        "short": "V·DEB",
+        "x": 47.411764705882355,
+        "y": 12.48
+      },
+      "v_deb:POIREE Céline": {
+        "name": "POIREE Céline",
+        "groupId": "v_deb",
+        "color": "#9B59B6",
+        "short": "V·DEB",
+        "x": 57.76470588235295,
+        "y": 12.48
+      },
+      "v_deb:RIDEL-DROETTO Norah": {
+        "name": "RIDEL-DROETTO Norah",
+        "groupId": "v_deb",
+        "color": "#9B59B6",
+        "short": "V·DEB",
+        "x": 68.11764705882352,
+        "y": 12.48
+      },
+      "v_deb:SAVEAN Amanda": {
+        "name": "SAVEAN Amanda",
+        "groupId": "v_deb",
+        "color": "#9B59B6",
+        "short": "V·DEB",
+        "x": 78.47058823529412,
+        "y": 12.48
+      },
+      "v_deb:SCOTTI Vera": {
+        "name": "SCOTTI Vera",
+        "groupId": "v_deb",
+        "color": "#9B59B6",
+        "short": "V·DEB",
+        "x": 88.8235294117647,
+        "y": 12.48
       }
     },
     "zones": {
       "j_ado": null,
       "j_int": null,
       "v_enf": "mil-avant",
-      "v_deb": null
+      "v_deb": "fond"
     },
     "public": []
   }
