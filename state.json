@@ -1,7 +1,7 @@
 {
   "version": 1,
   "app": "ASPM DANSE — GALA 2026",
-  "savedAt": "2026-03-29T08:29:09.390Z",
+  "savedAt": "2026-03-29T08:30:19.684Z",
   "secForms": {
     "tpsfort": {
       "dancers": {
@@ -6631,6 +6631,150 @@
         "x": 88.8235294117647,
         "y": 12.48
       },
+      "v_enf:SAUBOIS Thaïs": {
+        "name": "SAUBOIS Thaïs",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 10.631578947368421,
+        "y": 65.06
+      },
+      "v_enf:GRELLETY Théa": {
+        "name": "GRELLETY Théa",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 19.894736842105264,
+        "y": 65.06
+      },
+      "v_enf:BLANC Alana": {
+        "name": "BLANC Alana",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 29.157894736842106,
+        "y": 65.06
+      },
+      "v_enf:SAUBOIS Ines": {
+        "name": "SAUBOIS Ines",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 38.421052631578945,
+        "y": 65.06
+      },
+      "v_enf:EYHERABIDE Elise": {
+        "name": "EYHERABIDE Elise",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 47.684210526315795,
+        "y": 65.06
+      },
+      "v_enf:SEGUIN Elina": {
+        "name": "SEGUIN Elina",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 56.94736842105263,
+        "y": 65.06
+      },
+      "v_enf:MACHENAUD Anna": {
+        "name": "MACHENAUD Anna",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 66.21052631578948,
+        "y": 65.06
+      },
+      "v_enf:GUILLARD Justine": {
+        "name": "GUILLARD Justine",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 75.47368421052632,
+        "y": 65.06
+      },
+      "v_enf:DESOINDRE Lyse": {
+        "name": "DESOINDRE Lyse",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 84.73684210526316,
+        "y": 65.06
+      },
+      "v_enf:BOSSUET Nina": {
+        "name": "BOSSUET Nina",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 15.263157894736842,
+        "y": 57.46
+      },
+      "v_enf:CORNIC Léana": {
+        "name": "CORNIC Léana",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 24.526315789473685,
+        "y": 57.46
+      },
+      "v_enf:DELPECH Margot": {
+        "name": "DELPECH Margot",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 33.78947368421053,
+        "y": 57.46
+      },
+      "v_enf:FILLASTRE-PLACE Emma": {
+        "name": "FILLASTRE-PLACE Emma",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 43.05263157894737,
+        "y": 57.46
+      },
+      "v_enf:LADAURADE Léa": {
+        "name": "LADAURADE Léa",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 52.31578947368422,
+        "y": 57.46
+      },
+      "v_enf:LADAURADE Manon": {
+        "name": "LADAURADE Manon",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 61.578947368421055,
+        "y": 57.46
+      },
+      "v_enf:LEONE Louise": {
+        "name": "LEONE Louise",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 70.8421052631579,
+        "y": 57.46
+      },
+      "v_enf:MARTINEZ Romane": {
+        "name": "MARTINEZ Romane",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 80.10526315789474,
+        "y": 57.46
+      },
+      "v_enf:SAVEAN Anna": {
+        "name": "SAVEAN Anna",
+        "groupId": "v_enf",
+        "color": "#4A9FE8",
+        "short": "V·ENF",
+        "x": 89.36842105263159,
+        "y": 57.46
+      },
       "j_int:DEBYSER-CABIAS Telma": {
         "name": "DEBYSER-CABIAS Telma",
         "groupId": "j_int",
@@ -6790,150 +6934,6 @@
         "short": "J·INT",
         "x": 89.80952380952381,
         "y": 35.8
-      },
-      "v_enf:SAUBOIS Thaïs": {
-        "name": "SAUBOIS Thaïs",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 10.631578947368421,
-        "y": 65.06
-      },
-      "v_enf:GRELLETY Théa": {
-        "name": "GRELLETY Théa",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 19.894736842105264,
-        "y": 65.06
-      },
-      "v_enf:BLANC Alana": {
-        "name": "BLANC Alana",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 29.157894736842106,
-        "y": 65.06
-      },
-      "v_enf:SAUBOIS Ines": {
-        "name": "SAUBOIS Ines",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 38.421052631578945,
-        "y": 65.06
-      },
-      "v_enf:EYHERABIDE Elise": {
-        "name": "EYHERABIDE Elise",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 47.684210526315795,
-        "y": 65.06
-      },
-      "v_enf:SEGUIN Elina": {
-        "name": "SEGUIN Elina",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 56.94736842105263,
-        "y": 65.06
-      },
-      "v_enf:MACHENAUD Anna": {
-        "name": "MACHENAUD Anna",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 66.21052631578948,
-        "y": 65.06
-      },
-      "v_enf:GUILLARD Justine": {
-        "name": "GUILLARD Justine",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 75.47368421052632,
-        "y": 65.06
-      },
-      "v_enf:DESOINDRE Lyse": {
-        "name": "DESOINDRE Lyse",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 84.73684210526316,
-        "y": 65.06
-      },
-      "v_enf:BOSSUET Nina": {
-        "name": "BOSSUET Nina",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 15.263157894736842,
-        "y": 57.46
-      },
-      "v_enf:CORNIC Léana": {
-        "name": "CORNIC Léana",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 24.526315789473685,
-        "y": 57.46
-      },
-      "v_enf:DELPECH Margot": {
-        "name": "DELPECH Margot",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 33.78947368421053,
-        "y": 57.46
-      },
-      "v_enf:FILLASTRE-PLACE Emma": {
-        "name": "FILLASTRE-PLACE Emma",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 43.05263157894737,
-        "y": 57.46
-      },
-      "v_enf:LADAURADE Léa": {
-        "name": "LADAURADE Léa",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 52.31578947368422,
-        "y": 57.46
-      },
-      "v_enf:LADAURADE Manon": {
-        "name": "LADAURADE Manon",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 61.578947368421055,
-        "y": 57.46
-      },
-      "v_enf:LEONE Louise": {
-        "name": "LEONE Louise",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 70.8421052631579,
-        "y": 57.46
-      },
-      "v_enf:MARTINEZ Romane": {
-        "name": "MARTINEZ Romane",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 80.10526315789474,
-        "y": 57.46
-      },
-      "v_enf:SAVEAN Anna": {
-        "name": "SAVEAN Anna",
-        "groupId": "v_enf",
-        "color": "#4A9FE8",
-        "short": "V·ENF",
-        "x": 89.36842105263159,
-        "y": 57.46
       }
     },
     "zones": {
