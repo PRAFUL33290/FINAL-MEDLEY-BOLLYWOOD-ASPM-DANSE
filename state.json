@@ -1,7 +1,7 @@
 {
   "version": 1,
   "app": "ASPM DANSE — GALA 2026",
-  "savedAt": "2026-03-31T08:31:14.278Z",
+  "savedAt": "2026-03-31T08:31:51.958Z",
   "secForms": {
     "tpsfort": {
       "dancers": {
@@ -4561,14 +4561,6 @@
           "short": "V·ENF",
           "x": 89.36842105263159,
           "y": 57.46
-        },
-        "praful:Praful Parvati India": {
-          "name": "Praful Parvati India",
-          "groupId": "praful",
-          "color": "#d4a44c",
-          "short": "✦P",
-          "x": 50,
-          "y": 91
         }
       },
       "zones": {
@@ -5140,14 +5132,6 @@
           "short": "J·INT",
           "x": 89.80952380952381,
           "y": 35.8
-        },
-        "praful:Praful Parvati India": {
-          "name": "Praful Parvati India",
-          "groupId": "praful",
-          "color": "#d4a44c",
-          "short": "✦P",
-          "x": 50,
-          "y": 91
         }
       },
       "zones": {
@@ -6958,14 +6942,6 @@
         "short": "V·ENF",
         "x": 89.36842105263159,
         "y": 57.46
-      },
-      "praful:Praful Parvati India": {
-        "name": "Praful Parvati India",
-        "groupId": "praful",
-        "color": "#d4a44c",
-        "short": "✦P",
-        "x": 50,
-        "y": 91
       }
     },
     "zones": {
