@@ -988,40 +988,55 @@ async function pushStateToGitHub() {
   if (!ghToken) return;
   setGhStatus('pending', 'Synchronisation…');
   try {
-    // 1. Récupérer le SHA actuel du fichier
-    const getResp = await fetch(GH_API, {
-      headers: { 'Authorization': 'Bearer ' + ghToken, 'Accept': 'application/vnd.github+json' }
-    });
-    let sha = null;
-    if (getResp.ok) {
-      const meta = await getResp.json();
-      sha = meta.sha;
-    } else if (getResp.status !== 404) {
-      const err = await getResp.json();
-      setGhStatus('error', '⚠ Erreur GitHub : ' + (err.message || getResp.status));
-      return;
-    }
-    // 2. Encoder le contenu en base64
+    // 1. Encoder le contenu en base64
     const payload = JSON.stringify(buildSavePayload(), null, 2);
     const encoded = btoa(unescape(encodeURIComponent(payload)));
-    // 3. Pousser le fichier
-    const body = { message: 'Auto-save state.json', content: encoded };
-    if (sha) body.sha = sha;
-    const putResp = await fetch(GH_API, {
-      method: 'PUT',
-      headers: {
-        'Authorization': 'Bearer ' + ghToken,
-        'Accept': 'application/vnd.github+json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    });
-    if (putResp.ok) {
-      setGhStatus('ok', '☁️ Sync OK — ' + new Date().toLocaleTimeString('fr-FR'));
-    } else {
+
+    // 2. Le SHA peut changer entre lecture et écriture (multi-appareils).
+    // On tente une fois, puis on retente avec SHA rafraîchi si conflit.
+    let lastErrMsg = '';
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const getResp = await fetch(GH_API, {
+        headers: { 'Authorization': 'Bearer ' + ghToken, 'Accept': 'application/vnd.github+json' }
+      });
+
+      let sha = null;
+      if (getResp.ok) {
+        const meta = await getResp.json();
+        sha = meta.sha;
+      } else if (getResp.status !== 404) {
+        const err = await getResp.json();
+        lastErrMsg = err.message || String(getResp.status);
+        setGhStatus('error', '⚠ Erreur GitHub : ' + lastErrMsg);
+        return;
+      }
+
+      const body = { message: 'Auto-save state.json', content: encoded };
+      if (sha) body.sha = sha;
+
+      const putResp = await fetch(GH_API, {
+        method: 'PUT',
+        headers: {
+          'Authorization': 'Bearer ' + ghToken,
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (putResp.ok) {
+        setGhStatus('ok', '☁️ Sync OK — ' + new Date().toLocaleTimeString('fr-FR'));
+        return;
+      }
+
       const err = await putResp.json();
-      setGhStatus('error', '⚠ ' + (err.message || putResp.status));
+      lastErrMsg = err.message || String(putResp.status);
+      const isShaConflict = /sha|does not match/i.test(lastErrMsg) || putResp.status === 409;
+      if (!(attempt === 0 && isShaConflict)) {
+        break;
+      }
     }
+    setGhStatus('error', '⚠ Échec sync GitHub : ' + lastErrMsg);
   } catch (e) {
     setGhStatus('error', '⚠ Hors ligne ou token invalide');
   }
