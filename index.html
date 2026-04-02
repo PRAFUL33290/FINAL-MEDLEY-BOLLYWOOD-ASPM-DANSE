@@ -851,6 +851,7 @@ let activeFilter  = null;
 let activeSecId   = null;
 let activeChipId  = null;
 let showNames     = false;
+const LOCAL_STATE_TS_KEY = 'g26_local_saved_at';
 // Lasso selection
 let lassoSel      = new Set();  // placed keys selected via lasso
 let lassoStartPct = null;       // {x,y} in %
@@ -880,9 +881,16 @@ document.addEventListener('DOMContentLoaded', async () => {
       const hasRealData = (data.secForms && Object.keys(data.secForms).length > 0)
                        || (data.formations && data.formations.length > 0);
       if (data && hasRealData) {
-        applyStateData(data);
-        loaded = true;
-        setMsg('✓ Placements restaurés depuis state.json');
+        const remoteTs = Date.parse(data.savedAt || '') || 0;
+        const localTs = getLocalStateTs();
+        const hasLocalData = hasAnyLocalState();
+        if (!hasLocalData || remoteTs > localTs) {
+          applyStateData(data);
+          loaded = true;
+          setMsg('✓ Placements restaurés depuis state.json');
+        } else {
+          setMsg('✓ Version locale conservée (plus récente que state.json)');
+        }
       }
     }
   } catch (e) {}
@@ -915,6 +923,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 });
+
+function getLocalStateTs() {
+  return Date.parse(localStorage.getItem(LOCAL_STATE_TS_KEY) || '') || 0;
+}
+
+function markLocalStateUpdated() {
+  localStorage.setItem(LOCAL_STATE_TS_KEY, new Date().toISOString());
+}
+
+function hasAnyLocalState() {
+  return (secForms && Object.keys(secForms).length > 0)
+      || (formations && formations.length > 0)
+      || (desktopSnap && desktopSnap.dancers && Object.keys(desktopSnap.dancers).length > 0);
+}
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { deselect(); clearLassoSel(); }
   if ((e.key === 'Backspace' || e.key === 'Delete') && lassoSel.size > 0) {
@@ -1118,6 +1140,7 @@ function notifyChange() {
       secForms[activeSecId] = snap;
       localStorage.setItem('g26_sf', JSON.stringify(secForms));
     }
+    markLocalStateUpdated();
     refreshSecDots();
     setMsg('✓ Changements sauvegardés automatiquement (desktop)');
     if (fileHandle) {
@@ -1272,6 +1295,7 @@ function saveToSection() {
   localStorage.setItem('g26_sf', JSON.stringify(secForms));
   localStorage.setItem('g26_desktop_snap', JSON.stringify(snap));
   localStorage.setItem('g26_group_zones', JSON.stringify(groupZones));
+  markLocalStateUpdated();
   refreshSecDots();
   const s = TL.find(x => x.id === activeSecId);
   setMsg(`✓ Sauvegardé pour "${s.label}"`);
@@ -2149,6 +2173,7 @@ function applyStateData(data) {
     desktopSnap = data.desktopSnap;
     localStorage.setItem('g26_desktop_snap', JSON.stringify(desktopSnap));
   }
+  if (data.savedAt) localStorage.setItem(LOCAL_STATE_TS_KEY, data.savedAt);
   refreshSecDots();
   renderFormations();
   if (!desktopSnap && data.secForms && Object.keys(data.secForms).length > 0) {
@@ -2264,6 +2289,7 @@ function confirmSave() {
   const name = document.getElementById('fNameIn').value.trim() || `Formation ${formations.length+1}`;
   formations.push({id:Date.now(), name, snap:makeSnap(), date:new Date().toLocaleDateString('fr-FR')});
   localStorage.setItem('g26_f', JSON.stringify(formations));
+  markLocalStateUpdated();
   closeModal(); renderFormations();
   setMsg(`"${name}" sauvegardée`);
 }
