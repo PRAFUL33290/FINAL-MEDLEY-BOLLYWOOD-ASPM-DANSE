@@ -936,18 +936,22 @@ let ghSyncTimeout = null;
 
 async function saveGhToken() {
   const input = document.getElementById('ghTokenInput');
-  const val = (input.value || '').trim();
+  const val = (input.value || '').trim().replace(/\s+/g, '');
   if (!val) { setGhStatus('error', 'Token vide'); return; }
   if (!/^ghp_|^github_pat_/.test(val)) {
     setGhStatus('error', 'Format token invalide (ghp_… ou github_pat_…)');
     return;
   }
   ghToken = val;
-  localStorage.setItem('g26_gh_token', val);
+  localStorage.setItem('g26_gh_token', ghToken);
   input.value = '';
   setGhStatus('pending', 'Token enregistré — vérification…');
   const ok = await validateGhTokenAccess();
-  if (!ok) return;
+  if (!ok) {
+    ghToken = '';
+    localStorage.removeItem('g26_gh_token');
+    return;
+  }
   setGhStatus('ok', 'Token valide ✓');
 }
 
@@ -956,22 +960,27 @@ async function validateGhTokenAccess() {
   try {
     const resp = await fetch(`https://api.github.com/repos/${GH_REPO}`, {
       headers: {
-        'Authorization': 'Bearer ' + ghToken,
+        'Authorization': `Bearer ${ghToken}`,
         'Accept': 'application/vnd.github+json'
       }
     });
     if (resp.ok) return true;
-    const err = await resp.json();
+    let err = {};
+    try { err = await resp.json(); } catch {}
     const status = resp.status;
     if (status === 401) {
-      setGhStatus('error', 'Token refusé (401) — token invalide ou expiré');
-    } else if (status === 403 || status === 404) {
-      setGhStatus('error', 'Token sans accès au dépôt — donner Read/Write sur ce repo');
+      ghToken = '';
+      localStorage.removeItem('g26_gh_token');
+      setGhStatus('error', 'Token invalide ou expiré (401)');
+    } else if (status === 403) {
+      setGhStatus('error', 'Token valide mais accès refusé au dépôt (403)');
+    } else if (status === 404) {
+      setGhStatus('error', 'Dépôt introuvable ou non autorisé (404)');
     } else {
       setGhStatus('error', `Erreur GitHub ${status} : ${err.message || 'inconnue'}`);
     }
   } catch (e) {
-    setGhStatus('error', '⚠ Hors ligne — impossible de vérifier le token');
+    setGhStatus('error', 'Erreur réseau — impossible de vérifier le token');
   }
   return false;
 }
@@ -986,19 +995,24 @@ function setGhStatus(state, msg) {
 }
 
 async function pushStateToGitHub() {
-  if (!ghToken) return;
+  if (!ghToken) {
+    setGhStatus('error', 'Aucun token configuré');
+    return;
+  }
   setGhStatus('pending', 'Synchronisation…');
   try {
-    // 1. Encoder le contenu en base64
     const payload = JSON.stringify(buildSavePayload(), null, 2);
     const encoded = btoa(unescape(encodeURIComponent(payload)));
 
-    // 2. Le SHA peut changer entre lecture et écriture (multi-appareils).
-    // On tente une fois, puis on retente avec SHA rafraîchi si conflit.
     let lastErrMsg = '';
-    for (let attempt = 0; attempt < 2; attempt++) {
+    const maxAttempts = 3;
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       const getResp = await fetch(GH_API, {
-        headers: { 'Authorization': 'Bearer ' + ghToken, 'Accept': 'application/vnd.github+json' }
+        headers: {
+          'Authorization': `Bearer ${ghToken}`,
+          'Accept': 'application/vnd.github+json'
+        }
       });
 
       let sha = null;
@@ -1006,9 +1020,21 @@ async function pushStateToGitHub() {
         const meta = await getResp.json();
         sha = meta.sha;
       } else if (getResp.status !== 404) {
-        const err = await getResp.json();
+        let err = {};
+        try { err = await getResp.json(); } catch {}
         lastErrMsg = err.message || String(getResp.status);
-        setGhStatus('error', '⚠ Erreur GitHub : ' + lastErrMsg);
+
+        if (getResp.status === 401) {
+          ghToken = '';
+          localStorage.removeItem('g26_gh_token');
+          setGhStatus('error', 'Token invalide ou expiré (401)');
+          return;
+        }
+        if (getResp.status === 403) {
+          setGhStatus('error', 'Permission insuffisante pour lire le dépôt (403)');
+          return;
+        }
+        setGhStatus('error', `Lecture impossible (${getResp.status}) : ${lastErrMsg}`);
         return;
       }
 
@@ -1018,7 +1044,7 @@ async function pushStateToGitHub() {
       const putResp = await fetch(GH_API, {
         method: 'PUT',
         headers: {
-          'Authorization': 'Bearer ' + ghToken,
+          'Authorization': `Bearer ${ghToken}`,
           'Accept': 'application/vnd.github+json',
           'Content-Type': 'application/json'
         },
@@ -1030,16 +1056,43 @@ async function pushStateToGitHub() {
         return;
       }
 
-      const err = await putResp.json();
+      let err = {};
+      try { err = await putResp.json(); } catch {}
       lastErrMsg = err.message || String(putResp.status);
-      const isShaConflict = /sha|does not match/i.test(lastErrMsg) || putResp.status === 409;
-      if (!(attempt === 0 && isShaConflict)) {
-        break;
+
+      if (putResp.status === 401) {
+        ghToken = '';
+        localStorage.removeItem('g26_gh_token');
+        setGhStatus('error', 'Token invalide ou expiré (401)');
+        return;
       }
+      if (putResp.status === 403) {
+        setGhStatus('error', 'Permission insuffisante pour écrire state.json (403)');
+        return;
+      }
+      if (putResp.status === 404) {
+        setGhStatus('error', 'Fichier/répertoire introuvable ou dépôt non autorisé (404)');
+        return;
+      }
+
+      const isShaConflict = putResp.status === 409 || /sha|does not match/i.test(lastErrMsg);
+      if (isShaConflict && attempt < maxAttempts) {
+        setGhStatus('pending', `Conflit SHA — nouvelle tentative (${attempt + 1}/${maxAttempts})…`);
+        await new Promise(r => setTimeout(r, 250 * attempt));
+        continue;
+      }
+
+      if (isShaConflict) {
+        setGhStatus('error', 'Conflit de version du fichier state.json (409)');
+        return;
+      }
+
+      setGhStatus('error', `Échec sauvegarde (${putResp.status}) : ${lastErrMsg}`);
+      return;
     }
-    setGhStatus('error', '⚠ Échec sync GitHub : ' + lastErrMsg);
+    setGhStatus('error', 'Échec sync GitHub : ' + lastErrMsg);
   } catch (e) {
-    setGhStatus('error', '⚠ Hors ligne ou token invalide');
+    setGhStatus('error', 'Erreur réseau pendant la sauvegarde');
   }
 }
 
