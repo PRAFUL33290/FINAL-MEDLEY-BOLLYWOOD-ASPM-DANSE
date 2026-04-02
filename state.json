@@ -1,7 +1,7 @@
 {
   "version": 1,
   "app": "ASPM DANSE — GALA 2026",
-  "savedAt": "2026-04-02T08:08:34.227Z",
+  "savedAt": "2026-04-02T08:08:46.793Z",
   "secForms": {
     "tpsfort": {
       "dancers": {
@@ -6954,6 +6954,134 @@
   },
   "desktopSnap": {
     "dancers": {
+      "j_ado:DARRENOUGUE Manon": {
+        "name": "DARRENOUGUE Manon",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 5
+      },
+      "j_ado:EL OMARI Lina": {
+        "name": "EL OMARI Lina",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 11
+      },
+      "j_ado:PUYGAUTHIER Marion": {
+        "name": "PUYGAUTHIER Marion",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 17
+      },
+      "j_ado:NICOL Jade": {
+        "name": "NICOL Jade",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 23
+      },
+      "j_ado:PEYRESAUBES Emma": {
+        "name": "PEYRESAUBES Emma",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 29
+      },
+      "j_ado:GARCIA Ambre": {
+        "name": "GARCIA Ambre",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 35
+      },
+      "j_ado:MAUREL AUGEREAU Emmy": {
+        "name": "MAUREL AUGEREAU Emmy",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 41
+      },
+      "j_ado:PRAT Louise": {
+        "name": "PRAT Louise",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 47
+      },
+      "j_ado:BIGAUD Maud": {
+        "name": "BIGAUD Maud",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 53
+      },
+      "j_ado:BOSETTI Lorena": {
+        "name": "BOSETTI Lorena",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 59
+      },
+      "j_ado:LALANDE Camille": {
+        "name": "LALANDE Camille",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 65
+      },
+      "j_ado:LAPOULE Mélina": {
+        "name": "LAPOULE Mélina",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 71
+      },
+      "j_ado:LAURENT Lucie": {
+        "name": "LAURENT Lucie",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 77
+      },
+      "j_ado:MARTINEZ Soleine": {
+        "name": "MARTINEZ Soleine",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 83
+      },
+      "j_ado:ITALIANO Eléana": {
+        "name": "ITALIANO Eléana",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 89
+      },
+      "j_ado:GUICHARD Loanne": {
+        "name": "GUICHARD Loanne",
+        "groupId": "j_ado",
+        "color": "#E8734A",
+        "short": "J·ADO",
+        "x": 1.5,
+        "y": 95
+      },
       "j_int:DEBYSER-CABIAS Telma": {
         "name": "DEBYSER-CABIAS Telma",
         "groupId": "j_int",
@@ -7119,407 +7247,279 @@
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 5
+        "x": 10.631578947368421,
+        "y": 65.06
       },
       "v_enf:GRELLETY Théa": {
         "name": "GRELLETY Théa",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 10.294117647058822
+        "x": 19.894736842105264,
+        "y": 65.06
       },
       "v_enf:BLANC Alana": {
         "name": "BLANC Alana",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 15.588235294117647
+        "x": 29.157894736842106,
+        "y": 65.06
       },
       "v_enf:SAUBOIS Ines": {
         "name": "SAUBOIS Ines",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 20.88235294117647
+        "x": 38.421052631578945,
+        "y": 65.06
       },
       "v_enf:EYHERABIDE Elise": {
         "name": "EYHERABIDE Elise",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 26.176470588235293
+        "x": 47.684210526315795,
+        "y": 65.06
       },
       "v_enf:SEGUIN Elina": {
         "name": "SEGUIN Elina",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 31.47058823529412
+        "x": 56.94736842105263,
+        "y": 65.06
       },
       "v_enf:MACHENAUD Anna": {
         "name": "MACHENAUD Anna",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 36.76470588235294
+        "x": 66.21052631578948,
+        "y": 65.06
       },
       "v_enf:GUILLARD Justine": {
         "name": "GUILLARD Justine",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 42.05882352941176
+        "x": 75.47368421052632,
+        "y": 65.06
       },
       "v_enf:DESOINDRE Lyse": {
         "name": "DESOINDRE Lyse",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 47.35294117647059
+        "x": 84.73684210526316,
+        "y": 65.06
       },
       "v_enf:BOSSUET Nina": {
         "name": "BOSSUET Nina",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 52.64705882352941
+        "x": 15.263157894736842,
+        "y": 57.46
       },
       "v_enf:CORNIC Léana": {
         "name": "CORNIC Léana",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 57.94117647058824
+        "x": 24.526315789473685,
+        "y": 57.46
       },
       "v_enf:DELPECH Margot": {
         "name": "DELPECH Margot",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 63.235294117647065
+        "x": 33.78947368421053,
+        "y": 57.46
       },
       "v_enf:FILLASTRE-PLACE Emma": {
         "name": "FILLASTRE-PLACE Emma",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 68.52941176470588
+        "x": 43.05263157894737,
+        "y": 57.46
       },
       "v_enf:LADAURADE Léa": {
         "name": "LADAURADE Léa",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 73.8235294117647
+        "x": 52.31578947368422,
+        "y": 57.46
       },
       "v_enf:LADAURADE Manon": {
         "name": "LADAURADE Manon",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 79.11764705882352
+        "x": 61.578947368421055,
+        "y": 57.46
       },
       "v_enf:LEONE Louise": {
         "name": "LEONE Louise",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 84.41176470588235
+        "x": 70.8421052631579,
+        "y": 57.46
       },
       "v_enf:MARTINEZ Romane": {
         "name": "MARTINEZ Romane",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 89.70588235294117
+        "x": 80.10526315789474,
+        "y": 57.46
       },
       "v_enf:SAVEAN Anna": {
         "name": "SAVEAN Anna",
         "groupId": "v_enf",
         "color": "#4A9FE8",
         "short": "V·ENF",
-        "x": 96.5,
-        "y": 95
+        "x": 89.36842105263159,
+        "y": 57.46
       },
       "v_deb:DUBOIS Julie Claire": {
         "name": "DUBOIS Julie Claire",
         "groupId": "v_deb",
         "color": "#9B59B6",
         "short": "V·DEB",
-        "x": 98.5,
-        "y": 5
+        "x": 11.176470588235293,
+        "y": 21.28
       },
       "v_deb:JOLLARD Marianne": {
         "name": "JOLLARD Marianne",
         "groupId": "v_deb",
         "color": "#9B59B6",
         "short": "V·DEB",
-        "x": 98.5,
-        "y": 11
+        "x": 21.529411764705884,
+        "y": 21.28
       },
       "v_deb:HECK Typhen": {
         "name": "HECK Typhen",
         "groupId": "v_deb",
         "color": "#9B59B6",
         "short": "V·DEB",
-        "x": 98.5,
-        "y": 17
+        "x": 31.88235294117647,
+        "y": 21.28
       },
       "v_deb:JOLY Clémentine": {
         "name": "JOLY Clémentine",
         "groupId": "v_deb",
         "color": "#9B59B6",
         "short": "V·DEB",
-        "x": 98.5,
-        "y": 23
+        "x": 42.23529411764706,
+        "y": 21.28
       },
       "v_deb:JOLLARD Élisée": {
         "name": "JOLLARD Élisée",
         "groupId": "v_deb",
         "color": "#9B59B6",
         "short": "V·DEB",
-        "x": 98.5,
-        "y": 29
+        "x": 52.58823529411765,
+        "y": 21.28
       },
       "v_deb:EYHERABIDE Céline": {
         "name": "EYHERABIDE Céline",
         "groupId": "v_deb",
         "color": "#9B59B6",
         "short": "V·DEB",
-        "x": 98.5,
-        "y": 35
+        "x": 62.94117647058823,
+        "y": 21.28
       },
       "v_deb:VILDIEU Roxane": {
         "name": "VILDIEU Roxane",
         "groupId": "v_deb",
         "color": "#9B59B6",
         "short": "V·DEB",
-        "x": 98.5,
-        "y": 41
+        "x": 73.29411764705883,
+        "y": 21.28
       },
       "v_deb:GONCALVES DE SOUSA Maria": {
         "name": "GONCALVES DE SOUSA Maria",
         "groupId": "v_deb",
         "color": "#9B59B6",
         "short": "V·DEB",
-        "x": 98.5,
-        "y": 47
+        "x": 83.6470588235294,
+        "y": 21.28
       },
       "v_deb:BALOUT Corinne": {
         "name": "BALOUT Corinne",
         "groupId": "v_deb",
         "color": "#9B59B6",
         "short": "V·DEB",
-        "x": 98.5,
-        "y": 53
+        "x": 16.352941176470587,
+        "y": 12.48
       },
       "v_deb:CAZE Maëva": {
         "name": "CAZE Maëva",
         "groupId": "v_deb",
         "color": "#9B59B6",
         "short": "V·DEB",
-        "x": 98.5,
-        "y": 59
+        "x": 26.705882352941178,
+        "y": 12.48
       },
       "v_deb:BARNEL Céline": {
         "name": "BARNEL Céline",
         "groupId": "v_deb",
         "color": "#9B59B6",
         "short": "V·DEB",
-        "x": 98.5,
-        "y": 65
+        "x": 37.05882352941177,
+        "y": 12.48
       },
       "v_deb:LEBAILLIF Emilie": {
         "name": "LEBAILLIF Emilie",
         "groupId": "v_deb",
         "color": "#9B59B6",
         "short": "V·DEB",
-        "x": 98.5,
-        "y": 71
+        "x": 47.411764705882355,
+        "y": 12.48
       },
       "v_deb:POIREE Céline": {
         "name": "POIREE Céline",
         "groupId": "v_deb",
         "color": "#9B59B6",
         "short": "V·DEB",
-        "x": 98.5,
-        "y": 77
+        "x": 57.76470588235295,
+        "y": 12.48
       },
       "v_deb:RIDEL-DROETTO Norah": {
         "name": "RIDEL-DROETTO Norah",
         "groupId": "v_deb",
         "color": "#9B59B6",
         "short": "V·DEB",
-        "x": 98.5,
-        "y": 83
+        "x": 68.11764705882352,
+        "y": 12.48
       },
       "v_deb:SAVEAN Amanda": {
         "name": "SAVEAN Amanda",
         "groupId": "v_deb",
         "color": "#9B59B6",
         "short": "V·DEB",
-        "x": 98.5,
-        "y": 89
+        "x": 78.47058823529412,
+        "y": 12.48
       },
       "v_deb:SCOTTI Vera": {
         "name": "SCOTTI Vera",
         "groupId": "v_deb",
         "color": "#9B59B6",
         "short": "V·DEB",
-        "x": 98.5,
-        "y": 95
-      },
-      "j_ado:DARRENOUGUE Manon": {
-        "name": "DARRENOUGUE Manon",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 11.176470588235293,
-        "y": 82.36
-      },
-      "j_ado:EL OMARI Lina": {
-        "name": "EL OMARI Lina",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 21.529411764705884,
-        "y": 82.36
-      },
-      "j_ado:PUYGAUTHIER Marion": {
-        "name": "PUYGAUTHIER Marion",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 31.88235294117647,
-        "y": 82.36
-      },
-      "j_ado:NICOL Jade": {
-        "name": "NICOL Jade",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 42.23529411764706,
-        "y": 82.36
-      },
-      "j_ado:PEYRESAUBES Emma": {
-        "name": "PEYRESAUBES Emma",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 52.58823529411765,
-        "y": 82.36
-      },
-      "j_ado:GARCIA Ambre": {
-        "name": "GARCIA Ambre",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 62.94117647058823,
-        "y": 82.36
-      },
-      "j_ado:MAUREL AUGEREAU Emmy": {
-        "name": "MAUREL AUGEREAU Emmy",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 73.29411764705883,
-        "y": 82.36
-      },
-      "j_ado:PRAT Louise": {
-        "name": "PRAT Louise",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 83.6470588235294,
-        "y": 82.36
-      },
-      "j_ado:BIGAUD Maud": {
-        "name": "BIGAUD Maud",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 16.352941176470587,
-        "y": 76.76
-      },
-      "j_ado:BOSETTI Lorena": {
-        "name": "BOSETTI Lorena",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 26.705882352941178,
-        "y": 76.76
-      },
-      "j_ado:LALANDE Camille": {
-        "name": "LALANDE Camille",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 37.05882352941177,
-        "y": 76.76
-      },
-      "j_ado:LAPOULE Mélina": {
-        "name": "LAPOULE Mélina",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 47.411764705882355,
-        "y": 76.76
-      },
-      "j_ado:LAURENT Lucie": {
-        "name": "LAURENT Lucie",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 57.76470588235295,
-        "y": 76.76
-      },
-      "j_ado:MARTINEZ Soleine": {
-        "name": "MARTINEZ Soleine",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 68.11764705882352,
-        "y": 76.76
-      },
-      "j_ado:ITALIANO Eléana": {
-        "name": "ITALIANO Eléana",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
-        "x": 78.47058823529412,
-        "y": 76.76
-      },
-      "j_ado:GUICHARD Loanne": {
-        "name": "GUICHARD Loanne",
-        "groupId": "j_ado",
-        "color": "#E8734A",
-        "short": "J·ADO",
         "x": 88.8235294117647,
-        "y": 76.76
+        "y": 12.48
       }
     },
     "zones": {
-      "j_ado": "devant",
+      "j_ado": null,
       "j_int": null,
-      "v_enf": null,
-      "v_deb": null
+      "v_enf": "mil-avant",
+      "v_deb": "fond"
     },
     "public": []
   }
