@@ -1,7 +1,7 @@
 {
   "version": 1,
   "app": "ASPM DANSE — GALA 2026",
-  "savedAt": "2026-04-02T08:30:55.208Z",
+  "savedAt": "2026-04-02T08:31:00.248Z",
   "secForms": {
     "tpsfort": {
       "dancers": {
@@ -6948,172 +6948,12 @@
   "formations": [],
   "groupZones": {
     "j_ado": "devant",
-    "j_int": null,
+    "j_int": "mil-fond",
     "v_enf": null,
     "v_deb": null
   },
   "desktopSnap": {
     "dancers": {
-      "j_int:DEBYSER-CABIAS Telma": {
-        "name": "DEBYSER-CABIAS Telma",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 5
-      },
-      "j_int:DELAVAULT Eloha": {
-        "name": "DELAVAULT Eloha",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 9.736842105263158
-      },
-      "j_int:MARTIN DECOURT Eléa": {
-        "name": "MARTIN DECOURT Eléa",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 14.473684210526315
-      },
-      "j_int:POIREE Manon": {
-        "name": "POIREE Manon",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 19.210526315789473
-      },
-      "j_int:POGET Cyrine": {
-        "name": "POGET Cyrine",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 23.94736842105263
-      },
-      "j_int:MARTINEZ Mélanie": {
-        "name": "MARTINEZ Mélanie",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 28.684210526315788
-      },
-      "j_int:BRUNA Lydia": {
-        "name": "BRUNA Lydia",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 33.421052631578945
-      },
-      "j_int:BRUHL Lucie": {
-        "name": "BRUHL Lucie",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 38.1578947368421
-      },
-      "j_int:MUCIGNATO Nathalie": {
-        "name": "MUCIGNATO Nathalie",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 42.89473684210526
-      },
-      "j_int:PEYRESAUBES Stéphanie": {
-        "name": "PEYRESAUBES Stéphanie",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 47.63157894736842
-      },
-      "j_int:BARRIOL Alexandra": {
-        "name": "BARRIOL Alexandra",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 52.368421052631575
-      },
-      "j_int:BERROU Clémentine": {
-        "name": "BERROU Clémentine",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 57.10526315789474
-      },
-      "j_int:BOSTVIRONNOIS Amandine": {
-        "name": "BOSTVIRONNOIS Amandine",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 61.84210526315789
-      },
-      "j_int:DENAGE Valérie": {
-        "name": "DENAGE Valérie",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 66.57894736842105
-      },
-      "j_int:DOMINGUES Véronique": {
-        "name": "DOMINGUES Véronique",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 71.3157894736842
-      },
-      "j_int:JUSTIN Laurence": {
-        "name": "JUSTIN Laurence",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 76.05263157894737
-      },
-      "j_int:LAGUEYRIE Angélique": {
-        "name": "LAGUEYRIE Angélique",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 80.78947368421052
-      },
-      "j_int:LAM Sabrina": {
-        "name": "LAM Sabrina",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 85.52631578947368
-      },
-      "j_int:MUCIGNATO Marine": {
-        "name": "MUCIGNATO Marine",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 90.26315789473684
-      },
-      "j_int:SANCHEZ Gisèle": {
-        "name": "SANCHEZ Gisèle",
-        "groupId": "j_int",
-        "color": "#F0B429",
-        "short": "J·INT",
-        "x": 3.5,
-        "y": 95
-      },
       "v_enf:SAUBOIS Thaïs": {
         "name": "SAUBOIS Thaïs",
         "groupId": "v_enf",
@@ -7513,11 +7353,171 @@
         "short": "J·ADO",
         "x": 88.8235294117647,
         "y": 76.76
+      },
+      "j_int:DEBYSER-CABIAS Telma": {
+        "name": "DEBYSER-CABIAS Telma",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 10.19047619047619,
+        "y": 43.8
+      },
+      "j_int:DELAVAULT Eloha": {
+        "name": "DELAVAULT Eloha",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 18.57142857142857,
+        "y": 43.8
+      },
+      "j_int:MARTIN DECOURT Eléa": {
+        "name": "MARTIN DECOURT Eléa",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 26.952380952380953,
+        "y": 43.8
+      },
+      "j_int:POIREE Manon": {
+        "name": "POIREE Manon",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 35.333333333333336,
+        "y": 43.8
+      },
+      "j_int:POGET Cyrine": {
+        "name": "POGET Cyrine",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 43.714285714285715,
+        "y": 43.8
+      },
+      "j_int:MARTINEZ Mélanie": {
+        "name": "MARTINEZ Mélanie",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 52.095238095238095,
+        "y": 43.8
+      },
+      "j_int:BRUNA Lydia": {
+        "name": "BRUNA Lydia",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 60.47619047619048,
+        "y": 43.8
+      },
+      "j_int:BRUHL Lucie": {
+        "name": "BRUHL Lucie",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 68.85714285714286,
+        "y": 43.8
+      },
+      "j_int:MUCIGNATO Nathalie": {
+        "name": "MUCIGNATO Nathalie",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 77.23809523809524,
+        "y": 43.8
+      },
+      "j_int:PEYRESAUBES Stéphanie": {
+        "name": "PEYRESAUBES Stéphanie",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 85.61904761904762,
+        "y": 43.8
+      },
+      "j_int:BARRIOL Alexandra": {
+        "name": "BARRIOL Alexandra",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 14.38095238095238,
+        "y": 35.8
+      },
+      "j_int:BERROU Clémentine": {
+        "name": "BERROU Clémentine",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 22.76190476190476,
+        "y": 35.8
+      },
+      "j_int:BOSTVIRONNOIS Amandine": {
+        "name": "BOSTVIRONNOIS Amandine",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 31.142857142857142,
+        "y": 35.8
+      },
+      "j_int:DENAGE Valérie": {
+        "name": "DENAGE Valérie",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 39.523809523809526,
+        "y": 35.8
+      },
+      "j_int:DOMINGUES Véronique": {
+        "name": "DOMINGUES Véronique",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 47.904761904761905,
+        "y": 35.8
+      },
+      "j_int:JUSTIN Laurence": {
+        "name": "JUSTIN Laurence",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 56.285714285714285,
+        "y": 35.8
+      },
+      "j_int:LAGUEYRIE Angélique": {
+        "name": "LAGUEYRIE Angélique",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 64.66666666666667,
+        "y": 35.8
+      },
+      "j_int:LAM Sabrina": {
+        "name": "LAM Sabrina",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 73.04761904761905,
+        "y": 35.8
+      },
+      "j_int:MUCIGNATO Marine": {
+        "name": "MUCIGNATO Marine",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 81.42857142857143,
+        "y": 35.8
+      },
+      "j_int:SANCHEZ Gisèle": {
+        "name": "SANCHEZ Gisèle",
+        "groupId": "j_int",
+        "color": "#F0B429",
+        "short": "J·INT",
+        "x": 89.80952380952381,
+        "y": 35.8
       }
     },
     "zones": {
       "j_ado": "devant",
-      "j_int": null,
+      "j_int": "mil-fond",
       "v_enf": null,
       "v_deb": null
     },
