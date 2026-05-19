@@ -547,6 +547,63 @@
       .roster { max-height:180px; }
       .gfilters { grid-template-columns:1fr 1fr; }
     }
+
+    /* ══ UNE EXPÉRIENCE UNIQUE VOUS ATTEND ══ */
+    .experience-section {
+      flex-shrink: 0;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .exp-title {
+      font-size: .72em;
+      letter-spacing: .28em;
+      color: var(--glt);
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .exp-items {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .exp-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .exp-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #000;
+      font-size: .82em;
+      font-weight: bold;
+      font-family: 'Georgia', serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 10px rgba(212,164,76,.4);
+    }
+    .exp-text {
+      font-size: .72em;
+      color: #fff;
+      letter-spacing: .04em;
+      max-width: 130px;
+    }
+    @media (max-width: 768px) {
+      .experience-section { padding: 8px 12px; gap: 6px; }
+      .exp-items { gap: 12px; }
+      .exp-num { width: 28px; height: 28px; font-size: .72em; }
+      .exp-text { font-size: .68em; max-width: 100px; }
+    }
   </style>
 </head>
 <body>
@@ -592,6 +649,28 @@
   <span class="sec-lbl">TEMPS :</span>
   <button class="sec-save" id="secSaveBtn" onclick="saveToSection()" disabled>💾 Sauver ici</button>
 </div>
+
+<section class="experience-section" aria-label="Une Expérience Unique Vous Attend">
+  <div class="exp-title">Une Expérience Unique Vous Attend</div>
+  <div class="exp-items">
+    <div class="exp-item">
+      <span class="exp-num">01</span>
+      <span class="exp-text">Positionnez vos danseuses</span>
+    </div>
+    <div class="exp-item">
+      <span class="exp-num">02</span>
+      <span class="exp-text">Visualisez la scène en direct</span>
+    </div>
+    <div class="exp-item">
+      <span class="exp-num">03</span>
+      <span class="exp-text">Synchronisez vos formations</span>
+    </div>
+    <div class="exp-item">
+      <span class="exp-num">04</span>
+      <span class="exp-text">Exportez et partagez</span>
+    </div>
+  </div>
+</section>
 
 <div class="main">
 
